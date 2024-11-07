@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerColor } from '@gamepark/game-template/PlayerColor'
+import { PlayerColor } from '@gamepark/cites-royales/PlayerColor'
 import { StyledPlayerPanel, usePlayers } from '@gamepark/react-game'
-import { FC } from 'react'
 import { createPortal } from 'react-dom'
 
-export const PlayerPanels: FC<any> = () => {
-  const players = usePlayers({ sortFromMe: true })
+export const PlayerPanels = () => {
+  const players = usePlayers<PlayerColor>({ sortFromMe: true })
   const root = document.getElementById('root')
   if (!root) {
     return null

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { GameTemplateOptionsSpec } from '@gamepark/game-template/GameTemplateOptions'
-import { GameTemplateRules } from '@gamepark/game-template/GameTemplateRules'
-import { GameTemplateSetup } from '@gamepark/game-template/GameTemplateSetup'
+import { CitesRoyalesOptionsSpec } from '@gamepark/cites-royales/CitesRoyalesOptions'
+import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
+import { CitesRoyalesSetup } from '@gamepark/cites-royales/CitesRoyalesSetup'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
@@ -16,10 +16,10 @@ setupTranslation(translations, { debug: false })
 ReactDOM.render(
   <StrictMode>
     <GameProvider
-      game="game-template"
-      Rules={GameTemplateRules}
-      optionsSpec={GameTemplateOptionsSpec}
-      GameSetup={GameTemplateSetup}
+      game="cites-royales"
+      Rules={CitesRoyalesRules}
+      optionsSpec={CitesRoyalesOptionsSpec}
+      GameSetup={CitesRoyalesSetup}
       material={Material}
       locators={Locators}
       animations={gameAnimations}>

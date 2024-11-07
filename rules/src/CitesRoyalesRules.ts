@@ -10,7 +10,7 @@ import { RuleId } from './rules/RuleId'
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class GameTemplateRules extends MaterialRules<PlayerColor, MaterialType, LocationType>
+export class CitesRoyalesRules extends MaterialRules<PlayerColor, MaterialType, LocationType>
   implements TimeLimit<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerColor> {
   rules = {
     [RuleId.TheFirstStep]: TheFirstStepRule

@@ -1,3 +1,3 @@
-export { GameTemplateRules } from './GameTemplateRules'
-export { GameTemplateOptionsSpec } from './GameTemplateOptions'
-export { GameTemplateSetup } from './GameTemplateSetup'
+export { CitesRoyalesRules } from './CitesRoyalesRules'
+export { CitesRoyalesOptionsSpec } from './CitesRoyalesOptions'
+export { CitesRoyalesSetup } from './CitesRoyalesSetup'
