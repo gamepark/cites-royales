@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "workspaces": [
+    "rules",
+    "app"
+  ],
+  "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^8.1.8",
+    "typescript": "^4.9.5"
+  },
+  "resolutions": {
+    "@types/react": "^17"
+  },
+  "scripts": {
+    "linkall": "yarn link react @types/react react-dom react-redux @dnd-kit/core @emotion/react react-i18next @gamepark/rules-api @gamepark/react-client @gamepark/react-game",
+    "unlinkall": "yarn unlink react @types/react react-dom react-redux @dnd-kit/core @emotion/react react-i18next @gamepark/rules-api @gamepark/react-client @gamepark/react-game",
+    "linkgp": "yarn link @gamepark/react-client @gamepark/rules-api @gamepark/react-game",
+    "unlinkgp": "yarn unlink @gamepark/react-client @gamepark/rules-api @gamepark/react-game",
+    "start": "yarn workspace @gamepark/game-template-app run start",
+    "build": "yarn workspace @gamepark/game-template-app run build",
+    "deploy": "yarn workspace @gamepark/game-template-app run deploy",
+    "cwebp-osx": "rm -f ./node_modules/cwebp-bin/vendor/cwebp && ln -s /opt/homebrew/bin/cwebp ./node_modules/cwebp-bin/vendor/cwebp",
+    "publish": "lerna publish"
+  }
+}

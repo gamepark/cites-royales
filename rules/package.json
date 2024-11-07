@@ -1,0 +1,31 @@
+{
+  "name": "@gamepark/game-template",
+  "version": "0.0.0",
+  "description": "The rules of Game Template adapted for Game Park",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "tsc",
+    "publish": "lerna publish"
+  },
+  "peerDependencies": {
+    "@gamepark/rules-api": ">=6.28",
+    "lodash": ">=4.17"
+  },
+  "devDependencies": {
+    "@gamepark/rules-api": "~6.28.0",
+    "@types/lodash": "^4.17.7",
+    "i18next": "^22.0.3",
+    "lodash": "^4.17.21"
+  }
+}
