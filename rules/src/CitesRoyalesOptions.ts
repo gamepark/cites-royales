@@ -1,11 +1,11 @@
 import { OptionsSpec } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
-import { PlayerColor, playerColors } from './PlayerColor'
+import { NobleColor, playerColors } from './NobleColor'
 
 /**
  * This is the options for each player in the game.
  */
-type PlayerOptions = { id: PlayerColor }
+type PlayerOptions = { id: NobleColor }
 
 /**
  * This is the type of object that the game receives when a new game is started.
@@ -22,22 +22,22 @@ export type CitesRoyalesOptions = {
 export const CitesRoyalesOptionsSpec: OptionsSpec<CitesRoyalesOptions> = {
   players: {
     id: {
-      label: (t: TFunction) => t('Player color'),
+      label: (t: TFunction) => t('Noble color'),
       values: playerColors,
       valueSpec: color => ({ label: t => getPlayerName(color, t) })
     }
   }
 }
 
-export function getPlayerName(playerId: PlayerColor, t: TFunction) {
+export function getPlayerName(playerId: NobleColor, t: TFunction) {
   switch (playerId) {
-    case PlayerColor.Red:
-      return t('Red')
-    case PlayerColor.Blue:
-      return t('Blue')
-    case PlayerColor.Green:
-      return t('Green')
-    case PlayerColor.Yellow:
-      return t('Yellow')
+    case NobleColor.Cyan:
+      return t('Cyan')
+    case NobleColor.Brown:
+      return t('Brown')
+    case NobleColor.Black:
+      return t('Black')
+    case NobleColor.Beige:
+      return t('Beige')
   }
 }

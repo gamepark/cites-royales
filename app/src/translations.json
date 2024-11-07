@@ -1,6 +1,11 @@
 {
   "en": {
     "translation": {
+      "Name": "Royal Cities",
+      "Brown": "Brown",
+      "Cyan": "Cyan",
+      "Black": "Black",
+      "Beige": "Beige",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Validate",
@@ -115,6 +120,11 @@
   },
   "fr": {
     "translation": {
+      "Name": "Cités Royales",
+      "Brown": "Marron",
+      "Cyan": "Cyan",
+      "Black": "Noir",
+      "Beige": "Beige",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",
