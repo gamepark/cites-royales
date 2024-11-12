@@ -6,8 +6,10 @@ import { drawPileLocator } from "./DrawPileLocator";
 import { marketLocator } from "./Market";
 import { reserveLocator } from "./Reserve";
 import { seasonsCardsStackLocator } from "./SeasonsCardsStackLocator";
+import { victoryPointsTrackSpotLocator } from "./VictoryPointsTrackSpotLocator";
 
 export const Locators: Partial<Record<LocationType, Locator<NobleColor, MaterialType, LocationType>>> = {
+  [LocationType.VictoryPointsTrackSpot]: victoryPointsTrackSpotLocator,
   [LocationType.SeasonsCardsStack]: seasonsCardsStackLocator,
   [LocationType.DrawPile]: drawPileLocator,
   [LocationType.Reserve]: reserveLocator,
