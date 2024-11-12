@@ -18,6 +18,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
     this.setupSeasonCards();
     this.setupSubjectCards();
     this.setupReserve();
+    this.setupMarket();
   }
 
   setupSeasonCards() {
@@ -42,6 +43,10 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
 
   setupReserve() {
     this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck().deal({ type: LocationType.Reserve }, 4);
+  }
+
+  setupMarket() {
+    this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck().deal({ type: LocationType.Market }, 4);
   }
 
   start() {
