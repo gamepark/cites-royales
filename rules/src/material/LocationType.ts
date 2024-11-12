@@ -1,5 +1,5 @@
 export enum LocationType {
-  VictoryPointsTrackSpot,
+  VictoryPointsTrackSpot = 1,
   SeasonsCardsStack,
   DrawPile, // of Subject cards
   Discard, // of Subject cards

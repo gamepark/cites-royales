@@ -12,7 +12,11 @@ import { RuleId } from './rules/RuleId'
 export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialType, LocationType, CitesRoyalesOptions> {
   Rules = CitesRoyalesRules
 
-  setupMaterial(_options: CitesRoyalesOptions) {
+  setupMaterial() {
+    this.material(MaterialType.VictoryPointsTrack).createItem({
+      id: this.players.length === 4 ? 4 : 3,
+      location: { type: LocationType.VictoryPointsTrackSpot }
+    })
   }
 
   start() {
