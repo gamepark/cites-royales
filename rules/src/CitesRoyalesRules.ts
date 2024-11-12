@@ -1,4 +1,4 @@
-import { MaterialGame, MaterialMove, MaterialRules, TimeLimit } from '@gamepark/rules-api'
+import { MaterialGame, MaterialMove, MaterialRules, PositiveSequenceStrategy, TimeLimit } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
@@ -14,6 +14,12 @@ export class CitesRoyalesRules extends MaterialRules<NobleColor, MaterialType, L
   implements TimeLimit<MaterialGame<NobleColor, MaterialType, LocationType>, MaterialMove<NobleColor, MaterialType, LocationType>, NobleColor> {
   rules = {
     [RuleId.TheFirstStep]: TheFirstStepRule
+  }
+
+  locationsStrategies = {
+    [MaterialType.SeasonCard]: {
+      [LocationType.SeasonsCardsStack]: new PositiveSequenceStrategy()
+    }
   }
 
   giveTime(): number {

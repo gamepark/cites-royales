@@ -3,6 +3,7 @@ import { CitesRoyalesOptions } from './CitesRoyalesOptions'
 import { CitesRoyalesRules } from './CitesRoyalesRules'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { seasons } from './material/Season'
 import { NobleColor } from './NobleColor'
 import { RuleId } from './rules/RuleId'
 
@@ -13,6 +14,15 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
   Rules = CitesRoyalesRules
 
   setupMaterial() {
+    this.setupSeasonCards()
+  }
+
+  setupSeasonCards() {
+    const gameSeasons = this.players.length === 4 ? seasons.slice(0, 3) : seasons
+    this.material(MaterialType.SeasonCard).createItems(gameSeasons.map(season => ({
+      id: season,
+      location: { type: LocationType.SeasonsCardsStack }
+    })))
   }
 
   start() {
