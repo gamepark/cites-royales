@@ -14,5 +14,5 @@ export enum LocationType {
   HeroSpot,
   PlayerHand,
   PlayerArea, // For cards face-down in front of a player waiting to be revealed
-  InCity // Built cards
+  InCity, // Built cards
 }

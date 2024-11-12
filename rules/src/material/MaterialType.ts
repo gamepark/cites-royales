@@ -7,5 +7,5 @@ export enum MaterialType {
   SeasonCard,
   MarketCard,
   VictoryPointsTrack,
-  HelpCard
+  HelpCard,
 }
