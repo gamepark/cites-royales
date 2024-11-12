@@ -1,9 +1,9 @@
-import { ListLocator } from '@gamepark/react-game'
-import { seasonCardDescription } from '../material/SeasonCardDescription'
+import { ListLocator } from "@gamepark/react-game";
+import { seasonCardDescription } from "../material/SeasonCardDescription";
 
 class SeasonsCardsStackLocator extends ListLocator {
-  coordinates = { x: 20 }
-  gap = { x: seasonCardDescription.width }
+  coordinates = { x: 25, y: -15 };
+  gap = { x: seasonCardDescription.width };
 }
 
-export const seasonsCardsStackLocator = new SeasonsCardsStackLocator()
+export const seasonsCardsStackLocator = new SeasonsCardsStackLocator();
