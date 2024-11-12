@@ -19,12 +19,16 @@ export class CitesRoyalesRules extends SecretMaterialRules<NobleColor, MaterialT
   locationsStrategies = {
     [MaterialType.SeasonCard]: {
       [LocationType.SeasonsCardsStack]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.SubjectCard]: {
+      [LocationType.DrawPile]: new PositiveSequenceStrategy()
     }
   }
 
   hidingStrategies = {
     [MaterialType.SubjectCard]: {
       [LocationType.DrawPile]: hideItemId,
+      [LocationType.Reserve]: hideItemId,
       [LocationType.PlayerHand]: hideItemIdToOthers
     }
   }
