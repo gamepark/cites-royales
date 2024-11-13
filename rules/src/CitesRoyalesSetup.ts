@@ -2,6 +2,7 @@ import { MaterialGameSetup } from "@gamepark/rules-api";
 import { CitesRoyalesOptions } from "./CitesRoyalesOptions";
 import { CitesRoyalesRules } from "./CitesRoyalesRules";
 import { LocationType } from "./material/LocationType";
+import { marketHalfSizedCards } from "./material/MarketHalfSizedCard";
 import { MaterialType } from "./material/MaterialType";
 import { seasons } from "./material/Season";
 import { subjects } from "./material/Subject";
@@ -19,6 +20,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
     this.setupSubjectCards();
     this.setupReserve();
     this.setupMarket();
+    this.setupMarketBeginning();
   }
 
   setupSeasonCards() {
@@ -47,6 +49,12 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
 
   setupMarket() {
     this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck().deal({ type: LocationType.Market }, 4);
+  }
+
+  setupMarketBeginning() {
+    this.material(MaterialType.MarketHalfSizedCard).createItems(
+      marketHalfSizedCards.map((card) => ({ id: card, location: { type: LocationType.MarketLineBeginning } }))
+    );
   }
 
   start() {

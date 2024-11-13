@@ -40,6 +40,9 @@ export class CitesRoyalesRules
       [LocationType.Reserve]: new PositiveSequenceStrategy(),
       [LocationType.Market]: new FillGapStrategy(),
     },
+    [MaterialType.MarketHalfSizedCard]: {
+      [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),
+    },
   };
 
   hidingStrategies = {

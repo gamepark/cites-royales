@@ -4,6 +4,7 @@ import { NobleColor } from "@gamepark/cites-royales/NobleColor";
 import { Locator } from "@gamepark/react-game";
 import { drawPileLocator } from "./DrawPileLocator";
 import { marketLocator } from "./Market";
+import { marketLineBeginningLocator } from "./MarketLineBeginning";
 import { reserveLocator } from "./Reserve";
 import { seasonsCardsStackLocator } from "./SeasonsCardsStackLocator";
 import { victoryPointsTrackSpotLocator } from "./VictoryPointsTrackSpotLocator";
@@ -14,4 +15,5 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.DrawPile]: drawPileLocator,
   [LocationType.Reserve]: reserveLocator,
   [LocationType.Market]: marketLocator,
+  [LocationType.MarketLineBeginning]: marketLineBeginningLocator,
 };
