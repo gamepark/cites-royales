@@ -73,3 +73,4 @@ export enum Subject {
 }
 
 export const subjects = getEnumValues(Subject);
+export const getSubjectColor = (subject: Subject): SubjectColor => Math.floor(subject / 10);

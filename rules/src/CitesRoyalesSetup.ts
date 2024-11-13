@@ -1,11 +1,12 @@
 import { MaterialGameSetup } from "@gamepark/rules-api";
+import { uniq } from "lodash";
 import { CitesRoyalesOptions } from "./CitesRoyalesOptions";
 import { CitesRoyalesRules } from "./CitesRoyalesRules";
 import { LocationType } from "./material/LocationType";
 import { marketHalfSizedCards } from "./material/MarketHalfSizedCard";
 import { MaterialType } from "./material/MaterialType";
 import { seasons } from "./material/Season";
-import { subjects } from "./material/Subject";
+import { getSubjectColor, subjects } from "./material/Subject";
 import { NobleColor } from "./NobleColor";
 import { RuleId } from "./rules/RuleId";
 
@@ -49,6 +50,31 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
 
   setupMarket() {
     this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck().deal({ type: LocationType.Market }, 4);
+    while (!this.marketHasFourDifferentColorCards()) {
+      const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market);
+
+      const marketCardsItems = marketCards.getItems();
+
+      const cardsToDiscard = marketCards.filter((item) =>
+        marketCardsItems.every(
+          (item2) => item2.location.x! >= item.location.x! || getSubjectColor(item2.id) !== getSubjectColor(item.id)
+        )
+      );
+      cardsToDiscard.moveItems({ type: LocationType.Discard });
+      this.material(MaterialType.SubjectCard)
+        .location(LocationType.DrawPile)
+        .deck()
+        .deal({ type: LocationType.Market }, cardsToDiscard.length);
+    }
+  }
+
+  marketHasFourDifferentColorCards() {
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).getItems();
+
+    const colors = marketCards.map((card) => getSubjectColor(card.id));
+
+    console.log(colors, uniq(colors));
+    return uniq(colors).length === 4;
   }
 
   setupMarketBeginning() {

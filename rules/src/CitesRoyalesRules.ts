@@ -1,5 +1,4 @@
 import {
-  FillGapStrategy,
   hideItemId,
   hideItemIdToOthers,
   MaterialGame,
@@ -38,7 +37,7 @@ export class CitesRoyalesRules
     [MaterialType.SubjectCard]: {
       [LocationType.DrawPile]: new PositiveSequenceStrategy(),
       [LocationType.Reserve]: new PositiveSequenceStrategy(),
-      [LocationType.Market]: new FillGapStrategy(),
+      [LocationType.Market]: new PositiveSequenceStrategy(),
     },
     [MaterialType.MarketHalfSizedCard]: {
       [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),
