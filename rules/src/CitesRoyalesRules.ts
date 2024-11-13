@@ -38,6 +38,7 @@ export class CitesRoyalesRules
       [LocationType.DrawPile]: new PositiveSequenceStrategy(),
       [LocationType.Reserve]: new PositiveSequenceStrategy(),
       [LocationType.Market]: new PositiveSequenceStrategy(),
+      [LocationType.Discard]: new PositiveSequenceStrategy(),
     },
     [MaterialType.MarketHalfSizedCard]: {
       [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),
