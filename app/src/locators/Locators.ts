@@ -4,6 +4,7 @@ import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { Locator } from '@gamepark/react-game'
 import { discardLocator } from './DiscardLocator'
 import { drawPileLocator } from './DrawPileLocator'
+import { helpCardSpotLocator } from './HelpCardSpotLocator'
 import { marketLocator } from './Market'
 import { marketLineBeginningLocator } from './MarketLineBeginning'
 import { marketTokenSpotLocator } from './MarketTokenSpotLocator'
@@ -22,4 +23,5 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.MarketLineBeginning]: marketLineBeginningLocator,
   [LocationType.VictoryPointsSpace]: victoryPointsSpaceLocator,
   [LocationType.MarketTokenSpot]: marketTokenSpotLocator,
+  [LocationType.HelpCardSpot]: helpCardSpotLocator,
 }
