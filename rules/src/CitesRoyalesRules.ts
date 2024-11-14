@@ -47,6 +47,9 @@ export class CitesRoyalesRules
     [MaterialType.NobleToken]: {
       [LocationType.VictoryPointsSpace]: new StakingStrategy(),
     },
+    [MaterialType.MarketToken]: {
+      [LocationType.MarketTokenSpot]: new StakingStrategy(),
+    },
   }
 
   hidingStrategies = {

@@ -6,6 +6,7 @@ import { discardLocator } from './DiscardLocator'
 import { drawPileLocator } from './DrawPileLocator'
 import { marketLocator } from './Market'
 import { marketLineBeginningLocator } from './MarketLineBeginning'
+import { marketTokenSpotLocator } from './MarketTokenSpotLocator'
 import { reserveLocator } from './Reserve'
 import { seasonsCardsStackLocator } from './SeasonsCardsStackLocator'
 import { victoryPointsSpaceLocator } from './VictoryPointsSpaceLocator'
@@ -20,4 +21,5 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.Market]: marketLocator,
   [LocationType.MarketLineBeginning]: marketLineBeginningLocator,
   [LocationType.VictoryPointsSpace]: victoryPointsSpaceLocator,
+  [LocationType.MarketTokenSpot]: marketTokenSpotLocator,
 }

@@ -102,8 +102,8 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
     this.material(MaterialType.NobleToken).createItem({
       id: player,
       location: { type: LocationType.VictoryPointsSpace, x: 0 },
-      quantity: 1,
     })
+    this.material(MaterialType.MarketToken).createItem({ id: player, location: { type: LocationType.MarketTokenSpot } })
   }
 
   start() {
