@@ -12,15 +12,15 @@ class VictoryPointsSpaceLocator extends Locator {
   }
   getPositionOnParent(location: Location) {
     const line = this.getLineOnParent(location.x!)
-    const column = this.getColumnOnParent(location.x!, line!)
+    const column = this.getColumnOnParent(location.x!)
 
     const baseX = 13
     const baseY = 14.5
     const cellWidth = 9.1
     const cellHeight = 11.7
 
-    const x = baseX + (line! % 2 === 0 ? column * cellWidth : column * cellWidth - 5)
-    const y = baseY + line! * cellHeight
+    const x = baseX + column * cellWidth - (line % 2) * 5
+    const y = baseY + line * cellHeight
 
     return { x, y }
   }
@@ -32,29 +32,17 @@ class VictoryPointsSpaceLocator extends Locator {
     if (x <= 29) return 3
     if (x <= 36) return 4
     if (x <= 43) return 5
-    if (x <= 50) return 6
-    return undefined
+    return 6
   }
 
-  getColumnOnParent(x: number, line: number) {
-    const columns = line === 0 || line === 1 ? 8 : 7
-    let col
-
-    if (line === 0 || line === 1) {
-      col = x < columns ? x : x - columns * Math.floor(x / columns)
-    } else {
-      x = x - line * columns
-      if (x < 2) {
-        col = columns - 2 + x
-      } else {
-        col = x - 2
-      }
-    }
-    if (line % 2 !== 0) {
-      col = columns - 1 - col
-    }
-
-    return col
+  getColumnOnParent(x: number) {
+    if (x <= 7) return x
+    if (x <= 15) return 15 - x
+    if (x <= 22) return x - 16
+    if (x <= 29) return 29 - x
+    if (x <= 36) return x - 30
+    if (x <= 43) return 43 - x
+    return x - 44
   }
 
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
