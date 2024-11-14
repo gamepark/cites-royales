@@ -6,12 +6,13 @@ import {
   PositiveSequenceStrategy,
   SecretMaterialRules,
   TimeLimit,
-} from "@gamepark/rules-api";
-import { LocationType } from "./material/LocationType";
-import { MaterialType } from "./material/MaterialType";
-import { NobleColor } from "./NobleColor";
-import { RuleId } from "./rules/RuleId";
-import { TheFirstStepRule } from "./rules/TheFirstStepRule";
+} from '@gamepark/rules-api'
+import { LocationType } from './material/LocationType'
+import { MaterialType } from './material/MaterialType'
+import { NobleColor } from './NobleColor'
+import { RuleId } from './rules/RuleId'
+import { TheFirstStepRule } from './rules/TheFirstStepRule'
+import { StakingStrategy } from './rules/utils/StackingStrategy'
 
 /**
  * This class implements the rules of the board game.
@@ -28,7 +29,7 @@ export class CitesRoyalesRules
 {
   rules = {
     [RuleId.TheFirstStep]: TheFirstStepRule,
-  };
+  }
 
   locationsStrategies = {
     [MaterialType.SeasonCard]: {
@@ -43,7 +44,10 @@ export class CitesRoyalesRules
     [MaterialType.MarketHalfSizedCard]: {
       [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),
     },
-  };
+    [MaterialType.NobleToken]: {
+      [LocationType.VictoryPointsSpace]: new StakingStrategy(),
+    },
+  }
 
   hidingStrategies = {
     [MaterialType.SubjectCard]: {
@@ -51,9 +55,9 @@ export class CitesRoyalesRules
       [LocationType.Reserve]: hideItemId,
       [LocationType.PlayerHand]: hideItemIdToOthers,
     },
-  };
+  }
 
   giveTime(): number {
-    return 60;
+    return 60
   }
 }

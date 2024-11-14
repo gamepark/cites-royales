@@ -13,12 +13,7 @@ import { RuleId } from './rules/RuleId'
 /**
  * This class creates a new Game based on the game options
  */
-export class CitesRoyalesSetup extends MaterialGameSetup<
-  NobleColor,
-  MaterialType,
-  LocationType,
-  CitesRoyalesOptions
-> {
+export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialType, LocationType, CitesRoyalesOptions> {
   Rules = CitesRoyalesRules
 
   setupMaterial() {
@@ -27,12 +22,11 @@ export class CitesRoyalesSetup extends MaterialGameSetup<
     this.setupReserve()
     this.setupMarket()
     this.setupMarketBeginning()
-    this.setupTokens()
+    this.setupPlayers()
   }
 
   setupSeasonCards() {
-    const gameSeasons =
-      this.players.length === 4 ? seasons.slice(0, 3) : seasons
+    const gameSeasons = this.players.length === 4 ? seasons.slice(0, 3) : seasons
     this.material(MaterialType.SeasonCard).createItems(
       gameSeasons.map((season) => ({
         id: season,
@@ -64,17 +58,13 @@ export class CitesRoyalesSetup extends MaterialGameSetup<
       .deck()
       .deal({ type: LocationType.Market }, 4)
     while (!this.marketHasFourDifferentColorCards()) {
-      const marketCards = this.material(MaterialType.SubjectCard).location(
-        LocationType.Market
-      )
+      const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
 
       const marketCardsItems = marketCards.getItems()
 
       const cardsToDiscard = marketCards.filter((item) =>
         marketCardsItems.every(
-          (item2) =>
-            item2.location.x! >= item.location.x! ||
-            getSubjectColor(item2.id) !== getSubjectColor(item.id)
+          (item2) => item2.location.x! >= item.location.x! || getSubjectColor(item2.id) !== getSubjectColor(item.id)
         )
       )
       cardsToDiscard.moveItems({ type: LocationType.Discard })
@@ -86,9 +76,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<
   }
 
   marketHasFourDifferentColorCards() {
-    const marketCards = this.material(MaterialType.SubjectCard)
-      .location(LocationType.Market)
-      .getItems()
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).getItems()
 
     const colors = marketCards.map((card) => getSubjectColor(card.id))
 
@@ -104,22 +92,18 @@ export class CitesRoyalesSetup extends MaterialGameSetup<
     )
   }
 
-  setupTokens() {
-    const playerColors = this.players
-    this.material(MaterialType.NobleToken).createItems(
-      playerColors.map((color) => ({
-        id: color,
-        location: { type: LocationType.VictoryPointsSpace },
-      }))
-    )
-    this.material(MaterialType.MarketToken).createItems(
-      playerColors.map((color) => ({
-        id: color,
-        location: { type: LocationType.MarketTokenSpot },
-      }))
-    )
+  setupPlayers() {
+    for (const player of this.players) {
+      this.setupPlayer(player)
+    }
   }
 
+  setupPlayer(player: NobleColor) {
+    this.material(MaterialType.NobleToken).createItem({
+      id: player,
+      location: { type: LocationType.VictoryPointsSpace, x: 0 },
+      quantity: 1,
+    })
   }
 
   start() {

@@ -6,6 +6,7 @@ import Brown from '../images/tokens/noble/Brown.png'
 import Cyan from '../images/tokens/noble/Cyan.png'
 
 class NobleTokenDescription extends TokenDescription {
+  borderRadius = 0.5
   width = 1.6
   height = 1.6
 

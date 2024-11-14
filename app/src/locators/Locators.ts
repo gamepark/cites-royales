@@ -8,11 +8,10 @@ import { marketLocator } from './Market'
 import { marketLineBeginningLocator } from './MarketLineBeginning'
 import { reserveLocator } from './Reserve'
 import { seasonsCardsStackLocator } from './SeasonsCardsStackLocator'
+import { victoryPointsSpaceLocator } from './VictoryPointsSpaceLocator'
 import { victoryPointsTrackSpotLocator } from './VictoryPointsTrackSpotLocator'
 
-export const Locators: Partial<
-  Record<LocationType, Locator<NobleColor, MaterialType, LocationType>>
-> = {
+export const Locators: Partial<Record<LocationType, Locator<NobleColor, MaterialType, LocationType>>> = {
   [LocationType.VictoryPointsTrackSpot]: victoryPointsTrackSpotLocator,
   [LocationType.SeasonsCardsStack]: seasonsCardsStackLocator,
   [LocationType.DrawPile]: drawPileLocator,
@@ -20,4 +19,5 @@ export const Locators: Partial<
   [LocationType.Reserve]: reserveLocator,
   [LocationType.Market]: marketLocator,
   [LocationType.MarketLineBeginning]: marketLineBeginningLocator,
-};
+  [LocationType.VictoryPointsSpace]: victoryPointsSpaceLocator,
+}
