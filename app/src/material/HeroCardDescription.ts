@@ -10,13 +10,13 @@ import CyanHeroBack from '../images/cards/heroes/CyanHeroBack.jpg'
 import CyanHeroFront from '../images/cards/heroes/CyanHeroFront.jpg'
 
 class HeroCardDescription extends CardDescription {
-  images = {
+  backImages = {
     [NobleColor.Cyan]: CyanHeroFront,
     [NobleColor.Brown]: BrownHeroFront,
     [NobleColor.Black]: BlackHeroFront,
     [NobleColor.Beige]: BeigeHeroFront,
   }
-  backImages = {
+  images = {
     [NobleColor.Cyan]: CyanHeroBack,
     [NobleColor.Brown]: BrownHeroBack,
     [NobleColor.Black]: BlackHeroBack,
