@@ -6,6 +6,7 @@ import { cityBoardSpotLocator } from './CityBoardSpotLocator'
 import { discardLocator } from './DiscardLocator'
 import { drawPileLocator } from './DrawPileLocator'
 import { helpCardSpotLocator } from './HelpCardSpotLocator'
+import { heroSpotLocator } from './HeroSpotLocator'
 import { marketLocator } from './Market'
 import { marketLineBeginningLocator } from './MarketLineBeginning'
 import { marketTokenSpotLocator } from './MarketTokenSpotLocator'
@@ -26,4 +27,5 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.MarketTokenSpot]: marketTokenSpotLocator,
   [LocationType.HelpCardSpot]: helpCardSpotLocator,
   [LocationType.CityBoardSpot]: cityBoardSpotLocator,
+  [LocationType.HeroSpot]: heroSpotLocator,
 }

@@ -108,6 +108,10 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
       id: player,
       location: { type: LocationType.CityBoardSpot, player: player },
     })
+    this.material(MaterialType.HeroCard).createItem({
+      id: player,
+      location: { type: LocationType.HeroSpot, player: player },
+    })
   }
 
   start() {
