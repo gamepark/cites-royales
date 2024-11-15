@@ -2,7 +2,7 @@ import { ItemContext, Locator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 
 class MarketTokenSpotLocator extends Locator {
-  coordinates = { x: -42 }
+  coordinates = { x: -50 }
 
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
     const { x, y = 0, z = 0 } = super.getItemCoordinates(item, context)

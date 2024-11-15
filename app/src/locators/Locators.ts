@@ -2,6 +2,7 @@ import { LocationType } from '@gamepark/cites-royales/material/LocationType'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { Locator } from '@gamepark/react-game'
+import { cityBoardSpotLocator } from './CityBoardSpotLocator'
 import { discardLocator } from './DiscardLocator'
 import { drawPileLocator } from './DrawPileLocator'
 import { helpCardSpotLocator } from './HelpCardSpotLocator'
@@ -24,4 +25,5 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.VictoryPointsSpace]: victoryPointsSpaceLocator,
   [LocationType.MarketTokenSpot]: marketTokenSpotLocator,
   [LocationType.HelpCardSpot]: helpCardSpotLocator,
+  [LocationType.CityBoardSpot]: cityBoardSpotLocator,
 }
