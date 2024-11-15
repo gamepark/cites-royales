@@ -4,10 +4,8 @@ import helpBack from '../images/cards/help/helpBack.jpg'
 import helpFront from '../images/cards/help/helpFront.jpg'
 
 class HelpCardDescription extends CardDescription {
-  images = {
-    1: helpFront,
-    2: helpBack,
-  }
+  backImage = helpBack
+  image = helpFront
 
   getStaticItems(_context: MaterialContext) {
     // TODO : Face 2 si le joueur a acheté
