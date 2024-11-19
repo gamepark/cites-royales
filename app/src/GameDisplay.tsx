@@ -13,10 +13,10 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
     <>
       <GameTable
         xMin={-55}
-        xMax={55}
+        xMax={61}
         yMin={-35}
         yMax={35}
-        margin={{ top: 7, left: 0, right: 30, bottom: 0 }}
+        margin={{ top: 7, left: 0, right: 20, bottom: 0 }}
         css={
           process.env.NODE_ENV === 'development' &&
           css`

@@ -1,15 +1,13 @@
-import { getRelativePlayerIndex, Locator, MaterialContext } from '@gamepark/react-game'
+import { Locator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
+import { cityBoardSpotLocator } from './CityBoardSpotLocator'
 
 class HeroSpotLocator extends Locator {
   coordinates = { x: 39, y: 25 }
 
   getCoordinates(location: Location, context: MaterialContext) {
-    const xy = super.getCoordinates(location, context)
-    const playerIndex = getRelativePlayerIndex(context, location.player)
-    if (playerIndex === 0) return xy
-
-    return { x: 15 + 8 * playerIndex, y: -29 }
+    const { x = 0, y = 0 } = cityBoardSpotLocator.getCoordinates(location, context)
+    return { x: x + 25, y: y - 5 }
   }
 }
 

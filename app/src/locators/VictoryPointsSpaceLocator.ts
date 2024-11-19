@@ -1,6 +1,5 @@
-import { css } from '@emotion/react'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
-import { ItemContext, LocationDescription, Locator, MaterialContext } from '@gamepark/react-game'
+import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import { victoryPointsTrackDescription } from '../material/VictoryPointsTrackDescription'
 
@@ -53,23 +52,6 @@ class VictoryPointsSpaceLocator extends Locator {
       y: y - item.location.z! * 0.2,
       z: z + item.location.z! * 0.2,
     }
-  }
-
-  locationDescription = new victoryPointsSpaceDescription({
-    width: 1.4,
-    height: 1.4,
-    borderRadius: 1,
-  })
-}
-
-class victoryPointsSpaceDescription extends LocationDescription {
-  getExtraCss(_location: Location) {
-    return css`
-      &:after {
-        content: '${_location.x}';
-      }
-      border: 1px solid white;
-    `
   }
 }
 
