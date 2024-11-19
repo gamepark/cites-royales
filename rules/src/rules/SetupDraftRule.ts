@@ -1,7 +1,8 @@
-import { SimultaneousRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, SimultaneousRule } from '@gamepark/rules-api'
 import { NobleColor } from '../NobleColor'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { RuleId } from './RuleId'
 
 export class SetupDraftRule extends SimultaneousRule {
   onRuleStart() {
@@ -9,14 +10,32 @@ export class SetupDraftRule extends SimultaneousRule {
 
     return this.game.players.flatMap((player) => deck.deal({ type: LocationType.PlayerHand, player }, 3))
   }
-  getActivePlayerLegalMoves(playerId: NobleColor) {
-    const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(playerId)
-    const neighbors = this.getNeighbors(playerId)
+  getActivePlayerLegalMoves(player: NobleColor) {
+    const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
+    const neighbors = this.getNeighbors(player)
+    const cardsToGive = this.game.players.length === 2 ? 2 : 1
 
-    return neighbors.flatMap((player) => playerHand.moveItems({ type: LocationType.PlayerArea, player }))
+    return neighbors
+      .filter(
+        (neighbor) =>
+          this.material(MaterialType.SubjectCard).location(LocationType.PlayerArea).player(neighbor).locationId(player)
+            .length < cardsToGive
+      )
+      .flatMap((neighbor) => playerHand.moveItems({ type: LocationType.PlayerArea, player: neighbor, id: player }))
   }
-  getMovesAfterPlayersDone() {
+  afterItemMove(move: ItemMove) {
+    if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerArea) {
+      const player = move.location.id
+      const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
+      if (playerHand.length === 1) {
+        return [this.endPlayerTurn(player)]
+      }
+    }
     return []
+  }
+
+  getMovesAfterPlayersDone() {
+    return [this.startSimultaneousRule(RuleId.SetupBuild)]
   }
 
   getNeighbors(player: NobleColor) {
