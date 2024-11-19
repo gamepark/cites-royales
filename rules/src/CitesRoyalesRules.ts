@@ -11,7 +11,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
 import { RuleId } from './rules/RuleId'
-import { TheFirstStepRule } from './rules/TheFirstStepRule'
+import { SetupDraftRule } from './rules/SetupDraftRule'
 import { StakingStrategy } from './rules/utils/StackingStrategy'
 
 /**
@@ -28,7 +28,7 @@ export class CitesRoyalesRules
     >
 {
   rules = {
-    [RuleId.TheFirstStep]: TheFirstStepRule,
+    [RuleId.SetupDraft]: SetupDraftRule,
   }
 
   locationsStrategies = {
@@ -40,6 +40,7 @@ export class CitesRoyalesRules
       [LocationType.Reserve]: new PositiveSequenceStrategy(),
       [LocationType.Market]: new PositiveSequenceStrategy(),
       [LocationType.Discard]: new PositiveSequenceStrategy(),
+      [LocationType.PlayerHand]: new PositiveSequenceStrategy(),
     },
     [MaterialType.MarketHalfSizedCard]: {
       [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),
@@ -57,6 +58,7 @@ export class CitesRoyalesRules
       [LocationType.DrawPile]: hideItemId,
       [LocationType.Reserve]: hideItemId,
       [LocationType.PlayerHand]: hideItemIdToOthers,
+      [LocationType.PlayerArea]: hideItemId,
     },
   }
 

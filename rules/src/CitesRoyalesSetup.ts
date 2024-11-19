@@ -115,6 +115,6 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
   }
 
   start() {
-    this.startPlayerTurn(RuleId.TheFirstStep, this.players[0])
+    this.startSimultaneousRule(RuleId.SetupDraft)
   }
 }
