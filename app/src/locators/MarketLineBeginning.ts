@@ -2,7 +2,7 @@ import { ListLocator } from '@gamepark/react-game'
 import { subjectCardDescription } from '../material/SubjectCardDescription'
 
 class MarketLineBeginningLocator extends ListLocator {
-  coordinates = { x: -25, y: -23 }
+  coordinates = { x: -22, y: -23 }
   gap = { y: subjectCardDescription.height + 0.5 }
 }
 
