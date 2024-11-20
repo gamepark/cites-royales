@@ -7,7 +7,7 @@ class HeroSpotLocator extends Locator {
 
   getCoordinates(location: Location, context: MaterialContext) {
     const { x = 0, y = 0 } = cityBoardSpotLocator.getCoordinates(location, context)
-    return { x: x + 25, y: y - 5 }
+    return { x: x + 26, y: y - 8 }
   }
 }
 

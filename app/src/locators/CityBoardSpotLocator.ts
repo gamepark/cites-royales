@@ -7,7 +7,7 @@ class CityBoardSpotLocator extends Locator {
   getCoordinates(location: Location, context: MaterialContext) {
     const playerIndex = getRelativePlayerIndex(context, location.player) || 4
 
-    return { x: 32, y: -35 + 16 * playerIndex }
+    return { x: 32, y: -32 + 16 * playerIndex }
   }
 }
 
