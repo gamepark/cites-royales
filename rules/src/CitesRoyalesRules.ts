@@ -10,7 +10,9 @@ import {
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
+import { PlayerTurn } from './rules/PlayerTurnRule'
 import { RuleId } from './rules/RuleId'
+import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
 import { StakingStrategy } from './rules/utils/StackingStrategy'
 
@@ -29,6 +31,8 @@ export class CitesRoyalesRules
 {
   rules = {
     [RuleId.SetupDraft]: SetupDraftRule,
+    [RuleId.SetupBuild]: SetupBuildRule,
+    [RuleId.PlayerTurn]: PlayerTurn,
   }
 
   locationsStrategies = {
@@ -41,6 +45,7 @@ export class CitesRoyalesRules
       [LocationType.Market]: new PositiveSequenceStrategy(),
       [LocationType.Discard]: new PositiveSequenceStrategy(),
       [LocationType.PlayerHand]: new PositiveSequenceStrategy(),
+      [LocationType.InCity]: new PositiveSequenceStrategy(),
     },
     [MaterialType.MarketHalfSizedCard]: {
       [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),
