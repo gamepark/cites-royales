@@ -1,6 +1,7 @@
 import { isMoveItemType, ItemMove, PlayMoveContext, SimultaneousRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { getSubjectColor } from '../material/Subject'
 import { NobleColor } from '../NobleColor'
 import { RuleId } from './RuleId'
 
@@ -15,8 +16,17 @@ export class SetupBuildRule extends SimultaneousRule {
   }
   getActivePlayerLegalMoves(player: NobleColor) {
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
-    return playerHand.moveItems((item) => ({ type: LocationType.PlayerArea, player, id: item.id }))
+
+    const moves = playerHand
+      .moveItems((item) => {
+        const subjectColor = getSubjectColor(item.id)
+        return subjectColor ? { type: LocationType.PlayerArea, player, id: subjectColor } : {}
+      })
+      .filter((move) => move.location.type)
+
+    return moves
   }
+
   afterItemMove(move: ItemMove, _context?: PlayMoveContext) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerArea) {
       const player = move.location.player!

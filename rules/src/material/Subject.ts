@@ -1,4 +1,4 @@
-import { getEnumValues } from "@gamepark/rules-api";
+import { getEnumValues } from '@gamepark/rules-api'
 
 export enum SubjectType {
   Emptiness,
@@ -72,5 +72,6 @@ export enum Subject {
   GreenAstrologer,
 }
 
-export const subjects = getEnumValues(Subject);
-export const getSubjectColor = (subject: Subject): SubjectColor => Math.floor(subject / 10);
+export const subjects = getEnumValues(Subject)
+export const subjectColors = getEnumValues(SubjectColor)
+export const getSubjectColor = (subject: Subject): SubjectColor => Math.floor(subject / 10)
