@@ -9,7 +9,6 @@ export class SetupDraftRule extends SimultaneousRule {
     const deck = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
 
     while (!this.twoWhiteCardsInHands) {
-      console.log('oui')
       let moves: MaterialMove[] = []
 
       this.game.players.flatMap((player) => {
