@@ -37,10 +37,17 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
 
   setupSubjectCards() {
     this.material(MaterialType.SubjectCard).createItems(
-      subjects.map((subject) => ({
-        id: subject,
-        location: { type: LocationType.DrawPile },
-      }))
+      subjects.flatMap((subject) => {
+        const isWhite = subject < 10
+        const isEmptiness = subject % 10 === 0
+
+        return isWhite || isEmptiness
+          ? [{ id: subject, location: { type: LocationType.DrawPile } }]
+          : [
+              { id: subject, location: { type: LocationType.DrawPile } },
+              { id: subject, location: { type: LocationType.DrawPile } },
+            ]
+      })
     )
     this.material(MaterialType.SubjectCard).shuffle()
   }
