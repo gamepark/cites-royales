@@ -6,7 +6,7 @@ import { LocationType } from './material/LocationType'
 import { marketHalfSizedCards } from './material/MarketHalfSizedCard'
 import { MaterialType } from './material/MaterialType'
 import { seasons } from './material/Season'
-import { getSubjectColor, subjects } from './material/Subject'
+import { getSubjectColor, isEmptiness, isWhite, subjects } from './material/Subject'
 import { NobleColor } from './NobleColor'
 import { RuleId } from './rules/RuleId'
 
@@ -37,17 +37,9 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
 
   setupSubjectCards() {
     this.material(MaterialType.SubjectCard).createItems(
-      subjects.flatMap((subject) => {
-        const isWhite = subject < 10
-        const isEmptiness = subject % 10 === 0
-
-        return isWhite || isEmptiness
-          ? [{ id: subject, location: { type: LocationType.DrawPile } }]
-          : [
-              { id: subject, location: { type: LocationType.DrawPile } },
-              { id: subject, location: { type: LocationType.DrawPile } },
-            ]
-      })
+      subjects
+        .concat(subjects.filter((s) => !isWhite(s) && !isEmptiness(s)))
+        .map((subject) => ({ id: subject, location: { type: LocationType.DrawPile } }))
     )
     this.material(MaterialType.SubjectCard).shuffle()
   }

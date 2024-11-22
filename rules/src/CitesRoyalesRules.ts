@@ -10,7 +10,8 @@ import {
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
-import { PlayerTurn } from './rules/PlayerTurnRule'
+import { PlayCardRule } from './rules/PlayCardRule'
+import { PlayEmptinessRule } from './rules/PlayEmptinessRule'
 import { RuleId } from './rules/RuleId'
 import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
@@ -32,7 +33,8 @@ export class CitesRoyalesRules
   rules = {
     [RuleId.SetupDraft]: SetupDraftRule,
     [RuleId.SetupBuild]: SetupBuildRule,
-    [RuleId.PlayerTurn]: PlayerTurn,
+    [RuleId.PlayCard]: PlayCardRule,
+    [RuleId.PlayEmptiness]: PlayEmptinessRule,
   }
 
   locationsStrategies = {

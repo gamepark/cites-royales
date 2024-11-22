@@ -1,18 +1,16 @@
 import { isMoveItemType, ItemMove, PlayMoveContext, SimultaneousRule } from '@gamepark/rules-api'
+import { minBy } from 'lodash'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { getSubjectColor } from '../material/Subject'
+import { getSubjectColor, getSubjectType } from '../material/Subject'
 import { NobleColor } from '../NobleColor'
 import { RuleId } from './RuleId'
 
 export class SetupBuildRule extends SimultaneousRule {
   onRuleStart() {
-    return this.game.players.flatMap((player) => {
-      return this.material(MaterialType.SubjectCard)
-        .location(LocationType.PlayerArea)
-        .player(player)
-        .moveItems({ type: LocationType.PlayerHand, player })
-    })
+    return this.material(MaterialType.SubjectCard)
+      .location(LocationType.PlayerArea)
+      .moveItems((item) => ({ type: LocationType.PlayerHand, player: item.location.player }))
   }
   getActivePlayerLegalMoves(player: NobleColor) {
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
@@ -40,15 +38,16 @@ export class SetupBuildRule extends SimultaneousRule {
   getMovesAfterPlayersDone() {
     const builtCards = this.material(MaterialType.SubjectCard).location(LocationType.PlayerArea)
 
-    const smallestCard = builtCards.getItems().reduce((minCard, card) => {
-      const minCardValue = minCard.location.id % 10
-      const currentCardValue = card.location.id % 10
-      // Gérer les ties
-      return currentCardValue < minCardValue ? card : minCard
-    })
+    const smallestCard = minBy(builtCards.getItems(), (card) => getSubjectType(card.location.id))!
 
     const startPlayer: NobleColor = smallestCard.location.player!
-    this.memorize('StartPlayer', startPlayer)
-    return [this.startPlayerTurn(RuleId.PlayerTurn, startPlayer)]
+    return [
+      ...builtCards.moveItems((item) => ({
+        type: LocationType.InCity,
+        player: item.location.player,
+        id: getSubjectColor(item.id),
+      })),
+      this.startPlayerTurn(RuleId.PlayCard, startPlayer),
+    ]
   }
 }

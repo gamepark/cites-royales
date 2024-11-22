@@ -75,3 +75,6 @@ export enum Subject {
 export const subjects = getEnumValues(Subject)
 export const subjectColors = getEnumValues(SubjectColor)
 export const getSubjectColor = (subject: Subject): SubjectColor => Math.floor(subject / 10)
+export const getSubjectType = (subject: Subject): SubjectType => subject % 10
+export const isWhite = (subject: Subject) => subject < 10
+export const isEmptiness = (subject: Subject) => getSubjectType(subject) === SubjectType.Emptiness
