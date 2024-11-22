@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectType, SubjectType } from '../material/Subject'
@@ -6,14 +6,10 @@ import { RuleId } from './RuleId'
 
 export class PlayCardRule extends PlayerTurnRule {
   getLegalMoves(player: number) {
-    const moves: MaterialMove[] = []
-    moves.push(
-      ...this.material(MaterialType.SubjectCard)
-        .location(LocationType.PlayerHand)
-        .player(player)
-        .moveItems((item) => ({ type: LocationType.Discard, player, id: item.id }))
-    )
-    return moves
+    return this.material(MaterialType.SubjectCard)
+      .location(LocationType.PlayerHand)
+      .player(player)
+      .moveItems((item) => ({ type: LocationType.Discard, player, id: item.id }))
   }
   afterItemMove(move: ItemMove, _context?: PlayMoveContext) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Discard) return []

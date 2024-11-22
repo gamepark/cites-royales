@@ -4,11 +4,6 @@ import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
 
 export class PlayEmptinessRule extends PlayerTurnRule {
-  onRuleStart() {
-    return this.material(MaterialType.SubjectCard)
-      .location(LocationType.PlayerArea)
-      .moveItems({ type: LocationType.Discard })
-  }
   getLegalMoves(_player: number) {
     const moves: MaterialMove[] = []
 

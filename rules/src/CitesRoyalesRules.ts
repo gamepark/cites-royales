@@ -12,6 +12,7 @@ import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
 import { PlayCardRule } from './rules/PlayCardRule'
 import { PlayEmptinessRule } from './rules/PlayEmptinessRule'
+import { PlayVillagerRule } from './rules/PlayVillagerRule'
 import { RuleId } from './rules/RuleId'
 import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
@@ -35,6 +36,7 @@ export class CitesRoyalesRules
     [RuleId.SetupBuild]: SetupBuildRule,
     [RuleId.PlayCard]: PlayCardRule,
     [RuleId.PlayEmptiness]: PlayEmptinessRule,
+    [RuleId.PlayVillager]: PlayVillagerRule,
   }
 
   locationsStrategies = {
