@@ -14,6 +14,7 @@ import { PlayAssassinRule } from './rules/PlayAssassinRule'
 import { PlayCardRule } from './rules/PlayCardRule'
 import { PlayEmptinessRule } from './rules/PlayEmptinessRule'
 import { PlayJesterRule } from './rules/PlayJesterRule'
+import { PlayKnightesterRule } from './rules/PlayKnightRule'
 import { PlayMerchantRule } from './rules/PlayMerchantRule'
 import { PlayVillagerRule } from './rules/PlayVillagerRule'
 import { RuleId } from './rules/RuleId'
@@ -43,6 +44,7 @@ export class CitesRoyalesRules
     [RuleId.PlayJester]: PlayJesterRule,
     [RuleId.PlayAssassin]: PlayAssassinRule,
     [RuleId.PlayMerchant]: PlayMerchantRule,
+    [RuleId.PlayKnight]: PlayKnightesterRule,
   }
 
   locationsStrategies = {
