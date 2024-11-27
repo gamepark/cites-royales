@@ -1,8 +1,8 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
-import { LocationType } from '../material/LocationType'
-import { MaterialType } from '../material/MaterialType'
-import { subjectColors } from '../material/Subject'
-import { RuleId } from './RuleId'
+import { LocationType } from '../../material/LocationType'
+import { MaterialType } from '../../material/MaterialType'
+import { subjectColors } from '../../material/Subject'
+import { RuleId } from '../RuleId'
 
 export class PlayVillagerRule extends PlayerTurnRule {
   getPlayerMoves() {

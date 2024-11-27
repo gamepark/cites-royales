@@ -1,9 +1,9 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
-import { LocationType } from '../material/LocationType'
-import { MaterialType } from '../material/MaterialType'
-import { getSubjectColor, getSubjectType, isWhite, subjectColors } from '../material/Subject'
-import { CustomMoveType } from './CustomMoveType'
-import { RuleId } from './RuleId'
+import { LocationType } from '../../material/LocationType'
+import { MaterialType } from '../../material/MaterialType'
+import { getSubjectColor, getSubjectType, isWhite, subjectColors } from '../../material/Subject'
+import { CustomMoveType } from '../CustomMoveType'
+import { RuleId } from '../RuleId'
 
 export class PlayAstrologerRule extends PlayerTurnRule {
   onRuleStart() {

@@ -1,7 +1,7 @@
 import { isMoveItemType, ItemMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
-import { LocationType } from '../material/LocationType'
-import { MaterialType } from '../material/MaterialType'
-import { RuleId } from './RuleId'
+import { LocationType } from '../../material/LocationType'
+import { MaterialType } from '../../material/MaterialType'
+import { RuleId } from '../RuleId'
 
 export class PlayJesterRule extends PlayerTurnRule {
   onRuleStart() {
