@@ -11,6 +11,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
 import { PlayAssassinRule } from './rules/PlayAssassinRule'
+import { PlayAstrologerRule } from './rules/PlayAstrologerRule'
 import { PlayCardRule } from './rules/PlayCardRule'
 import { PlayEmptinessRule } from './rules/PlayEmptinessRule'
 import { PlayJesterRule } from './rules/PlayJesterRule'
@@ -45,6 +46,7 @@ export class CitesRoyalesRules
     [RuleId.PlayAssassin]: PlayAssassinRule,
     [RuleId.PlayMerchant]: PlayMerchantRule,
     [RuleId.PlayKnight]: PlayKnightesterRule,
+    [RuleId.PlayAstrologer]: PlayAstrologerRule,
   }
 
   locationsStrategies = {

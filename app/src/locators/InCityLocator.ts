@@ -10,7 +10,11 @@ class InCityLocator extends Locator {
     const locationX = location.x ?? this.countItems(location, context)
 
     const { x = 0, y = 0 } = cityBoardSpotLocator.getCoordinates(location, context)
-    return { x: x - 18 + (color - 1) * subjectCardDescription.width + 0.9 * (color - 1), y: y - 6 - locationX * 1.2 }
+    return {
+      x: x - 18 + (color - 1) * subjectCardDescription.width + 0.9 * (color - 1),
+      y: y - 6 - locationX * 1.2,
+      z: locationX + 1,
+    }
   }
 }
 
