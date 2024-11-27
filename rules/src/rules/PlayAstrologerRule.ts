@@ -78,7 +78,11 @@ export class PlayAstrologerRule extends PlayerTurnRule {
     const remainingCards = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand)
 
     if (remainingCards.length === 1) {
-      moves.push(this.material(MaterialType.SubjectCard).moveItem({ type: LocationType.Discard }))
+      moves.push(
+        this.material(MaterialType.SubjectCard)
+          .location(LocationType.ActionHand)
+          .moveItem({ type: LocationType.Discard })
+      )
 
       moves.push(this.startRule(RuleId.MarketBuy))
     }
