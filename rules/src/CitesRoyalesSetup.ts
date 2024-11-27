@@ -6,7 +6,7 @@ import { LocationType } from './material/LocationType'
 import { marketHalfSizedCards } from './material/MarketHalfSizedCard'
 import { MaterialType } from './material/MaterialType'
 import { seasons } from './material/Season'
-import { getSubjectColor, isEmptiness, isWhite, subjects } from './material/Subject'
+import { getSubjectColor, isEmptiness, isWhite, Subject, subjects } from './material/Subject'
 import { NobleColor } from './NobleColor'
 import { RuleId } from './rules/RuleId'
 
@@ -23,6 +23,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
     this.setupMarket()
     this.setupMarketBeginning()
     this.setupPlayers()
+    this.deal3CardsToPlayers()
   }
 
   setupSeasonCards() {
@@ -30,7 +31,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
     this.material(MaterialType.SeasonCard).createItems(
       gameSeasons.map((season) => ({
         id: season,
-        location: { type: LocationType.SeasonsCardsStack },
+        location: { type: LocationType.SeasonsCardsStack }
       }))
     )
   }
@@ -86,7 +87,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
     this.material(MaterialType.MarketHalfSizedCard).createItems(
       marketHalfSizedCards.map((card) => ({
         id: card,
-        location: { type: LocationType.MarketLineBeginning },
+        location: { type: LocationType.MarketLineBeginning }
       }))
     )
   }
@@ -100,17 +101,38 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
   setupPlayer(player: NobleColor) {
     this.material(MaterialType.NobleToken).createItem({
       id: player,
-      location: { type: LocationType.VictoryPointsSpace, x: 0 },
+      location: { type: LocationType.VictoryPointsSpace, x: 0 }
     })
     this.material(MaterialType.MarketToken).createItem({ id: player, location: { type: LocationType.MarketTokenSpot } })
     this.material(MaterialType.CityBoard).createItem({
       id: player,
-      location: { type: LocationType.CityBoardSpot, player: player },
+      location: { type: LocationType.CityBoardSpot, player: player }
     })
     this.material(MaterialType.HeroCard).createItem({
       id: player,
-      location: { type: LocationType.HeroSpot, player: player },
+      location: { type: LocationType.HeroSpot, player: player }
     })
+  }
+
+  deal3CardsToPlayers() {
+    do {
+      const cardsInHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand)
+      if (cardsInHand.length) {
+        cardsInHand.moveItems({ type: LocationType.DrawPile })
+        this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).shuffle()
+      }
+      const deck = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
+      for (const player of this.players) {
+        deck.deal({ type: LocationType.PlayerHand, player }, 3)
+      }
+    } while (this.playersHaveMoreThan2WhiteCardsInHand)
+  }
+
+  get playersHaveMoreThan2WhiteCardsInHand() {
+    return this.material(MaterialType.SubjectCard)
+      .location(LocationType.PlayerHand)
+      .id<Subject>(isWhite)
+      .length > 2
   }
 
   start() {
