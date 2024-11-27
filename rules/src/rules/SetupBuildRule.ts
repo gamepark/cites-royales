@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, PlayMoveContext, SimultaneousRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, SimultaneousRule } from '@gamepark/rules-api'
 import { minBy } from 'lodash'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -20,7 +20,7 @@ export class SetupBuildRule extends SimultaneousRule {
       .moveItems((item) => ({ type: LocationType.PlayerArea, player, id: getSubjectColor(item.id) }))
   }
 
-  afterItemMove(move: ItemMove, _context?: PlayMoveContext) {
+  afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerArea) {
       const player = move.location.player!
       const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)

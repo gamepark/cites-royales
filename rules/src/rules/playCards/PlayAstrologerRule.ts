@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { getSubjectColor, getSubjectType, isWhite, subjectColors } from '../../material/Subject'
@@ -65,7 +65,7 @@ export class PlayAstrologerRule extends PlayerTurnRule {
 
     return moves
   }
-  afterItemMove(move: ItemMove, _context?: PlayMoveContext) {
+  afterItemMove(move: ItemMove) {
     const moves: MaterialMove[] = []
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.InCity) return moves
 
