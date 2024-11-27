@@ -5,7 +5,8 @@ import { getSubjectType, SubjectType } from '../material/Subject'
 import { RuleId } from './RuleId'
 
 export class PlayCardRule extends PlayerTurnRule {
-  getLegalMoves(player: number) {
+  getPlayerMoves() {
+    const player = this.player
     return this.material(MaterialType.SubjectCard)
       .location(LocationType.PlayerHand)
       .player(player)
