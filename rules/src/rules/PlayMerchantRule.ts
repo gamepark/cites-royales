@@ -4,7 +4,8 @@ import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
 
 export class PlayMerchantRule extends PlayerTurnRule {
-  getLegalMoves(player: number) {
+  getPlayerMoves() {
+    const player = this.player
     return this.material(MaterialType.SubjectCard)
       .location(LocationType.Market)
       .moveItems({ type: LocationType.PlayerHand, player })

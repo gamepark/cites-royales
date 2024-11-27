@@ -5,7 +5,8 @@ import { subjectColors } from '../material/Subject'
 import { RuleId } from './RuleId'
 
 export class PlayAssassinRule extends PlayerTurnRule {
-  getLegalMoves(player: number) {
+  getPlayerMoves() {
+    const player = this.player
     const moves: MaterialMove[] = []
 
     this.game.players.forEach((p) => {

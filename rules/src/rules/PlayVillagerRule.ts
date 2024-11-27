@@ -5,7 +5,8 @@ import { subjectColors } from '../material/Subject'
 import { RuleId } from './RuleId'
 
 export class PlayVillagerRule extends PlayerTurnRule {
-  getLegalMoves(player: number): MaterialMove[] {
+  getPlayerMoves() {
+    const player = this.player
     const moves: MaterialMove[] = []
     const cardsInCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 

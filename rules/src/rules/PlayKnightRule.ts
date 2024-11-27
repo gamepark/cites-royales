@@ -5,7 +5,8 @@ import { subjectColors } from '../material/Subject'
 import { RuleId } from './RuleId'
 
 export class PlayKnightRule extends PlayerTurnRule {
-  getLegalMoves(player: number) {
+  getPlayerMoves() {
+    const player = this.player
     const moves: MaterialMove[] = []
 
     for (const p of this.game.players) {

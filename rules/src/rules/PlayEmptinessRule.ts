@@ -4,7 +4,7 @@ import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
 
 export class PlayEmptinessRule extends PlayerTurnRule {
-  getLegalMoves(_player: number) {
+  getPlayerMoves() {
     const moves: MaterialMove[] = []
 
     moves.push(

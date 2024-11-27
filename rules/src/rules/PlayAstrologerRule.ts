@@ -14,7 +14,8 @@ export class PlayAstrologerRule extends PlayerTurnRule {
 
     return dealCards
   }
-  getLegalMoves(player: number) {
+  getPlayerMoves() {
+    const player = this.player
     const moves: MaterialMove[] = []
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand)
     const inCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
