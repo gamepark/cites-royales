@@ -2,7 +2,7 @@ import { isMoveItemType, ItemMove, PlayMoveContext, SimultaneousRule } from '@ga
 import { minBy } from 'lodash'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { getSubjectColor, getSubjectType } from '../material/Subject'
+import { getSubjectColor, getSubjectType, isWhite, Subject } from '../material/Subject'
 import { NobleColor } from '../NobleColor'
 import { RuleId } from './RuleId'
 
@@ -12,17 +12,12 @@ export class SetupBuildRule extends SimultaneousRule {
       .location(LocationType.PlayerArea)
       .moveItems((item) => ({ type: LocationType.PlayerHand, player: item.location.player }))
   }
+
   getActivePlayerLegalMoves(player: NobleColor) {
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
-
-    const moves = playerHand
-      .moveItems((item) => {
-        const subjectColor = getSubjectColor(item.id)
-        return subjectColor ? { type: LocationType.PlayerArea, player, id: subjectColor } : {}
-      })
-      .filter((move) => move.location.type)
-
-    return moves
+    return playerHand
+      .id<Subject>(subject => !isWhite(subject))
+      .moveItems((item) => ({ type: LocationType.PlayerArea, player, id: getSubjectColor(item.id) }))
   }
 
   afterItemMove(move: ItemMove, _context?: PlayMoveContext) {
