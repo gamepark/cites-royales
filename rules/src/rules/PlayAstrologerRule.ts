@@ -22,19 +22,6 @@ export class PlayAstrologerRule extends PlayerTurnRule {
     subjectColors.forEach((color) => {
       if (color === 0) return
 
-      console.log(
-        playerHand
-          .filter((item) => isWhite(item.id))
-          .filter((item) => {
-            const subjectType = getSubjectType(item.id)
-            const subjectColor = getSubjectColor(item.id)
-
-            return inCity
-              .filter((item) => getSubjectColor(item.id) === subjectColor)
-              .getItems()
-              .every((item) => getSubjectType(item.id) < subjectType)
-          })
-      )
       moves.push(
         ...playerHand
           .filter((item) => isWhite(item.id))
