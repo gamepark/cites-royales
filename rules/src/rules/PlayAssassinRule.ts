@@ -11,8 +11,8 @@ export class PlayAssassinRule extends PlayerTurnRule {
     this.game.players.forEach((p) => {
       const cardsInCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(p)
 
-      subjectColors.forEach((color) => {
-        if (!color) return
+      for (const color of subjectColors) {
+        if (!color) continue
 
         const highestCard = cardsInCity.filter((card) => card.location.id === color).maxBy((card) => card.location.x!)
 
@@ -21,7 +21,7 @@ export class PlayAssassinRule extends PlayerTurnRule {
         if (hasHighestCard) {
           moves.push(highestCard.moveItem({ type: LocationType.Discard, player }))
         }
-      })
+      }
     })
     return moves
   }

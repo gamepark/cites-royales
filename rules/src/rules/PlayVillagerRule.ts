@@ -9,8 +9,8 @@ export class PlayVillagerRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     const cardsInCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 
-    subjectColors.forEach((color) => {
-      if (!color) return
+    for (const color of subjectColors) {
+      if (!color) continue
 
       const highestCard = cardsInCity.filter((card) => card.location.id === color).maxBy((card) => card.location.x!)
 
@@ -19,7 +19,7 @@ export class PlayVillagerRule extends PlayerTurnRule {
       if (hasHighestCard) {
         moves.push(highestCard.moveItem({ type: LocationType.PlayerHand, player }))
       }
-    })
+    }
 
     return moves
   }

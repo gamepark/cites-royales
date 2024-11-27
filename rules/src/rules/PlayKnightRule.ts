@@ -4,16 +4,16 @@ import { MaterialType } from '../material/MaterialType'
 import { subjectColors } from '../material/Subject'
 import { RuleId } from './RuleId'
 
-export class PlayKnightesterRule extends PlayerTurnRule {
+export class PlayKnightRule extends PlayerTurnRule {
   getLegalMoves(player: number) {
     const moves: MaterialMove[] = []
 
-    this.game.players.forEach((p) => {
-      if (p === player) return
+    for (const p of this.game.players) {
+      if (p === player) continue
       const cardsInCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(p)
 
-      subjectColors.forEach((color) => {
-        if (!color) return
+      for (const color of subjectColors) {
+        if (!color) continue
 
         const highestCard = cardsInCity.filter((card) => card.location.id === color).maxBy((card) => card.location.x!)
 
@@ -22,8 +22,8 @@ export class PlayKnightesterRule extends PlayerTurnRule {
         if (hasHighestCard) {
           moves.push(highestCard.moveItem({ type: LocationType.InCity, player }))
         }
-      })
-    })
+      }
+    }
     return moves
   }
   afterItemMove(move: ItemMove, _context?: PlayMoveContext) {

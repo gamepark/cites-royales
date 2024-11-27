@@ -19,8 +19,8 @@ export class PlayAstrologerRule extends PlayerTurnRule {
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand)
     const inCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 
-    subjectColors.forEach((color) => {
-      if (color === 0) return
+    for (const color of subjectColors) {
+      if (color === 0) continue
 
       moves.push(
         ...playerHand
@@ -29,16 +29,22 @@ export class PlayAstrologerRule extends PlayerTurnRule {
             const subjectType = getSubjectType(item.id)
             const subjectColor = getSubjectColor(item.id)
 
-            const inCityColor = inCity.filter((item) => getSubjectColor(item.id) === subjectColor)
+            const inCityColor = inCity.filter((inCity) => getSubjectColor(inCity.id) === subjectColor)
 
-            if (inCityColor.length > 0)
-              return inCityColor.getItems().every((item) => getSubjectType(item.id) < subjectType)
+            if (inCityColor.length > 0) {
+              return inCityColor.getItems().every((card) => getSubjectType(card.id) < subjectType)
+            }
 
             return false
           })
-          .moveItems({ type: LocationType.InCity, player, id: color })
+          .moveItems({
+            type: LocationType.InCity,
+            player,
+            id: color,
+          })
       )
-    })
+    }
+
     moves.push(
       ...playerHand
         .filter((item) => !isWhite(item.id))
