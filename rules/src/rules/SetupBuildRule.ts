@@ -22,11 +22,7 @@ export class SetupBuildRule extends SimultaneousRule {
 
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerArea) {
-      const player = move.location.player!
-      const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
-      if (playerHand.length === 2) {
-        return [this.endPlayerTurn(player)]
-      }
+      return [this.endPlayerTurn(move.location.player!)]
     }
     return []
   }
