@@ -2,6 +2,7 @@ import { LocationType } from '@gamepark/cites-royales/material/LocationType'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { Locator } from '@gamepark/react-game'
+import { actionHandLocator } from './ActionHandLocator'
 import { cityBoardSpotLocator } from './CityBoardSpotLocator'
 import { discardLocator } from './DiscardLocator'
 import { drawPileLocator } from './DrawPileLocator'
@@ -33,5 +34,6 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.HeroSpot]: heroSpotLocator,
   [LocationType.PlayerHand]: playerHandLocator,
   [LocationType.PlayerArea]: playerAreaLocator,
+  [LocationType.ActionHand]: actionHandLocator,
   [LocationType.InCity]: inCityLocator,
 }

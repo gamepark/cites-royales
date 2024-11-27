@@ -60,6 +60,7 @@ export class CitesRoyalesRules
       [LocationType.Discard]: new PositiveSequenceStrategy(),
       [LocationType.PlayerHand]: new PositiveSequenceStrategy(),
       [LocationType.InCity]: new PositiveSequenceStrategy(),
+      [LocationType.ActionHand]: new PositiveSequenceStrategy(),
     },
     [MaterialType.MarketHalfSizedCard]: {
       [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),

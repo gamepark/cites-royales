@@ -1,3 +1,1 @@
-export enum Memory {
-  Astrologer = 1,
-}
+export enum Memory {}
