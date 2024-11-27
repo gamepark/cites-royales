@@ -69,7 +69,6 @@ export class SetupDraftRule extends SimultaneousRule {
       .player(player)
       .filter((item) => item.id < 10)
 
-    if (whiteCards.length > 2) return true
-    else return false
+    return whiteCards.length > 2
   }
 }
