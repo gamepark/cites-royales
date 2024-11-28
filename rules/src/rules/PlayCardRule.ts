@@ -1,17 +1,22 @@
-import { isMoveItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectType, SubjectType } from '../material/Subject'
+import { CustomMoveType } from './CustomMoveType'
 import { RuleId } from './RuleId'
 
 export class PlayCardRule extends PlayerTurnRule {
   getPlayerMoves() {
     const player = this.player
-    return this.material(MaterialType.SubjectCard)
-      .location(LocationType.PlayerHand)
-      .player(player)
-      .moveItems((item) => ({ type: LocationType.Discard, player, id: item.id }))
+    return [
+      ...this.material(MaterialType.SubjectCard)
+        .location(LocationType.PlayerHand)
+        .player(player)
+        .moveItems((item) => ({ type: LocationType.Discard, player, id: item.id })),
+      this.customMove(CustomMoveType.Pass)
+    ]
   }
+
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Discard) return []
 
@@ -33,5 +38,12 @@ export class PlayCardRule extends PlayerTurnRule {
       case SubjectType.Astrologer:
         return [this.startRule(RuleId.PlayAstrologer)]
     }
+  }
+
+  onCustomMove(move: CustomMove) {
+    if (move.type === CustomMoveType.Pass) {
+      return [this.startRule(RuleId.MarketBuy)]
+    }
+    return []
   }
 }

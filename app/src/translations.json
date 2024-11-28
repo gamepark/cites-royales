@@ -131,6 +131,8 @@
       "header.setup-draft.player.2": "{player} doit donner une carte à ses voisins",
       "header.setup-draft.player.1": "{player} doit donner {cards, plural, =1{une carte} other{deux cartes}} à {neighbor}",
       "header.setup-draft.player.you": "{player} doit vous donner {cards, plural, =1{une carte} other{deux cartes}}",
+      "header.play-card.you": "Défaussez une carte pour son effet ou <pass>passez</pass>",
+      "header.play-card.player": "{player} peut défausser une carte pour son effet",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",

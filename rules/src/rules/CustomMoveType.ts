@@ -1,3 +1,3 @@
 export enum CustomMoveType {
-  Pass,
+  Pass = 1,
 }
