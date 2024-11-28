@@ -10,4 +10,5 @@ export enum RuleId {
   PlayKnight = 9,
   PlayAstrologer = 10,
   MarketBuy = 11,
+  AddCardInMarket = 12
 }

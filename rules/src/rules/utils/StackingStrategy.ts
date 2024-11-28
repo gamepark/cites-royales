@@ -1,6 +1,6 @@
 import { LocationStrategy, Material, MaterialItem, PositiveSequenceStrategy } from '@gamepark/rules-api'
 
-export class StakingStrategy implements LocationStrategy {
+export class StackingStrategy implements LocationStrategy {
   private delegate = new PositiveSequenceStrategy('z')
 
   addItem(material: Material, item: MaterialItem) {

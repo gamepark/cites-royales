@@ -1,1 +1,3 @@
-export enum Memory {}
+export enum Memory {
+  PurshasingPower = 1
+}

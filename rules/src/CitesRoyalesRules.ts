@@ -5,11 +5,12 @@ import {
   MaterialMove,
   PositiveSequenceStrategy,
   SecretMaterialRules,
-  TimeLimit,
+  TimeLimit
 } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
+import { MarketBuyRule } from './rules/MarketBuyRule'
 import { PlayCardRule } from './rules/PlayCardRule'
 import { PlayAssassinRule } from './rules/playCards/PlayAssassinRule'
 import { PlayAstrologerRule } from './rules/playCards/PlayAstrologerRule'
@@ -21,7 +22,7 @@ import { PlayVillagerRule } from './rules/playCards/PlayVillagerRule'
 import { RuleId } from './rules/RuleId'
 import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
-import { StakingStrategy } from './rules/utils/StackingStrategy'
+import { StackingStrategy } from './rules/utils/StackingStrategy'
 
 /**
  * This class implements the rules of the board game.
@@ -47,11 +48,12 @@ export class CitesRoyalesRules
     [RuleId.PlayMerchant]: PlayMerchantRule,
     [RuleId.PlayKnight]: PlayKnightRule,
     [RuleId.PlayAstrologer]: PlayAstrologerRule,
+    [RuleId.MarketBuy]: MarketBuyRule
   }
 
   locationsStrategies = {
     [MaterialType.SeasonCard]: {
-      [LocationType.SeasonsCardsStack]: new PositiveSequenceStrategy(),
+      [LocationType.SeasonsCardsStack]: new PositiveSequenceStrategy()
     },
     [MaterialType.SubjectCard]: {
       [LocationType.DrawPile]: new PositiveSequenceStrategy(),
@@ -60,17 +62,18 @@ export class CitesRoyalesRules
       [LocationType.Discard]: new PositiveSequenceStrategy(),
       [LocationType.PlayerHand]: new PositiveSequenceStrategy(),
       [LocationType.InCity]: new PositiveSequenceStrategy(),
-      [LocationType.ActionHand]: new PositiveSequenceStrategy(),
+      [LocationType.ActionHand]: new PositiveSequenceStrategy()
     },
     [MaterialType.MarketHalfSizedCard]: {
-      [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy(),
+      [LocationType.MarketLineBeginning]: new PositiveSequenceStrategy()
     },
     [MaterialType.NobleToken]: {
-      [LocationType.VictoryPointsSpace]: new StakingStrategy(),
+      [LocationType.VictoryPointsSpace]: new StackingStrategy()
     },
     [MaterialType.MarketToken]: {
-      [LocationType.MarketTokenSpot]: new StakingStrategy(),
-    },
+      [LocationType.MarketTokenSpot]: new StackingStrategy(),
+      [LocationType.OnSeasonCards]: new StackingStrategy()
+    }
   }
 
   hidingStrategies = {
@@ -79,8 +82,8 @@ export class CitesRoyalesRules
       [LocationType.Reserve]: hideItemId,
       [LocationType.PlayerHand]: hideItemIdToOthers,
       [LocationType.PlayerArea]: hideItemId,
-      [LocationType.ActionHand]: hideItemIdToOthers,
-    },
+      [LocationType.ActionHand]: hideItemIdToOthers
+    }
   }
 
   giveTime(): number {

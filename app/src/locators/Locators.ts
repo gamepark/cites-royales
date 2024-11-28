@@ -12,6 +12,7 @@ import { inCityLocator } from './InCityLocator'
 import { marketLocator } from './Market'
 import { marketLineBeginningLocator } from './MarketLineBeginning'
 import { marketTokenSpotLocator } from './MarketTokenSpotLocator'
+import { onSeasonCardsLocator } from './OnSeasonCardsLocator'
 import { playerAreaLocator } from './PlayerAreaLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { reserveLocator } from './Reserve'
@@ -36,4 +37,5 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.PlayerArea]: playerAreaLocator,
   [LocationType.ActionHand]: actionHandLocator,
   [LocationType.InCity]: inCityLocator,
+  [LocationType.OnSeasonCards]: onSeasonCardsLocator
 }
