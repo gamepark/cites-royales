@@ -7,17 +7,11 @@ import { RuleId } from './RuleId'
 export class SetupDraftRule extends SimultaneousRule {
   getActivePlayerLegalMoves(player: NobleColor) {
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
-    const neighbors = this.getNeighbors(player)
-    const cardsToGive = this.game.players.length === 2 ? 2 : 1
 
-    return neighbors
-      .filter(
-        (neighbor) =>
-          this.material(MaterialType.SubjectCard).location(LocationType.PlayerArea).player(neighbor).locationId(player)
-            .length < cardsToGive
-      )
+    return this.getNeighborsToGiveCard(player)
       .flatMap((neighbor) => playerHand.moveItems({ type: LocationType.PlayerArea, player: neighbor, id: player }))
   }
+
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerArea) {
       const player = move.location.id
@@ -33,10 +27,29 @@ export class SetupDraftRule extends SimultaneousRule {
     return [this.startSimultaneousRule(RuleId.SetupBuild)]
   }
 
+  getNeighborsToGiveCard(player: NobleColor) {
+    const cardsToGive = this.cardsToGive
+    return this.getNeighbors(player).filter((neighbor) =>
+      this.getNumberOfCardsReceivedFromMe(neighbor, player) < cardsToGive
+    )
+  }
+
+  get cardsToGive() {
+    return this.game.players.length === 2 ? 2 : 1
+  }
+
   getNeighbors(player: NobleColor) {
     const index = this.game.players.indexOf(player)
     return this.game.players.filter(
       (_, i, players) => Math.abs(index - i) === 1 || Math.abs(index - i) === players.length - 1
     )
+  }
+
+  getNumberOfCardsReceivedFromMe(neighbor: NobleColor, player: NobleColor) {
+    return this.material(MaterialType.SubjectCard)
+      .location(LocationType.PlayerArea)
+      .player(neighbor)
+      .locationId(player)
+      .length
   }
 }
