@@ -23,12 +23,24 @@ export class MarketBuyRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
 
     const purshasingPower = this.remind(Memory.PurshasingPower)
-    moves.push(
-      ...this.material(MaterialType.SubjectCard)
-        .location(LocationType.Market)
-        .filter((item) => getSubjectType(item.id) <= purshasingPower)
-        .moveItems({ type: LocationType.PlayerHand, player: this.player })
-    )
+
+    if (this.getIsBuying()) {
+      moves.push(
+        ...this.material(MaterialType.SubjectCard)
+          .location(LocationType.Market)
+          .filter((item) => getSubjectType(item.id) <= purshasingPower)
+          .moveItems({ type: LocationType.PlayerHand, player: this.player })
+      )
+    } else {
+      if (purshasingPower >= 8) {
+        moves.push(
+          ...this.material(MaterialType.SubjectCard)
+            .location(LocationType.Market)
+            .filter((item) => getSubjectType(item.id) <= purshasingPower)
+            .moveItems({ type: LocationType.PlayerHand, player: this.player })
+        )
+      }
+    }
 
     moves.push(this.startRule(RuleId.AddCardInMarket))
 
@@ -45,8 +57,12 @@ export class MarketBuyRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
       const card = this.material(MaterialType.SubjectCard).index(move.itemIndex).getItems()[0]
       const cardValue = getSubjectType(card.id)
+
       this.memorize(Memory.PurshasingPower, this.remind(Memory.PurshasingPower) - cardValue)
+      if (!this.getIsBuying()) this.memorize(Memory.IsBuying, true, this.player)
+
       if (!this.playerCanBuy()) {
+        this.forget(Memory.IsBuying)
         const playerToken = this.getPlayerToken()
 
         const season = this.getSeason()
@@ -61,6 +77,9 @@ export class MarketBuyRule extends PlayerTurnRule {
     }
 
     return []
+  }
+  getIsBuying() {
+    return this.remind(Memory.IsBuying, this.player)
   }
   getPlayerToken() {
     return this.material(MaterialType.MarketToken).id(this.player)
@@ -88,7 +107,6 @@ export class MarketBuyRule extends PlayerTurnRule {
   }
   onRuleEnd() {
     this.forget(Memory.PurshasingPower)
-
     return []
   }
 }
