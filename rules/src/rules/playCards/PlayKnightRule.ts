@@ -1,7 +1,7 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { subjectColors } from '../../material/Subject'
+import { getSubjectColor, subjectColors } from '../../material/Subject'
 import { RuleId } from '../RuleId'
 
 export class PlayKnightRule extends PlayerTurnRule {
@@ -21,7 +21,9 @@ export class PlayKnightRule extends PlayerTurnRule {
         const hasHighestCard = highestCard.length > 0
 
         if (hasHighestCard) {
-          moves.push(highestCard.moveItem({ type: LocationType.InCity, player }))
+          moves.push(
+            ...highestCard.moveItems((item) => ({ type: LocationType.InCity, player, id: getSubjectColor(item.id) }))
+          )
         }
       }
     }
