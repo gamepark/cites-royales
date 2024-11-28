@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { getSubjectColor, getSubjectType, isWhite, subjectColors } from '../../material/Subject'
@@ -41,7 +41,7 @@ export class PlayAstrologerRule extends PlayerTurnRule {
           .moveItems({
             type: LocationType.InCity,
             player,
-            id: color,
+            id: color
           })
       )
     }
@@ -64,6 +64,17 @@ export class PlayAstrologerRule extends PlayerTurnRule {
     moves.push(this.customMove(CustomMoveType.Pass))
 
     return moves
+  }
+  onCustomMove(move: CustomMove) {
+    if (move.type === CustomMoveType.Pass) {
+      return [
+        ...this.material(MaterialType.SubjectCard)
+          .location(LocationType.ActionHand)
+          .moveItems({ type: LocationType.Discard }),
+        this.startRule(RuleId.MarketBuy)
+      ]
+    }
+    return []
   }
   afterItemMove(move: ItemMove) {
     const moves: MaterialMove[] = []
