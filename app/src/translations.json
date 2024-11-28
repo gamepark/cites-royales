@@ -133,6 +133,8 @@
       "header.setup-draft.player.you": "{player} doit vous donner {cards, plural, =1{une carte} other{deux cartes}}",
       "header.play-card.you": "Défaussez une carte pour son effet ou <pass>passez</pass>",
       "header.play-card.player": "{player} peut défausser une carte pour son effet",
+      "header.market-buy.you": "Achetez des cartes au marché ou <pass>passez</pass>",
+      "header.market-buy.player": "{player} peut acheter des cartes au marché",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",

@@ -4,7 +4,7 @@ import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } fr
 import { isStartRule } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 
-export const PlayCardHeader = () => {
+export const MarketBuyHeader = () => {
   const { t } = useTranslation()
   const me = usePlayerId<NobleColor>()
   const rules = useRules<CitesRoyalesRules>()!
@@ -14,12 +14,12 @@ export const PlayCardHeader = () => {
   if (me === activePlayer) {
     return (
       <Trans
-        defaults="header.play-card.you"
+        defaults="header.market-buy.you"
         components={{
           pass: <PlayMoveButton move={pass} />
         }}
       />
     )
   }
-  return <>{t('header.play-card.player', { player })}</>
+  return <>{t('header.market-buy.player', { player })}</>
 }

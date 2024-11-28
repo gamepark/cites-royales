@@ -52,8 +52,10 @@ export class MarketBuyRule extends PlayerTurnRule {
         const season = this.getSeason()
 
         return [
-          ...playerToken.moveItems({ type: LocationType.OnSeasonCards, id: season })
-          //   Next player turn or End Phase if everybody bought
+          ...playerToken.moveItems({ type: LocationType.OnSeasonCards, id: season }),
+          this.everyPlayerHasBought(season)
+            ? this.startSimultaneousRule(RuleId.CitiesConstruction)
+            : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
         ]
       }
     }

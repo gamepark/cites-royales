@@ -10,6 +10,7 @@ import {
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
+import { AddCardInMarket } from './rules/AddCardInMarketRule'
 import { MarketBuyRule } from './rules/MarketBuyRule'
 import { PlayCardRule } from './rules/PlayCardRule'
 import { PlayAssassinRule } from './rules/playCards/PlayAssassinRule'
@@ -48,7 +49,8 @@ export class CitesRoyalesRules
     [RuleId.PlayMerchant]: PlayMerchantRule,
     [RuleId.PlayKnight]: PlayKnightRule,
     [RuleId.PlayAstrologer]: PlayAstrologerRule,
-    [RuleId.MarketBuy]: MarketBuyRule
+    [RuleId.MarketBuy]: MarketBuyRule,
+    [RuleId.AddCardInMarket]: AddCardInMarket
   }
 
   locationsStrategies = {
