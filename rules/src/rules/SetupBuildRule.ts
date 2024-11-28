@@ -17,7 +17,7 @@ export class SetupBuildRule extends SimultaneousRule {
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
     return playerHand
       .id<Subject>(subject => !isWhite(subject))
-      .moveItems((item) => ({ type: LocationType.PlayerArea, player, id: getSubjectColor(item.id) }))
+      .moveItems({ type: LocationType.PlayerArea, player })
   }
 
   afterItemMove(move: ItemMove) {
@@ -26,19 +26,23 @@ export class SetupBuildRule extends SimultaneousRule {
     }
     return []
   }
+
   getMovesAfterPlayersDone() {
     const builtCards = this.material(MaterialType.SubjectCard).location(LocationType.PlayerArea)
+    if (builtCards.getItems().some(item => item.id === undefined)) return [] // On front-end side, cards id are hidden: wait for server to return the consequences
 
-    const smallestCard = minBy(builtCards.getItems(), (card) => getSubjectType(card.location.id))!
+    const startPlayer = minBy(this.game.players, player => {
+      const subject = builtCards.player(player).getItem<Subject>()!.id
+      return getSubjectType(subject) * 10 + getSubjectColor(subject)
+    })!
 
-    const startPlayer: NobleColor = smallestCard.location.player!
     return [
       ...builtCards.moveItems((item) => ({
         type: LocationType.InCity,
         player: item.location.player,
-        id: getSubjectColor(item.id),
+        id: getSubjectColor(item.id)
       })),
-      this.startPlayerTurn(RuleId.PlayCard, startPlayer),
+      this.startPlayerTurn(RuleId.PlayCard, startPlayer)
     ]
   }
 }
