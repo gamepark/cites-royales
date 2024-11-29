@@ -5,6 +5,11 @@ import { getSubjectType, SubjectType } from '../material/Subject'
 import { RuleId } from './RuleId'
 
 export class PlayCardRule extends PlayerTurnRule {
+  onRuleStart(){
+    if(this.playerHasNoCardInHand) return [this.startRule(RuleId.MarketBuy)]
+    return []
+  }
+
   getPlayerMoves() {
     const player = this.player
     return [
@@ -37,5 +42,9 @@ export class PlayCardRule extends PlayerTurnRule {
       case SubjectType.Astrologer:
         return [this.startRule(RuleId.PlayAstrologer)]
     }
+  }
+
+  get playerHasNoCardInHand() {
+    return this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(this.player).length === 0
   }
 }
