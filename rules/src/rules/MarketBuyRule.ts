@@ -1,12 +1,4 @@
-import {
-  isMoveItemType,
-  ItemMove,
-  MaterialMove,
-  PlayerTurnRule,
-  PlayMoveContext,
-  RuleMove,
-  RuleStep
-} from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Season } from '../material/Season'
@@ -15,51 +7,45 @@ import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class MarketBuyRule extends PlayerTurnRule {
-  onRuleStart(_move: RuleMove<number, RuleId>, _previousRule?: RuleStep, _context?: PlayMoveContext) {
-    this.memorize(Memory.PurshasingPower, this.getPurshasingPower())
+  onRuleStart() {
+    if (!this.remind(Memory.Revolution, this.player) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4) {
+      return [this.startRule(RuleId.AddCardInMarket)]
+    }
+    this.memorize(Memory.PurchasingPower, this.getPurchasingPower())
     return []
   }
+
   getPlayerMoves() {
     const moves: MaterialMove[] = []
 
-    const purshasingPower = this.remind(Memory.PurshasingPower)
+    const purchasingPower = this.remind(Memory.PurchasingPower)
 
-    if (this.getIsBuying() || this.remind(Memory.Revolution, this.player)) {
-      moves.push(
-        ...this.material(MaterialType.SubjectCard)
-          .location(LocationType.Market)
-          .filter((item) => getSubjectType(item.id) <= purshasingPower)
-          .moveItems({ type: LocationType.PlayerHand, player: this.player })
-      )
-    } else {
-      if (purshasingPower >= 8) {
-        moves.push(
-          ...this.material(MaterialType.SubjectCard)
-            .location(LocationType.Market)
-            .filter((item) => getSubjectType(item.id) <= purshasingPower)
-            .moveItems({ type: LocationType.PlayerHand, player: this.player })
-        )
-      }
-    }
+    moves.push(
+      ...this.material(MaterialType.SubjectCard)
+        .location(LocationType.Market)
+        .filter((item) => getSubjectType(item.id) <= purchasingPower)
+        .moveItems({ type: LocationType.PlayerHand, player: this.player })
+    )
 
     if (!this.remind(Memory.Revolution, this.player)) moves.push(this.startRule(RuleId.AddCardInMarket))
 
     return moves
   }
 
-  getPurshasingPower() {
+  getPurchasingPower() {
     return (
       this.material(MaterialType.SubjectCard).location(LocationType.Market).length +
       this.material(MaterialType.SubjectCard).location(LocationType.Reserve).length
     )
   }
-  afterItemMove(move: ItemMove<number, number, number>, _context?: PlayMoveContext) {
+
+  afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
       const moves: MaterialMove[] = []
       const card = this.material(MaterialType.SubjectCard).index(move.itemIndex).getItems()[0]
       const cardValue = getSubjectType(card.id)
 
-      this.memorize(Memory.PurshasingPower, this.remind(Memory.PurshasingPower) - cardValue)
+      this.memorize(Memory.PurchasingPower, this.remind(Memory.PurchasingPower) - cardValue)
       if (!this.getIsBuying()) this.memorize(Memory.IsBuying, true, this.player)
 
       if (!this.playerCanBuy()) {
@@ -87,24 +73,29 @@ export class MarketBuyRule extends PlayerTurnRule {
 
     return []
   }
+
   getIsBuying() {
     return this.remind(Memory.IsBuying, this.player)
   }
+
   getPlayerToken() {
     return this.material(MaterialType.MarketToken).id(this.player)
   }
+
   getSeason() {
     return this.material(MaterialType.SeasonCard)
       .location((l) => !l.rotation)
       .minBy((item) => item.location.x!)
       .getItem<Season>()!.id
   }
+
   playerCanBuy() {
     return this.material(MaterialType.SubjectCard)
       .location(LocationType.Market)
       .getItems()
-      .some((item) => getSubjectType(item.id) <= this.remind(Memory.PurshasingPower))
+      .some((item) => getSubjectType(item.id) <= this.remind(Memory.PurchasingPower))
   }
+
   everyPlayerHasBought(season: Season) {
     return (
       this.game.players.length ===
@@ -114,8 +105,9 @@ export class MarketBuyRule extends PlayerTurnRule {
         .filter((token) => token.location.id === season).length
     )
   }
+
   onRuleEnd() {
-    this.forget(Memory.PurshasingPower)
+    this.forget(Memory.PurchasingPower)
     return []
   }
 }
