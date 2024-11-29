@@ -22,7 +22,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     const marketHasRevolution = this.marketHasRevolution(subjectCity)
 
     if (marketHasRevolution) {
-      this.memorize(Memory.Revolution, true, this.player)
+      this.memorize(Memory.Revolution, true)
       return [this.startRule(RuleId.MarketBuy)]
     } else {
       if (this.getMarketCardsNumber() > 8) {

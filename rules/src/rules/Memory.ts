@@ -1,5 +1,5 @@
 export enum Memory {
   PurchasingPower = 1,
-  IsBuying = 2,
+  hasBought = 2,
   Revolution = 3
 }

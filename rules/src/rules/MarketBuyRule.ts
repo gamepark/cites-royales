@@ -1,14 +1,15 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Season } from '../material/Season'
 import { getSubjectType } from '../material/Subject'
+import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class MarketBuyRule extends PlayerTurnRule {
   onRuleStart() {
-    if (!this.remind(Memory.Revolution, this.player) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4) {
+    if (!this.remind(Memory.Revolution) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4) {
       return [this.startRule(RuleId.AddCardInMarket)]
     }
     this.memorize(Memory.PurchasingPower, this.getPurchasingPower())
@@ -27,7 +28,9 @@ export class MarketBuyRule extends PlayerTurnRule {
         .moveItems({ type: LocationType.PlayerHand, player: this.player })
     )
 
-    if (!this.remind(Memory.Revolution, this.player)) moves.push(this.startRule(RuleId.AddCardInMarket))
+    if (this.hasBought || !this.remind(Memory.Revolution)) {
+      moves.push(this.customMove(CustomMoveType.Pass))
+    }
 
     return moves
   }
@@ -41,73 +44,65 @@ export class MarketBuyRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
-      const moves: MaterialMove[] = []
       const card = this.material(MaterialType.SubjectCard).index(move.itemIndex).getItems()[0]
       const cardValue = getSubjectType(card.id)
-
-      this.memorize(Memory.PurchasingPower, this.remind(Memory.PurchasingPower) - cardValue)
-      if (!this.getIsBuying()) this.memorize(Memory.IsBuying, true, this.player)
-
-      if (!this.playerCanBuy()) {
-        this.forget(Memory.IsBuying)
-        const playerToken = this.getPlayerToken()
-
-        const season = this.getSeason()
-
-        moves.push(...playerToken.moveItems({ type: LocationType.OnSeasonCards, id: season }))
-
-        if (this.remind(Memory.Revolution, this.player)) {
-          moves.push(this.material(MaterialType.HeroCard).player(this.player).rotateItem(true))
-          this.forget(Memory.Revolution, this.player)
-        }
-
-        moves.push(
-          this.everyPlayerHasBought(season)
-            ? this.startSimultaneousRule(RuleId.CitiesConstruction)
-            : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
-        )
-
-        return moves
-      }
+      this.memorize(Memory.PurchasingPower, purchasingPower => purchasingPower - cardValue)
+      this.memorize(Memory.hasBought, true)
     }
 
     return []
   }
 
-  getIsBuying() {
-    return this.remind(Memory.IsBuying, this.player)
+  get hasBought() {
+    return this.remind(Memory.hasBought)
   }
 
-  getPlayerToken() {
+  get playerToken() {
     return this.material(MaterialType.MarketToken).id(this.player)
   }
 
-  getSeason() {
+  get season() {
     return this.material(MaterialType.SeasonCard)
       .location((l) => !l.rotation)
       .minBy((item) => item.location.x!)
       .getItem<Season>()!.id
   }
 
-  playerCanBuy() {
-    return this.material(MaterialType.SubjectCard)
-      .location(LocationType.Market)
-      .getItems()
-      .some((item) => getSubjectType(item.id) <= this.remind(Memory.PurchasingPower))
+  get everyPlayerHasBought() {
+    return this.material(MaterialType.MarketToken).location(LocationType.OnSeasonCards).length === this.game.players.length
   }
 
-  everyPlayerHasBought(season: Season) {
-    return (
-      this.game.players.length ===
-      this.material(MaterialType.MarketToken)
-        .location(LocationType.OnSeasonCards)
-        .getItems()
-        .filter((token) => token.location.id === season).length
-    )
+  onCustomMove(move: CustomMove) {
+    if (move.type !== CustomMoveType.Pass) return []
+
+    if (this.hasBought) {
+      const moves: MaterialMove[] = [
+        this.playerToken.moveItem({ type: LocationType.OnSeasonCards, id: this.season })
+      ]
+
+      if (this.remind(Memory.Revolution)) {
+        const heroCard = this.material(MaterialType.HeroCard).player(this.player)
+        if (!heroCard.getItem()?.location.rotation) {
+          moves.push(heroCard.rotateItem(true))
+        }
+      }
+
+      if (this.everyPlayerHasBought) {
+        moves.push(this.startSimultaneousRule(RuleId.CitiesConstruction))
+      } else {
+        moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
+      }
+
+      return moves
+    } else {
+      return [this.startRule(RuleId.AddCardInMarket)]
+    }
   }
 
   onRuleEnd() {
     this.forget(Memory.PurchasingPower)
+    this.forget(Memory.hasBought)
+    this.forget(Memory.Revolution)
     return []
   }
 }
