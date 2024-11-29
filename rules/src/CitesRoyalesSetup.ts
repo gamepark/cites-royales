@@ -6,7 +6,7 @@ import { LocationType } from './material/LocationType'
 import { marketHalfSizedCards } from './material/MarketHalfSizedCard'
 import { MaterialType } from './material/MaterialType'
 import { seasons } from './material/Season'
-import { getSubjectColor, isEmptiness, isWhite, Subject, subjects } from './material/Subject'
+import { getSubjectCity, isEmptiness, isWhite, Subject, subjects, WhiteSubject } from './material/Subject'
 import { NobleColor } from './NobleColor'
 import { RuleId } from './rules/RuleId'
 
@@ -64,7 +64,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
 
       const cardsToDiscard = marketCards.filter((item) =>
         marketCardsItems.every(
-          (item2) => item2.location.x! >= item.location.x! || getSubjectColor(item2.id) !== getSubjectColor(item.id)
+          (item2) => item2.location.x! >= item.location.x! || getSubjectCity(item2.id) !== getSubjectCity(item.id)
         )
       )
       cardsToDiscard.moveItems({ type: LocationType.Discard })
@@ -78,7 +78,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
   marketHasFourDifferentColorCards() {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).getItems()
 
-    const colors = marketCards.map((card) => getSubjectColor(card.id))
+    const colors = marketCards.map((card) => getSubjectCity(card.id) ?? WhiteSubject)
 
     return uniq(colors).length === 4
   }

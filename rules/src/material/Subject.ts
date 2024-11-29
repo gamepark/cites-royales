@@ -1,4 +1,5 @@
 import { getEnumValues } from '@gamepark/rules-api'
+import { City } from './City'
 
 export enum SubjectType {
   Emptiness,
@@ -10,15 +11,7 @@ export enum SubjectType {
   Astrologer,
 }
 
-export enum SubjectColor {
-  White,
-  Purple,
-  Yellow,
-  Pink,
-  Red,
-  Blue,
-  Green,
-}
+export const WhiteSubject = 0
 
 export enum Subject {
   WhiteEmptiness = 0,
@@ -73,8 +66,7 @@ export enum Subject {
 }
 
 export const subjects = getEnumValues(Subject)
-export const subjectColors = getEnumValues(SubjectColor)
-export const getSubjectColor = (subject: Subject): SubjectColor => Math.floor(subject / 10)
+export const getSubjectCity = (subject: Subject): City | undefined => Math.floor(subject / 10) || undefined
 export const getSubjectType = (subject: Subject): SubjectType => subject % 10
 export const isWhite = (subject: Subject) => subject < 10
 export const isEmptiness = (subject: Subject) => getSubjectType(subject) === SubjectType.Emptiness

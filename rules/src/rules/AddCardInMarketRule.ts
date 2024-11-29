@@ -1,7 +1,8 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { City } from '../material/City'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { getSubjectColor, Subject, SubjectColor } from '../material/Subject'
+import { getSubjectCity, Subject } from '../material/Subject'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -17,8 +18,8 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Market) return []
     const moves: MaterialMove[] = []
     const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
-    const subjectColor = getSubjectColor(card.id)
-    const marketHasRevolution = this.marketHasRevolution(subjectColor)
+    const subjectCity = getSubjectCity(card.id)
+    const marketHasRevolution = this.marketHasRevolution(subjectCity)
 
     if (marketHasRevolution) {
       this.memorize(Memory.Revolution, true, this.player)
@@ -53,11 +54,11 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     return marketCards.length + reserveCards.length
   }
 
-  marketHasRevolution(subjectColor: SubjectColor) {
+  marketHasRevolution(subjectCity?: City) {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
     let hasRevolution = false
     if (this.getMarketCardsNumber() >= 8) {
-      const cardsNumber = marketCards.filter((item) => getSubjectColor(item.id) === subjectColor).length
+      const cardsNumber = marketCards.filter((item) => getSubjectCity(item.id) === subjectCity).length
       if (cardsNumber > 2) hasRevolution = true
     }
     return hasRevolution

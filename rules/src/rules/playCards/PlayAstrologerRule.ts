@@ -1,7 +1,8 @@
 import { CustomMove, isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { cities } from '../../material/City'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { getSubjectColor, getSubjectType, isWhite, subjectColors } from '../../material/Subject'
+import { getSubjectCity, getSubjectType, isWhite } from '../../material/Subject'
 import { CustomMoveType } from '../CustomMoveType'
 import { RuleId } from '../RuleId'
 import { CardEffectRule } from './CardEffectRule'
@@ -21,17 +22,16 @@ export class PlayAstrologerRule extends CardEffectRule {
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand)
     const inCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 
-    for (const color of subjectColors) {
-      if (color === 0) continue
+    for (const city of cities) {
 
       moves.push(
         ...playerHand
           .filter((item) => isWhite(item.id))
           .filter((item) => {
             const subjectType = getSubjectType(item.id)
-            const subjectColor = getSubjectColor(item.id)
+            const subjectColor = getSubjectCity(item.id)
 
-            const inCityColor = inCity.filter((inCity) => getSubjectColor(inCity.id) === subjectColor)
+            const inCityColor = inCity.filter((inCity) => getSubjectCity(inCity.id) === subjectColor)
 
             if (inCityColor.length > 0) {
               return inCityColor.getItems().every((card) => getSubjectType(card.id) < subjectType)
@@ -42,7 +42,7 @@ export class PlayAstrologerRule extends CardEffectRule {
           .moveItems({
             type: LocationType.InCity,
             player,
-            id: color
+            id: city
           })
       )
     }
@@ -52,14 +52,14 @@ export class PlayAstrologerRule extends CardEffectRule {
         .filter((item) => !isWhite(item.id))
         .filter((item) => {
           const subjectType = getSubjectType(item.id)
-          const subjectColor = getSubjectColor(item.id)
+          const subjectColor = getSubjectCity(item.id)
 
           return inCity
-            .filter((item) => getSubjectColor(item.id) === subjectColor)
+            .filter((item) => getSubjectCity(item.id) === subjectColor)
             .getItems()
             .every((item) => getSubjectType(item.id) < subjectType)
         })
-        .moveItems((item) => ({ type: LocationType.InCity, player, id: getSubjectColor(item.id) }))
+        .moveItems((item) => ({ type: LocationType.InCity, player, id: getSubjectCity(item.id) }))
     )
 
     moves.push(this.customMove(CustomMoveType.Pass))

@@ -1,7 +1,8 @@
 import { isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { cities } from '../../material/City'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { getSubjectColor, subjectColors } from '../../material/Subject'
+import { getSubjectCity } from '../../material/Subject'
 import { RuleId } from '../RuleId'
 import { CardEffectRule } from './CardEffectRule'
 
@@ -14,16 +15,15 @@ export class PlayKnightRule extends CardEffectRule {
       if (p === player) continue
       const cardsInCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(p)
 
-      for (const color of subjectColors) {
-        if (!color) continue
+      for (const city of cities) {
 
-        const highestCard = cardsInCity.filter((card) => card.location.id === color).maxBy((card) => card.location.x!)
+        const highestCard = cardsInCity.filter((card) => card.location.id === city).maxBy((card) => card.location.x!)
 
         const hasHighestCard = highestCard.length > 0
 
         if (hasHighestCard) {
           moves.push(
-            ...highestCard.moveItems((item) => ({ type: LocationType.InCity, player, id: getSubjectColor(item.id) }))
+            ...highestCard.moveItems((item) => ({ type: LocationType.InCity, player, id: getSubjectCity(item.id) }))
           )
         }
       }

@@ -2,7 +2,7 @@ import { isMoveItemType, ItemMove, SimultaneousRule } from '@gamepark/rules-api'
 import { minBy } from 'lodash'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { getSubjectColor, getSubjectType, isWhite, Subject } from '../material/Subject'
+import { getSubjectCity, getSubjectType, isWhite, Subject } from '../material/Subject'
 import { NobleColor } from '../NobleColor'
 import { RuleId } from './RuleId'
 
@@ -33,14 +33,14 @@ export class SetupBuildRule extends SimultaneousRule {
 
     const startPlayer = minBy(this.game.players, player => {
       const subject = builtCards.player(player).getItem<Subject>()!.id
-      return getSubjectType(subject) * 10 + getSubjectColor(subject)
+      return getSubjectType(subject) * 10 + getSubjectCity(subject)!
     })!
 
     return [
       ...builtCards.moveItems((item) => ({
         type: LocationType.InCity,
         player: item.location.player,
-        id: getSubjectColor(item.id)
+        id: getSubjectCity(item.id)
       })),
       this.startPlayerTurn(RuleId.PlayCard, startPlayer)
     ]
