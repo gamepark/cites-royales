@@ -27,10 +27,14 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   }
   marketHasRevolution() {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
+    const reserveCards = this.material(MaterialType.SubjectCard).location(LocationType.Reserve)
+
     let hasRevolution = false
-    for (const color of subjectColors) {
-      const cardsNumber = marketCards.filter((item) => getSubjectColor(item.id) === color).length
-      if (cardsNumber > 2) hasRevolution = true
+    if (marketCards.length + reserveCards.length >= 8) {
+      for (const color of subjectColors) {
+        const cardsNumber = marketCards.filter((item) => getSubjectColor(item.id) === color).length
+        if (cardsNumber > 2) hasRevolution = true
+      }
     }
     return hasRevolution
   }
