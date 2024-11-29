@@ -8,7 +8,7 @@ class PlayerHandLocator extends HandLocator {
   getCoordinates(location: Location, context: MaterialContext) {
     const playerIndex = getRelativePlayerIndex(context, location.player)
     const { x = 0, y = 0 } = cityBoardSpotLocator.getCoordinates(location, context)
-    return playerIndex === 0 ? { x: x - 35, y: y - 5 } : { x: x + 35, y: y - 8 }
+    return playerIndex === 0 ? { x: x - 40, y: y - 5 } : { x: x + 35, y: y - 8 }
   }
 }
 
