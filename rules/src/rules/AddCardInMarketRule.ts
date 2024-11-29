@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, MaterialItem } from '@gamepark/rules-api'
 import { City } from '../material/City'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -8,10 +8,10 @@ import { RuleId } from './RuleId'
 
 export class AddCardInMarketRule extends PlayerTurnRule {
   onRuleStart() {
-    return this.material(MaterialType.SubjectCard)
+    return [this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)
       .deck()
-      .deal({ type: LocationType.Market }, 1)
+      .dealOne({ type: LocationType.Market })]
   }
 
   afterItemMove(move: ItemMove) {
@@ -25,13 +25,14 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       this.memorize(Memory.Revolution, true)
       return [this.startRule(RuleId.MarketBuy)]
     } else {
-      if (this.marketCardsNumber > 8) {
+      const pointsToGive = this.getVictoryPointsToGive(card)
+      if (this.marketCardsNumber > 8 && pointsToGive) {
         moves.push(
           ...this.material(MaterialType.NobleToken)
             .id(this.player)
             .moveItems((item) => ({
               type: LocationType.VictoryPointsSpace,
-              x: item.location.x! + this.victoryPointsToGive
+              x: item.location.x! + pointsToGive
             }))
         )
       }
@@ -40,8 +41,8 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     }
   }
 
-  get victoryPointsToGive() {
-    if (!this.playerHasAlreadyBought && this.marketHasTwoCardsOfSameColor) {
+  getVictoryPointsToGive(card:MaterialItem) {
+    if (!this.playerHasAlreadyBought && this.getMarketHasTwoCardsOfSameColor(card)) {
       const marketCardsNumber = this.marketCardsNumber
       if (marketCardsNumber > 8 && marketCardsNumber <= 12) return 1
       if (marketCardsNumber > 12 && marketCardsNumber <= 16) return 2
@@ -52,8 +53,9 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     }
   }
 
-  get marketHasTwoCardsOfSameColor() {
-    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
+  getMarketHasTwoCardsOfSameColor(card:MaterialItem) {
+    console.log(card)
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).id(id => id !== card.id)
     const colorCounts = new Map<number, number>()
 
     for (const card of marketCards.getItems()) {
