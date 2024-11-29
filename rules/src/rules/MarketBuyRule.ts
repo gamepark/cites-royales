@@ -9,7 +9,8 @@ import { RuleId } from './RuleId'
 
 export class MarketBuyRule extends PlayerTurnRule {
   onRuleStart() {
-    if (!this.remind(Memory.Revolution) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4) {
+    const playerHasAlreadyBoughtThisSeason = this.playerMarketToken.location(location => location.type === LocationType.OnSeasonCards).length > 0
+    if (!this.remind(Memory.Revolution) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4 || playerHasAlreadyBoughtThisSeason) {
       return [this.startRule(RuleId.AddCardInMarket)]
     }
     this.memorize(Memory.PurchasingPower, this.getPurchasingPower())
@@ -46,7 +47,7 @@ export class MarketBuyRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
       const card = this.material(MaterialType.SubjectCard).index(move.itemIndex).getItems()[0]
       const cardValue = getSubjectType(card.id)
-      this.memorize(Memory.PurchasingPower, purchasingPower => purchasingPower - cardValue)
+      this.memorize<number>(Memory.PurchasingPower, purchasingPower => purchasingPower - cardValue)
       this.memorize(Memory.hasBought, true)
     }
 
@@ -57,7 +58,7 @@ export class MarketBuyRule extends PlayerTurnRule {
     return this.remind(Memory.hasBought)
   }
 
-  get playerToken() {
+  get playerMarketToken() {
     return this.material(MaterialType.MarketToken).id(this.player)
   }
 
@@ -77,8 +78,10 @@ export class MarketBuyRule extends PlayerTurnRule {
 
     if (this.hasBought) {
       const moves: MaterialMove[] = [
-        this.playerToken.moveItem({ type: LocationType.OnSeasonCards, id: this.season })
+        this.playerMarketToken.moveItem({ type: LocationType.OnSeasonCards, id: this.season })
       ]
+
+      // TODO : Rotate Help Card to After Purchase
 
       if (this.remind(Memory.Revolution)) {
         const heroCard = this.material(MaterialType.HeroCard).player(this.player)
