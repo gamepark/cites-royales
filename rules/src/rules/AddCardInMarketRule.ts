@@ -57,7 +57,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   marketHasRevolution(subjectCity?: City) {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
     let hasRevolution = false
-    if (this.getMarketCardsNumber() >= 8) {
+    if (this.getMarketCardsNumber() > 8) {
       const cardsNumber = marketCards.filter((item) => getSubjectCity(item.id) === subjectCity).length
       if (cardsNumber > 2) hasRevolution = true
     }
