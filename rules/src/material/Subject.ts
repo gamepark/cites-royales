@@ -11,8 +11,6 @@ export enum SubjectType {
   Astrologer,
 }
 
-export const WhiteSubject = 0
-
 export enum Subject {
   WhiteEmptiness = 0,
   WhiteVillager,
