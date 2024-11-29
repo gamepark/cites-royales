@@ -1,11 +1,12 @@
-import { CustomMove, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { getSubjectColor, getSubjectType, isWhite, subjectColors } from '../../material/Subject'
 import { CustomMoveType } from '../CustomMoveType'
 import { RuleId } from '../RuleId'
+import { CardEffectRule } from './CardEffectRule'
 
-export class PlayAstrologerRule extends PlayerTurnRule {
+export class PlayAstrologerRule extends CardEffectRule {
   onRuleStart() {
     const dealCards = this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)

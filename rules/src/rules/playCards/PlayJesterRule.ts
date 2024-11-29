@@ -1,9 +1,10 @@
-import { isMoveItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { RuleId } from '../RuleId'
+import { CardEffectRule } from './CardEffectRule'
 
-export class PlayJesterRule extends PlayerTurnRule {
+export class PlayJesterRule extends CardEffectRule {
   onRuleStart() {
     return this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)

@@ -1,10 +1,11 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { getSubjectColor, subjectColors } from '../../material/Subject'
 import { RuleId } from '../RuleId'
+import { CardEffectRule } from './CardEffectRule'
 
-export class PlayKnightRule extends PlayerTurnRule {
+export class PlayKnightRule extends CardEffectRule {
   getPlayerMoves() {
     const player = this.player
     const moves: MaterialMove[] = []
