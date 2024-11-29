@@ -72,8 +72,8 @@ export class MarketBuyRule extends PlayerTurnRule {
   get playerHasAlreadyBought() {
     return this.playerMarketToken.location(location => location.type === LocationType.OnSeasonCards).length > 0
   }
-  get everyPlayerHasBought() {
-    return this.material(MaterialType.MarketToken).location(LocationType.OnSeasonCards).length === this.game.players.length
+  get everyOtherPlayersHaveBought() {
+    return this.material(MaterialType.MarketToken).id(id => id !== this.player).location(LocationType.OnSeasonCards).length === this.game.players.length - 1
   }
 
   onCustomMove(move: CustomMove) {
@@ -93,7 +93,8 @@ export class MarketBuyRule extends PlayerTurnRule {
         }
       }
 
-      if (this.everyPlayerHasBought) {
+      // TODO : Améliorer la condition
+      if (this.everyOtherPlayersHaveBought) {
         moves.push(this.startSimultaneousRule(RuleId.CitiesConstruction))
       } else {
         moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
