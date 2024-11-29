@@ -31,7 +31,7 @@ export class PlayKnightRule extends CardEffectRule {
     return moves
   }
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.PlayerHand) return []
+    if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.InCity) return []
     return [this.startRule(RuleId.MarketBuy)]
   }
 }
