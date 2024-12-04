@@ -1,7 +1,6 @@
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { MaterialDescription } from '@gamepark/react-game'
 import { cityBoardDescription } from './CityBoardDescription'
-import { helpCardDescription } from './HelpCardDescription'
 import { heroCardDescription } from './HeroCardDescription'
 import { marketHalfSizedCardDescription } from './MarketHalfSizedCardDescription'
 import { marketTokenDescription } from './MarketTokenDescription'
@@ -17,7 +16,6 @@ export const Material: Partial<Record<MaterialType, MaterialDescription>> = {
   [MaterialType.MarketHalfSizedCard]: marketHalfSizedCardDescription,
   [MaterialType.NobleToken]: nobleTokenDescription,
   [MaterialType.MarketToken]: marketTokenDescription,
-  [MaterialType.HelpCard]: helpCardDescription,
   [MaterialType.CityBoard]: cityBoardDescription,
   [MaterialType.HeroCard]: heroCardDescription,
 }

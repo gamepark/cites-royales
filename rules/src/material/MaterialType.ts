@@ -8,5 +8,4 @@ export enum MaterialType {
   MarketCard,
   MarketHalfSizedCard,
   VictoryPointsTrack,
-  HelpCard,
 }

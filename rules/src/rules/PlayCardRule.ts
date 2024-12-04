@@ -12,6 +12,7 @@ export class PlayCardRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const player = this.player
+    // TODO : Ajouter la cartes la plus haute de chaque cité
     return [
       ...this.material(MaterialType.SubjectCard)
         .location(LocationType.PlayerHand)
