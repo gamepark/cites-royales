@@ -1,17 +1,31 @@
-import { isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectCity, getSubjectRule, Subject } from '../material/Subject'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
+import { CustomMoveType } from './CustomMoveType'
 
 export class AddCardInMarketRule extends PlayerTurnRule {
   onRuleStart() {
+    const player = this.player
+    const playerHeroAvailable = this.material(MaterialType.HeroCard).player(player).rotation(true).length > 0
+    if(playerHeroAvailable) return []
+
     return [this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)
       .deck()
       .dealOne({ type: LocationType.Market })]
   }
+
+  getPlayerMoves(): MaterialMove<number, number, number>[] {
+    // Si pas de carte dans la action hand, joueur peut choisir d'utiliser héro ou pas
+    // Utiliser héro => Rotate Item Puis deal 2 dans ActionHand
+    // Pas utilser héro => dealOne
+    // Sinon actionHand.moveItems Market
+    return []
+  }
+
   beforeItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Market) return []
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
@@ -39,8 +53,16 @@ export class AddCardInMarketRule extends PlayerTurnRule {
         }
       }
       moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
+      console.log(moves)
       return moves
     }
+  }
+
+  onCustomMove(move: CustomMove): MaterialMove<number, number, number>[] {
+    if (move.type !== CustomMoveType.Pass) return []
+    // Si move Market
+    // Alors défausser toutes les cartes de ActionHand
+    return []
   }
 
   triggerRevolution(sameCitySubjects: Material){

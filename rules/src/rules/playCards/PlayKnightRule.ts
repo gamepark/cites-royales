@@ -19,6 +19,7 @@ export class PlayKnightRule extends CardEffectRule {
         const highestCard = cardsInCity.filter((card) => card.location.id === city).maxBy((card) => card.location.x!)
 
         const hasHighestCard = highestCard.length > 0
+        // TODO : Empêcher de prendre une carte plus petite que la plus haute carte de ma cité
 
         if (hasHighestCard) {
           moves.push(
