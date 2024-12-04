@@ -10,7 +10,7 @@ export class PlayJesterRule extends CardEffectRule {
         .location(LocationType.DrawPile)
         .deck()
         .dealOne({ type: LocationType.PlayerHand, player: this.player }),
-      this.startRule(RuleId.MarketBuy)
+      this.nextRule
     ]
   }
 }

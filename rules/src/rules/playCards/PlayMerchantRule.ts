@@ -13,6 +13,6 @@ export class PlayMerchantRule extends CardEffectRule {
   }
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.PlayerHand) return []
-    return [this.startRule(RuleId.MarketBuy)]
+    return [this.nextRule]
   }
 }

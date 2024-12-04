@@ -28,6 +28,6 @@ export class PlayAssassinRule extends CardEffectRule {
   }
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Discard) return []
-    return [this.startRule(RuleId.MarketBuy)]
+    return [this.nextRule]
   }
 }

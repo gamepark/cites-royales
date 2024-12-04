@@ -72,7 +72,7 @@ export class PlayAstrologerRule extends CardEffectRule {
         ...this.material(MaterialType.SubjectCard)
           .location(LocationType.ActionHand)
           .moveItems({ type: LocationType.Discard }),
-        this.startRule(RuleId.MarketBuy)
+        this.nextRule
       ]
     }
     return []
@@ -90,7 +90,7 @@ export class PlayAstrologerRule extends CardEffectRule {
           .moveItem({ type: LocationType.Discard })
       )
 
-      moves.push(this.startRule(RuleId.MarketBuy))
+      moves.push(this.nextRule)
     }
 
     return moves

@@ -1,8 +1,7 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, MaterialItem } from '@gamepark/rules-api'
-import { City } from '../material/City'
+import { isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { getSubjectCity, Subject } from '../material/Subject'
+import { getSubjectCity, getSubjectRule, Subject } from '../material/Subject'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -13,61 +12,81 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       .deck()
       .dealOne({ type: LocationType.Market })]
   }
-
-  afterItemMove(move: ItemMove) {
+  beforeItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Market) return []
-    const moves: MaterialMove[] = []
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
+    if(marketCards.length < 3) return []
+
     const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
     const subjectCity = getSubjectCity(card.id)
-    const marketHasRevolution = this.marketHasRevolution(subjectCity)
+    const sameCitySubjects = this.material(MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => getSubjectCity(id) === subjectCity)
 
-    if (marketHasRevolution) {
-      this.memorize(Memory.Revolution, true)
-      return [this.startRule(RuleId.MarketBuy)]
+    if(sameCitySubjects.length >= 2) {
+      return this.triggerRevolution(sameCitySubjects)
     } else {
-      const pointsToGive = this.getVictoryPointsToGive(card)
-      if (this.marketCardsNumber > 8 && pointsToGive) {
-        moves.push(
-          ...this.material(MaterialType.NobleToken)
-            .id(this.player)
-            .moveItems((item) => ({
-              type: LocationType.VictoryPointsSpace,
-              x: item.location.x! + pointsToGive
-            }))
-        )
+      const moves:MaterialMove[]=[]
+      if (!this.playerHasAlreadyBought && this.marketHasTwoCardsOfSameColor) {
+        const pointsToGive = this.victoryPointsToGive
+        if (pointsToGive > 0) {
+          moves.push(
+            ...this.material(MaterialType.NobleToken)
+              .id(this.player)
+              .moveItems((item) => ({
+                type: LocationType.VictoryPointsSpace,
+                x: item.location.x! + pointsToGive
+              }))
+          )
+        }
       }
       moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
       return moves
     }
   }
 
-  getVictoryPointsToGive(card:MaterialItem) {
-    if (!this.playerHasAlreadyBought && this.getMarketHasTwoCardsOfSameColor(card)) {
-      const marketCardsNumber = this.marketCardsNumber
-      if (marketCardsNumber > 8 && marketCardsNumber <= 12) return 1
-      if (marketCardsNumber > 12 && marketCardsNumber <= 16) return 2
-      if (marketCardsNumber > 16 && marketCardsNumber <= 18) return 3
-      return 1
+  triggerRevolution(sameCitySubjects: Material){
+    this.memorize(Memory.Revolution, true)
+    const moves:MaterialMove[] = sameCitySubjects.moveItems({type:LocationType.Discard})
+
+    if(this.playerHasAlreadyBought){
+      const subject = sameCitySubjects.minBy(card => card.id).getItem<Subject>()!.id
+      moves.push(this.startRule(getSubjectRule(subject)))
     } else {
-      return 0
+      const pointsToGive = this.victoryPointsToGive
+      if (pointsToGive > 0) {
+        moves.push(
+          ...this.material(MaterialType.NobleToken)
+            .id(id => id !== this.player)
+            .moveItems((item) => ({
+              type: LocationType.VictoryPointsSpace,
+              x: item.location.x! + pointsToGive
+            }))
+        )
+      }
+      moves.push(this.startRule(RuleId.MarketBuy))
     }
+
+    return moves
   }
 
-  getMarketHasTwoCardsOfSameColor(card:MaterialItem) {
-    console.log(card)
-    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).id(id => id !== card.id)
-    const colorCounts = new Map<number, number>()
+  get victoryPointsToGive() {
+      const marketCardsNumber = this.marketCardsNumber
+      if (marketCardsNumber >= 12) return 3
+      if (marketCardsNumber >= 8) return 2
+      if (marketCardsNumber >= 4) return 1
+      return 0
+  }
+
+  get marketHasTwoCardsOfSameColor() {
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
+    const colorFound = new Map<number, boolean>()
 
     for (const card of marketCards.getItems()) {
       const color = getSubjectCity(card.id) || 0
-      const count = colorCounts.get(color) || 0
-      colorCounts.set(color, count + 1)
-
-      // Early return if any color count reaches 2
-      if (colorCounts.get(color)! >= 2) return true
+      if(colorFound.get(color)) return true
+      colorFound.set(color, true)
     }
 
-    return false // No color with at least 2 cards found
+    return false
   }
 
   get playerMarketToken() {
@@ -79,17 +98,6 @@ export class AddCardInMarketRule extends PlayerTurnRule {
 
   get marketCardsNumber() {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
-    const reserveCards = this.material(MaterialType.SubjectCard).location(LocationType.Reserve)
-    return marketCards.length + reserveCards.length
-  }
-
-  marketHasRevolution(subjectCity?: City) {
-    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
-    let hasRevolution = false
-    if (this.marketCardsNumber > 8) {
-      const cardsNumber = marketCards.filter((item) => getSubjectCity(item.id) === subjectCity).length
-      if (cardsNumber > 2) hasRevolution = true
-    }
-    return hasRevolution
+    return marketCards.length
   }
 }

@@ -10,6 +10,7 @@ import { RuleId } from './RuleId'
 export class MarketBuyRule extends PlayerTurnRule {
   onRuleStart() {
     const playerHasAlreadyBoughtThisSeason = this.playerHasAlreadyBought
+
     if (!this.remind(Memory.Revolution) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4 || playerHasAlreadyBoughtThisSeason) {
       return [this.startRule(RuleId.AddCardInMarket)]
     }
@@ -58,17 +59,15 @@ export class MarketBuyRule extends PlayerTurnRule {
     return this.remind(Memory.hasBought)
   }
 
-  get playerMarketToken() {
-    return this.material(MaterialType.MarketToken).id(this.player)
-  }
-
   get season() {
     return this.material(MaterialType.SeasonCard)
       .location((l) => !l.rotation)
       .minBy((item) => item.location.x!)
       .getItem<Season>()!.id
   }
-
+  get playerMarketToken() {
+    return this.material(MaterialType.MarketToken).id(this.player)
+  }
   get playerHasAlreadyBought() {
     return this.playerMarketToken.location(location => location.type === LocationType.OnSeasonCards).length > 0
   }

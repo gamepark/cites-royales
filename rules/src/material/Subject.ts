@@ -1,5 +1,6 @@
 import { getEnumValues } from '@gamepark/rules-api'
 import { City } from './City'
+import { RuleId } from '../rules/RuleId'
 
 export enum SubjectType {
   Emptiness,
@@ -68,3 +69,22 @@ export const getSubjectCity = (subject: Subject): City | undefined => Math.floor
 export const getSubjectType = (subject: Subject): SubjectType => subject % 10
 export const isWhite = (subject: Subject) => subject < 10
 export const isEmptiness = (subject: Subject) => getSubjectType(subject) === SubjectType.Emptiness
+
+export function getSubjectRule(subject:Subject){
+  switch (getSubjectType(subject)) {
+    case SubjectType.Emptiness:
+      return RuleId.PlayEmptiness
+    case SubjectType.Villager:
+      return RuleId.PlayVillager
+    case SubjectType.Jester:
+      return RuleId.PlayJester
+    case SubjectType.Assassin:
+      return RuleId.PlayAssassin
+    case SubjectType.Merchant:
+      return RuleId.PlayMerchant
+    case SubjectType.Knight:
+      return RuleId.PlayKnight
+    case SubjectType.Astrologer:
+      return RuleId.PlayAstrologer
+  }
+}
