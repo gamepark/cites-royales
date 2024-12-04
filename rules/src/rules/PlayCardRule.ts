@@ -1,8 +1,9 @@
-import { isMoveItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectRule } from '../material/Subject'
 import { RuleId } from './RuleId'
+import { cities } from '../material/City'
 
 export class PlayCardRule extends PlayerTurnRule {
   onRuleStart(){
@@ -11,15 +12,30 @@ export class PlayCardRule extends PlayerTurnRule {
   }
 
   getPlayerMoves() {
+    const moves:MaterialMove[] = []
     const player = this.player
-    // TODO : Ajouter la cartes la plus haute de chaque cité
-    return [
-      ...this.material(MaterialType.SubjectCard)
-        .location(LocationType.PlayerHand)
-        .player(player)
-        .moveItems((item) => ({ type: LocationType.Discard, player, id: item.id })),
-      this.startRule(RuleId.MarketBuy)
-    ]
+
+    const cardsInCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
+
+    for (const city of cities) {
+      const highestCard = cardsInCity.filter((card) => card.location.id === city).maxBy((card) => card.location.x!)
+      const hasHighestCard = highestCard.length > 0
+
+      if (hasHighestCard) {
+        moves.push(
+          ...highestCard.moveItems((item) => ({ type: LocationType.Discard, player, id: item.id }))
+        )
+      }
+    }
+
+    moves.push(...this.material(MaterialType.SubjectCard)
+      .location(LocationType.PlayerHand)
+      .player(player)
+      .moveItems((item) => ({ type: LocationType.Discard, player, id: item.id })))
+
+    moves.push(this.startRule(RuleId.MarketBuy))
+
+    return moves
   }
 
   afterItemMove(move: ItemMove) {
