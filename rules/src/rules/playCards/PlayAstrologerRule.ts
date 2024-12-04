@@ -4,7 +4,6 @@ import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { getSubjectCity, getSubjectType, isWhite } from '../../material/Subject'
 import { CustomMoveType } from '../CustomMoveType'
-import { RuleId } from '../RuleId'
 import { CardEffectRule } from './CardEffectRule'
 
 export class PlayAstrologerRule extends CardEffectRule {

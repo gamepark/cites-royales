@@ -1,7 +1,6 @@
 import { isMoveItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { RuleId } from '../RuleId'
 import { CardEffectRule } from './CardEffectRule'
 
 export class PlayEmptinessRule extends CardEffectRule {

@@ -1,6 +1,5 @@
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { RuleId } from '../RuleId'
 import { CardEffectRule } from './CardEffectRule'
 
 export class PlayJesterRule extends CardEffectRule {
