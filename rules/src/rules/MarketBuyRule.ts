@@ -83,8 +83,6 @@ export class MarketBuyRule extends PlayerTurnRule {
         this.playerMarketToken.moveItem({ type: LocationType.OnSeasonCards, id: this.season })
       ]
 
-      // TODO : Rotate Help Card to After Purchase
-
       if (this.remind(Memory.Revolution)) {
         const heroCard = this.material(MaterialType.HeroCard).player(this.player)
         if (!heroCard.getItem()?.location.rotation) {
@@ -92,7 +90,6 @@ export class MarketBuyRule extends PlayerTurnRule {
         }
       }
 
-      // TODO : Améliorer la condition
       if (this.everyOtherPlayersHaveBought) {
         moves.push(this.startSimultaneousRule(RuleId.CitiesConstruction))
       } else {

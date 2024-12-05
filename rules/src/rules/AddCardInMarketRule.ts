@@ -53,7 +53,6 @@ export class AddCardInMarketRule extends PlayerTurnRule {
         }
       }
       moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
-      console.log(moves)
       return moves
     }
   }
