@@ -29,7 +29,8 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   beforeItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Market) return []
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
-    if(marketCards.length < 3) return []
+    if(marketCards.length < 3) return [this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
+
 
     const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
     const subjectCity = getSubjectCity(card.id)
