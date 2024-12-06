@@ -8,19 +8,17 @@ import { CardEffectRule } from './CardEffectRule'
 
 export class PlayAstrologerRule extends CardEffectRule {
   onRuleStart() {
-    const dealCards = this.material(MaterialType.SubjectCard)
+    return this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)
       .deck()
       .deal({ type: LocationType.ActionHand, player: this.player }, 3)
-
-    return dealCards
   }
   getPlayerMoves() {
     const player = this.player
     const moves: MaterialMove[] = []
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand)
     const inCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
-
+      // TODO : Add white cards
     for (const city of cities) {
 
       moves.push(
