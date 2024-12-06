@@ -24,6 +24,7 @@ import { RuleId } from './rules/RuleId'
 import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
 import { StackingStrategy } from './rules/utils/StackingStrategy'
+import { CitiesConstructionRule } from './rules/CitiesConstructionRule'
 
 /**
  * This class implements the rules of the board game.
@@ -50,7 +51,8 @@ export class CitesRoyalesRules
     [RuleId.PlayKnight]: PlayKnightRule,
     [RuleId.PlayAstrologer]: PlayAstrologerRule,
     [RuleId.MarketBuy]: MarketBuyRule,
-    [RuleId.AddCardInMarket]: AddCardInMarketRule
+    [RuleId.AddCardInMarket]: AddCardInMarketRule,
+    [RuleId.CitiesConstruction]:CitiesConstructionRule
   }
 
   locationsStrategies = {
