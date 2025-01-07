@@ -5,6 +5,7 @@ import { LocationType } from '../material/LocationType'
 import { cities } from '../material/City'
 import { getSubjectCity, getSubjectType, Subject } from '../material/Subject'
 import { CustomMoveType } from './CustomMoveType'
+import { RuleId } from './RuleId'
 
 export class CitiesConstructionRule extends SimultaneousRule {
   onRuleStart(){
@@ -48,10 +49,13 @@ export class CitiesConstructionRule extends SimultaneousRule {
     return moves
   }
   getMovesAfterPlayersDone(){
-    return []
+    console.log(this.game.players[1])
+    return [this.startPlayerTurn(RuleId.PurpleMajority, this.game.players[1])]
   }
-  onCustomMove(_move: CustomMove, _context?: PlayMoveContext) {
-    if(_move.type === CustomMoveType.Pass) return [this.endPlayerTurn(_move.data.player)]
+
+
+  onCustomMove(move: CustomMove, _context?: PlayMoveContext) {
+    if(move.type === CustomMoveType.Pass) return [this.endPlayerTurn(move.data.player)]
     return []
   }
 }

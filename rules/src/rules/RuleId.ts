@@ -11,5 +11,6 @@ export enum RuleId {
   PlayAstrologer = 10,
   MarketBuy = 11,
   AddCardInMarket = 12,
-  CitiesConstruction = 13
+  CitiesConstruction = 13,
+  PurpleMajority = 14,
 }
