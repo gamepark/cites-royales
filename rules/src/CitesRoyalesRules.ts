@@ -25,7 +25,7 @@ import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
 import { StackingStrategy } from './rules/utils/StackingStrategy'
 import { CitiesConstructionRule } from './rules/CitiesConstructionRule'
-import { PurpleMajorityRule } from './rules/majoritiesChecks/PurpleMajorityRule'
+import { PurpleCityScoring } from './rules/majoritiesChecks/PurpleCityScoring'
 
 /**
  * This class implements the rules of the board game.
@@ -54,7 +54,7 @@ export class CitesRoyalesRules
     [RuleId.MarketBuy]: MarketBuyRule,
     [RuleId.AddCardInMarket]: AddCardInMarketRule,
     [RuleId.CitiesConstruction]:CitiesConstructionRule,
-    [RuleId.PurpleMajority]: PurpleMajorityRule,
+    [RuleId.PurpleMajority]: PurpleCityScoring,
   }
 
   locationsStrategies = {

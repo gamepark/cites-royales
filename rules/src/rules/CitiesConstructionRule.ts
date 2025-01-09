@@ -49,7 +49,6 @@ export class CitiesConstructionRule extends SimultaneousRule {
     return moves
   }
   getMovesAfterPlayersDone(){
-    console.log(this.game.players[1])
     return [this.startPlayerTurn(RuleId.PurpleMajority, this.game.players[1])]
   }
 
