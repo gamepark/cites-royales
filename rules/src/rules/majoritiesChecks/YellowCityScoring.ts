@@ -1,10 +1,11 @@
 import { CityScoring } from './CityScoring'
 import { cities, City } from '../../material/City'
 import { NobleColor } from '../../NobleColor'
-import { Material, MaterialMove } from '@gamepark/rules-api'
+import { MaterialMove } from '@gamepark/rules-api'
 import { MaterialType } from '../../material/MaterialType'
 import { LocationType } from '../../material/LocationType'
 import { getSubjectCity, Subject } from '../../material/Subject'
+import { RuleId } from '../RuleId'
 
 export class YellowCityScoring extends CityScoring {
   city = City.Yellow
@@ -30,6 +31,6 @@ export class YellowCityScoring extends CityScoring {
   }
 
   goToNextRule(): MaterialMove {
-    return this.endGame()
+    return this.startRule(RuleId.PinkMajority)
   }
 }
