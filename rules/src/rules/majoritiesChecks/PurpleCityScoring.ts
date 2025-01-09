@@ -1,39 +1,25 @@
-import { CityScoring } from './CityScoring'
-import { getSubjectCity, getSubjectType, Subject, SubjectType } from '../../material/Subject'
+import { sumBy } from 'lodash'
 import { City } from '../../material/City'
-import { NobleColor } from '../../NobleColor'
-import { MaterialType } from '../../material/MaterialType'
 import { LocationType } from '../../material/LocationType'
-import { MaterialMove } from '@gamepark/rules-api'
-import { CustomMoveType } from '../CustomMoveType'
+import { MaterialType } from '../../material/MaterialType'
+import { getSubjectCity, getSubjectType, Subject, SubjectType } from '../../material/Subject'
+import { NobleColor } from '../../NobleColor'
+import { CityScoring } from './CityScoring'
 
 export class PurpleCityScoring extends CityScoring {
-  onRuleStart() {
-    const moves:MaterialMove[] = []
-    const hasMajority = this.hasMajority(City.Purple)
+  city = City.Purple
 
-    for(const winner of hasMajority.winners){
-      const playerVictoryPoints = this.getPlayerVictoryPoints(winner)
-      moves.push(this.customMove(CustomMoveType.Score, {points:playerVictoryPoints, player:winner}))
-    }
+  getPlayerVictoryPoints(player: NobleColor) {
+    const subjectTypes = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
+      .id<Subject>(id => getSubjectCity(id) === City.Purple)
+      .sort(item => -item.location.x!).getItems<Subject>().map(card => getSubjectType(card.id))
 
-    return moves
+    return (this.hasTopCrown(subjectTypes[0]) ? 1 : 0)
+      + sumBy(subjectTypes, subjectType => this.hasBottomCrown(subjectType) ? 1 : 0)
   }
 
-  getPlayerVictoryPoints(player:NobleColor) {
-    const playerPurpleCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).id<Subject>(id=> getSubjectCity(id) === City.Purple)
-    const highestCard = playerPurpleCards.maxBy(card => getSubjectType(card.id)).getItem()
-
-    let points = 0
-    for(const card of playerPurpleCards.getItems()){
-      if(this.hasTopCrown(getSubjectType(card.id)) && getSubjectType(card.id) === getSubjectType(highestCard?.id)) points++
-      if(this.hasBottomCrown(getSubjectType(card.id))) points++
-    }
-    return points
-  }
-
-  goToNextRule():any[]{
-    return []
+  goToNextRule() {
+    return this.endGame() // TODO this.startRule(RuleId.YellowMajority)
   }
 
   hasTopCrown(type:SubjectType):boolean {

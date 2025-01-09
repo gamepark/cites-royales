@@ -1,18 +1,33 @@
 import { CustomMove, Material, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
+import { City } from '../../material/City'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { getSubjectCity, getSubjectType, Subject } from '../../material/Subject'
-import { City } from '../../material/City'
 import { NobleColor } from '../../NobleColor'
 import { CustomMoveType } from '../CustomMoveType'
 
-
 export abstract class CityScoring extends PlayerTurnRule {
+  abstract city: City
+
+  onRuleStart() {
+    const moves:MaterialMove[] = []
+    const winners = this.getMajorityWinners()
+
+    for(const winner of winners){
+      const playerVictoryPoints = this.getPlayerVictoryPoints(winner)
+      moves.push(this.customMove(CustomMoveType.Score, {points:playerVictoryPoints, player:winner}))
+    }
+
+    moves.push(this.goToNextRule())
+
+    return moves
+  }
+
   abstract getPlayerVictoryPoints(player:NobleColor):number
 
-  abstract goToNextRule():any // TODO : Changer any
+  abstract goToNextRule(): MaterialMove // TODO : Changer any
 
-  hasMajority(city: City) {
+  getMajorityWinners() {
     const players = this.game.players;
 
     const playersInfluence = players.map(player => ({
@@ -21,17 +36,15 @@ export abstract class CityScoring extends PlayerTurnRule {
         this.material(MaterialType.SubjectCard)
           .location(LocationType.InCity)
           .player(player)
-          .id<Subject>(id => getSubjectCity(id) === city)
+          .id<Subject>(id => getSubjectCity(id) === this.city)
       )
     }));
 
     const maxInfluence = Math.max(...playersInfluence.map(p => p.influence));
 
-    const winners = playersInfluence
+    return playersInfluence
       .filter(p => p.influence === maxInfluence)
-      .map(p => p.player);
-
-    return { city, influence: maxInfluence, winners };
+      .map(p => p.player)
   }
 
   onCustomMove(move: CustomMove, _context?: PlayMoveContext) {
