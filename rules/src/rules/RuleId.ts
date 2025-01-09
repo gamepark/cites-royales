@@ -13,4 +13,9 @@ export enum RuleId {
   AddCardInMarket = 12,
   CitiesConstruction = 13,
   PurpleMajority = 14,
+  YellowMajority = 15,
+  PinkMajority = 16,
+  RedMajority = 17,
+  BlueMajority = 18,
+  GreenMajority = 19
 }

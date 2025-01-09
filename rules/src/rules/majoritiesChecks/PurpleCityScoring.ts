@@ -5,6 +5,7 @@ import { MaterialType } from '../../material/MaterialType'
 import { getSubjectCity, getSubjectType, Subject, SubjectType } from '../../material/Subject'
 import { NobleColor } from '../../NobleColor'
 import { CityScoring } from './CityScoring'
+import { RuleId } from '../RuleId'
 
 export class PurpleCityScoring extends CityScoring {
   city = City.Purple
@@ -19,7 +20,7 @@ export class PurpleCityScoring extends CityScoring {
   }
 
   goToNextRule() {
-    return this.endGame() // TODO this.startRule(RuleId.YellowMajority)
+    return this.startRule(RuleId.YellowMajority)
   }
 
   hasTopCrown(type:SubjectType):boolean {

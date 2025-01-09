@@ -25,7 +25,7 @@ export abstract class CityScoring extends PlayerTurnRule {
 
   abstract getPlayerVictoryPoints(player:NobleColor):number
 
-  abstract goToNextRule(): MaterialMove // TODO : Changer any
+  abstract goToNextRule(): MaterialMove
 
   getMajorityWinners() {
     const players = this.game.players;
