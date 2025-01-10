@@ -28,7 +28,7 @@ export abstract class CityScoring extends PlayerTurnRule {
   abstract goToNextRule(): MaterialMove
 
   getMajorityWinners() {
-    const players = this.game.players;
+    const players = this.game.players
 
     const playersInfluence = players.map(player => ({
       player,
@@ -38,13 +38,13 @@ export abstract class CityScoring extends PlayerTurnRule {
           .player(player)
           .id<Subject>(id => getSubjectCity(id) === this.city)
       )
-    }));
+    }))
 
-    const maxInfluence = Math.max(...playersInfluence.map(p => p.influence));
+    const maxInfluence = Math.max(...playersInfluence.map(p => p.influence))
 
-    return playersInfluence
+    return maxInfluence === 0 ? playersInfluence
       .filter(p => p.influence === maxInfluence)
-      .map(p => p.player)
+      .map(p => p.player) : []
   }
 
   onCustomMove(move: CustomMove, _context?: PlayMoveContext) {
