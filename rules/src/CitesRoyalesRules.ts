@@ -29,6 +29,8 @@ import { PurpleCityScoring } from './rules/majoritiesChecks/PurpleCityScoring'
 import { YellowCityScoring } from './rules/majoritiesChecks/YellowCityScoring'
 import { PinkCityScoring } from './rules/majoritiesChecks/PinkCityScoring'
 import { RedCityScoring } from './rules/majoritiesChecks/RedCityScoring'
+import { BlueCityScoring } from './rules/majoritiesChecks/BlueCityScoring'
+import { GreenCityScoring } from './rules/majoritiesChecks/GreenCityScoring'
 
 /**
  * This class implements the rules of the board game.
@@ -60,7 +62,9 @@ export class CitesRoyalesRules
     [RuleId.PurpleMajority]: PurpleCityScoring,
     [RuleId.YellowMajority]: YellowCityScoring,
     [RuleId.PinkMajority]: PinkCityScoring,
-    [RuleId.RedMajority]: RedCityScoring
+    [RuleId.RedMajority]: RedCityScoring,
+    [RuleId.BlueMajority]: BlueCityScoring,
+    [RuleId.GreenMajority]: GreenCityScoring,
   }
 
   locationsStrategies = {
