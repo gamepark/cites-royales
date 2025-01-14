@@ -8,8 +8,11 @@ import Summer from '../images/cards/seasons/Summer.jpg'
 import SummerBack from '../images/cards/seasons/SummerBack.jpg'
 import Winter from '../images/cards/seasons/Winter.jpg'
 import WinterBack from '../images/cards/seasons/WinterBack.jpg'
+import { MaterialItem } from '@gamepark/rules-api'
 
 class SeasonCardDescription extends CardDescription {
+  isFlipped = (item: MaterialItem) => item.location.rotation
+
   backImages = {
     [Season.Spring]: SpringBack,
     [Season.Summer]: SummerBack,
