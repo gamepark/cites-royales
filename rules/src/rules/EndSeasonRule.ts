@@ -7,20 +7,23 @@ import {getSubjectCity, Subject} from "../material/Subject";
 import {cities} from "../material/City";
 
 export class EndSeasonRule extends PlayerTurnRule {
+    drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
   onRuleStart() {
     const moves:MaterialMove[] = []
 
     moves.push(this.material(MaterialType.SeasonCard).id(this.season).rotateItem(true))
 
+    for(const player of this.game.players){
+      const cardsToDraw = this.getPlayerCardsToDraw(player)
+
+        if(cardsToDraw > 0){
 
 
-    // TODO : draw cards
-    // for(const player of this.game.players){
-      // const cardsToDraw = this.getPlayerCardsToDraw(player)
+            moves.push(...this.drawPile.deal({type:LocationType.PlayerHand, player}, cardsToDraw))
+        }
+    }
 
-    // }
-
-    moves.push(this.dealCard())
+    moves.push(this.dealCardInMarket())
 
     moves.push(...this.material(MaterialType.MarketToken).moveItems({type:LocationType.MarketTokenSpot}))
 
@@ -37,22 +40,21 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.material(MaterialType.SeasonCard).length
   }
 
- dealCard() {
+ dealCardInMarket() {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).length
 
     if(marketCards >= 4 && this.marketCardsToDiscard.length < 1) {
       return this.nextRule
     } else {
-      const drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
-      return drawPile.dealOne({ type: LocationType.Market })
+      return this.drawPile.dealOne({ type: LocationType.Market })
     }
   }
 
   getPlayerCardsToDraw(player:NobleColor) {
-    const highestPlayer = this.material(MaterialType.NobleToken).maxBy(item => item.location.x!)
-    const highestPlayerPoints = highestPlayer.getItem()?.location.x!
+    const highestPlayerToken = this.material(MaterialType.NobleToken).maxBy(item => item.location.x!)
+    const highestPlayerPoints = highestPlayerToken.getItem()?.location.x!
 
-    if(highestPlayer.getItem()?.id === player){
+    if(highestPlayerToken.getItem()?.id !== player){
       const playerPoints = this.material(MaterialType.NobleToken).id(player).getItem()?.location.x!
       let cardsToDraw = 0
       let bonusPoints
@@ -99,7 +101,7 @@ export class EndSeasonRule extends PlayerTurnRule {
     const moves:MaterialMove[] = []
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
       moves.push(...this.marketCardsToDiscard.moveItems({ type: LocationType.Discard }))
-      moves.push(this.dealCard())
+      moves.push(this.dealCardInMarket())
     }
 
     return moves
