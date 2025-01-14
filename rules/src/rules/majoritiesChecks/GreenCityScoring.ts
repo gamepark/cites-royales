@@ -4,6 +4,7 @@ import { NobleColor } from '../../NobleColor'
 import { MaterialMove } from '@gamepark/rules-api'
 import { MaterialType } from '../../material/MaterialType'
 import { LocationType } from '../../material/LocationType'
+import { RuleId } from '../RuleId'
 
 export class GreenCityScoring extends CityScoring {
   city = City.Green
@@ -18,7 +19,7 @@ export class GreenCityScoring extends CityScoring {
 
 
   goToNextRule(): MaterialMove {
-    return this.endGame()
+    return this.startRule(RuleId.EndSeason)
   }
 
 

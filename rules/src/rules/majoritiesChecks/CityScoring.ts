@@ -16,6 +16,7 @@ export abstract class CityScoring extends PlayerTurnRule {
     for(const winner of winners){
       const playerVictoryPoints = this.getPlayerVictoryPoints(winner)
       moves.push(this.customMove(CustomMoveType.Score, {points:playerVictoryPoints, player:winner}))
+
     }
 
     moves.push(this.goToNextRule())
@@ -42,9 +43,9 @@ export abstract class CityScoring extends PlayerTurnRule {
 
     const maxInfluence = Math.max(...playersInfluence.map(p => p.influence))
 
-    return maxInfluence === 0 ? playersInfluence
+    return maxInfluence === 0 ? [] : playersInfluence
       .filter(p => p.influence === maxInfluence)
-      .map(p => p.player) : []
+      .map(p => p.player)
   }
 
   onCustomMove(move: CustomMove, _context?: PlayMoveContext) {

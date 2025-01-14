@@ -31,6 +31,7 @@ import { PinkCityScoring } from './rules/majoritiesChecks/PinkCityScoring'
 import { RedCityScoring } from './rules/majoritiesChecks/RedCityScoring'
 import { BlueCityScoring } from './rules/majoritiesChecks/BlueCityScoring'
 import { GreenCityScoring } from './rules/majoritiesChecks/GreenCityScoring'
+import { EndSeasonRule } from './rules/EndSeasonRule'
 
 /**
  * This class implements the rules of the board game.
@@ -65,6 +66,7 @@ export class CitesRoyalesRules
     [RuleId.RedMajority]: RedCityScoring,
     [RuleId.BlueMajority]: BlueCityScoring,
     [RuleId.GreenMajority]: GreenCityScoring,
+    [RuleId.EndSeason]: EndSeasonRule
   }
 
   locationsStrategies = {

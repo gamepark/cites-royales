@@ -17,5 +17,6 @@ export enum RuleId {
   PinkMajority = 16,
   RedMajority = 17,
   BlueMajority = 18,
-  GreenMajority = 19
+  GreenMajority = 19,
+  EndSeason = 20
 }
