@@ -1,30 +1,28 @@
-import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { MaterialType } from '../material/MaterialType'
-import { LocationType } from '../material/LocationType'
-import { NobleColor } from '../NobleColor'
-import { RuleId } from './RuleId'
+import {isMoveItemType, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule} from '@gamepark/rules-api'
+import {MaterialType} from '../material/MaterialType'
+import {LocationType} from '../material/LocationType'
+import {NobleColor} from '../NobleColor'
+import {RuleId} from './RuleId'
+import {getSubjectCity, Subject} from "../material/Subject";
+import {cities} from "../material/City";
 
 export class EndSeasonRule extends PlayerTurnRule {
   onRuleStart() {
     const moves:MaterialMove[] = []
 
-    moves.push(...this.material(MaterialType.MarketToken).moveItems({type:LocationType.MarketTokenSpot}))
-
     moves.push(this.material(MaterialType.SeasonCard).id(this.season).rotateItem(true))
 
 
-    // TODO : Couleur unique pour chaque carte du marché
-    if(this.marketCardsToDeal > 0){
-      const drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
-      moves.push(...drawPile.deal({ type: LocationType.Market }, this.marketCardsToDeal))
-    }
 
-    for(const player of this.game.players){
-      const cardsToDraw = this.getPlayerCardsToDraw(player)
-      console.log(cardsToDraw)
-    }
+    // TODO : draw cards
+    // for(const player of this.game.players){
+      // const cardsToDraw = this.getPlayerCardsToDraw(player)
 
-    moves.push(this.nextRule)
+    // }
+
+    moves.push(this.dealCard())
+
+    moves.push(...this.material(MaterialType.MarketToken).moveItems({type:LocationType.MarketTokenSpot}))
 
 
     return moves
@@ -39,10 +37,15 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.material(MaterialType.SeasonCard).length
   }
 
-  get marketCardsToDeal() {
-    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).length;
-    const difference = 4 - marketCards;
-    return difference > 0 ? difference : 0;
+ dealCard() {
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).length
+
+    if(marketCards >= 4 && this.marketCardsToDiscard.length < 1) {
+      return this.nextRule
+    } else {
+      const drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
+      return drawPile.dealOne({ type: LocationType.Market })
+    }
   }
 
   getPlayerCardsToDraw(player:NobleColor) {
@@ -73,5 +76,33 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.season === this.seasons ? this.endGame() : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
   }
 
+  get marketCardsToDiscard() {
+      const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
+
+      const marketCardsItems = marketCards.getItems()
+
+      const cardsToDiscard:MaterialItem[] = []
+      for (const city of cities) {
+          const marketCityCards = marketCards.id<Subject>(id => getSubjectCity(id) === city)
+
+          cardsToDiscard.push(...(marketCityCards.filter(card => {
+              return marketCardsItems.some(item => item.id !== card.id && getSubjectCity(card.id) === getSubjectCity(item.id))
+          })).getItems())
+      }
+
+
+      return marketCards.id<Subject>(id => cardsToDiscard.some(item => item.id === id))
+  }
+
+
+  afterItemMove(move: ItemMove) {
+    const moves:MaterialMove[] = []
+    if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
+      moves.push(...this.marketCardsToDiscard.moveItems({ type: LocationType.Discard }))
+      moves.push(this.dealCard())
+    }
+
+    return moves
+  }
 
 }
