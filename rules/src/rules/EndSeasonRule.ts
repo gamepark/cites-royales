@@ -78,29 +78,29 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.season === this.seasons ? this.endGame() : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
   }
 
-    get marketCardsToDiscard() {
-        const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market);
-        const marketCardsItems = marketCards.getItems();
+  get marketCardsToDiscard() {
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market);
+    const marketCardsItems = marketCards.getItems();
 
-        const cardsToDiscard = cities.flatMap(city => {
-            let cityFound = false;
+    const cardsToDiscard = cities.flatMap(city => {
+        let cityFound = false;
 
-            const marketCityCards = marketCards
-                .id<Subject>(id => getSubjectCity(id) === city)
-                .sort(item => item.location.x!);
+        const marketCityCards = marketCards
+            .id<Subject>(id => getSubjectCity(id) === city)
+            .sort(item => item.location.x!);
 
-            return marketCityCards.filter(card => {
-                if (!cityFound) {
-                    cityFound = true;
-                    return false;
-                }
-                return marketCardsItems.some(
-                    item => item.id !== card.id && getSubjectCity(card.id) === getSubjectCity(item.id)
-                );
-            }).getItems();
-        });
+        return marketCityCards.filter(card => {
+            if (!cityFound) {
+                cityFound = true;
+                return false;
+            }
+            return marketCardsItems.some(
+                item => getSubjectCity(card.id) === getSubjectCity(item.id)
+            );
+        }).getItems();
+    });
 
-        return marketCards.id<Subject>(id => cardsToDiscard.some(item => item.id === id));
+    return marketCards.id<Subject>(id => cardsToDiscard.some(item => item.id === id));
     }
 
 
