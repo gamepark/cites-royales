@@ -1,4 +1,4 @@
-import {isMoveItemType, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule} from '@gamepark/rules-api'
+import {isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule} from '@gamepark/rules-api'
 import {MaterialType} from '../material/MaterialType'
 import {LocationType} from '../material/LocationType'
 import {NobleColor} from '../NobleColor'
@@ -78,26 +78,34 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.season === this.seasons ? this.endGame() : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
   }
 
-  get marketCardsToDiscard() {
-      const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
+    get marketCardsToDiscard() {
+        const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market);
+        const marketCardsItems = marketCards.getItems();
 
-      const marketCardsItems = marketCards.getItems()
+        const cardsToDiscard = cities.flatMap(city => {
+            let cityFound = false;
 
-      const cardsToDiscard:MaterialItem[] = []
-      for (const city of cities) {
-          const marketCityCards = marketCards.id<Subject>(id => getSubjectCity(id) === city)
+            const marketCityCards = marketCards
+                .id<Subject>(id => getSubjectCity(id) === city)
+                .sort(item => item.location.x!);
 
-          cardsToDiscard.push(...(marketCityCards.filter(card => {
-              return marketCardsItems.some(item => item.id !== card.id && getSubjectCity(card.id) === getSubjectCity(item.id))
-          })).getItems())
-      }
+            return marketCityCards.filter(card => {
+                if (!cityFound) {
+                    cityFound = true;
+                    return false;
+                }
+                return marketCardsItems.some(
+                    item => item.id !== card.id && getSubjectCity(card.id) === getSubjectCity(item.id)
+                );
+            }).getItems();
+        });
+
+        return marketCards.id<Subject>(id => cardsToDiscard.some(item => item.id === id));
+    }
 
 
-      return marketCards.id<Subject>(id => cardsToDiscard.some(item => item.id === id))
-  }
 
-
-  afterItemMove(move: ItemMove) {
+    afterItemMove(move: ItemMove) {
     const moves:MaterialMove[] = []
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
       moves.push(...this.marketCardsToDiscard.moveItems({ type: LocationType.Discard }))

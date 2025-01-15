@@ -13,6 +13,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
   }
 
   getActivePlayerLegalMoves(player: NobleColor){
+
     const moves:MaterialMove[]=[]
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
     const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)

@@ -8,9 +8,12 @@ import { CustomMoveType } from './CustomMoveType'
 
 export class AddCardInMarketRule extends PlayerTurnRule {
   onRuleStart() {
+
     const player = this.player
     const playerHeroAvailable = this.material(MaterialType.HeroCard).player(player).rotation(true).length > 0
-    if(playerHeroAvailable) return []
+    if(playerHeroAvailable) {
+
+    }
 
     return [this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)
