@@ -41,8 +41,9 @@ export class PlayKnightRule extends CardEffectRule {
 
     const cardsInSameCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(this.player).filter((cityCard) => cityCard.location.id === cardColor)
 
-    // TODO : Fix -> Il est possible de placer une carte moins haute
-    const higherCityCards = cardsInSameCity.filter((cityCard) => getSubjectType(cityCard.id) < cardType)
+    const higherCityCards = cardsInSameCity.filter((cityCard) => {
+      return getSubjectType(cityCard.id) > cardType
+    })
 
 
     return higherCityCards.length < 1 || cardsInSameCity.length === 0
