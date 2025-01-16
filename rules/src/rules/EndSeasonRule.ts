@@ -75,7 +75,7 @@ export class EndSeasonRule extends PlayerTurnRule {
   }
 
   get nextRule(){
-    return this.season === this.seasons ? this.endGame() : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
+    return this.season === this.seasons ? this.startRule(RuleId.EndGame) : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
   }
 
   get marketCardsToDiscard() {

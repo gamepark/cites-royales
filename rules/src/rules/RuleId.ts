@@ -18,5 +18,6 @@ export enum RuleId {
   RedMajority = 17,
   BlueMajority = 18,
   GreenMajority = 19,
-  EndSeason = 20
+  EndSeason = 20,
+  EndGame = 21
 }

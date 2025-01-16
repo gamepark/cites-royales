@@ -1,4 +1,5 @@
 import {
+  CompetitiveScore,
   hideItemId,
   hideItemIdToOthers,
   MaterialGame,
@@ -32,6 +33,7 @@ import { RedCityScoring } from './rules/majoritiesChecks/RedCityScoring'
 import { BlueCityScoring } from './rules/majoritiesChecks/BlueCityScoring'
 import { GreenCityScoring } from './rules/majoritiesChecks/GreenCityScoring'
 import { EndSeasonRule } from './rules/EndSeasonRule'
+import { EndGameRule } from './rules/EndGameRule'
 
 /**
  * This class implements the rules of the board game.
@@ -44,7 +46,10 @@ export class CitesRoyalesRules
       MaterialGame<NobleColor, MaterialType, LocationType>,
       MaterialMove<NobleColor, MaterialType, LocationType>,
       NobleColor
-    >
+    >, CompetitiveScore<
+    MaterialGame<NobleColor, MaterialType, LocationType>,
+    MaterialMove<NobleColor, MaterialType, LocationType>,
+    NobleColor>
 {
   rules = {
     [RuleId.SetupDraft]: SetupDraftRule,
@@ -66,7 +71,8 @@ export class CitesRoyalesRules
     [RuleId.RedMajority]: RedCityScoring,
     [RuleId.BlueMajority]: BlueCityScoring,
     [RuleId.GreenMajority]: GreenCityScoring,
-    [RuleId.EndSeason]: EndSeasonRule
+    [RuleId.EndSeason]: EndSeasonRule,
+    [RuleId.EndGame]:EndGameRule,
   }
 
   locationsStrategies = {
@@ -106,5 +112,16 @@ export class CitesRoyalesRules
 
   giveTime(): number {
     return 60
+  }
+
+  getScore(player:NobleColor){
+    return this.material(MaterialType.NobleToken).player(player).getItem()?.location.x!
+  }
+
+  getTieBreaker(tieBreaker: number, player: NobleColor){
+    if(tieBreaker === 1){
+      return this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).length
+    }
+    return
   }
 }
