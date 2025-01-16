@@ -1,19 +1,17 @@
-import { CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { LocationType } from '../material/LocationType'
-import { MaterialType } from '../material/MaterialType'
-import { getSubjectCity, getSubjectRule, Subject } from '../material/Subject'
-import { Memory } from './Memory'
-import { RuleId } from './RuleId'
-import { CustomMoveType } from './CustomMoveType'
+import {CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule} from '@gamepark/rules-api'
+import {LocationType} from '../material/LocationType'
+import {MaterialType} from '../material/MaterialType'
+import {getSubjectCity, getSubjectRule, Subject} from '../material/Subject'
+import {Memory} from './Memory'
+import {RuleId} from './RuleId'
+import {CustomMoveType} from './CustomMoveType'
 
 export class AddCardInMarketRule extends PlayerTurnRule {
+  drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
   onRuleStart() {
 
-    const player = this.player
-    const playerHeroAvailable = this.material(MaterialType.HeroCard).player(player).rotation(true).length > 0
-    if(playerHeroAvailable) {
-
-    }
+    const playerHeroAvailable = this.playerHeroAvailable
+    if(playerHeroAvailable) return []
 
     return [this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)
@@ -21,12 +19,32 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       .dealOne({ type: LocationType.Market })]
   }
 
+  get playerHeroAvailable() {
+    return this.material(MaterialType.HeroCard).player(this.player).rotation(true).length > 0
+  }
+
   getPlayerMoves(): MaterialMove<number, number, number>[] {
-    // Si pas de carte dans la action hand, joueur peut choisir d'utiliser héro ou pas
-    // Utiliser héro => Rotate Item Puis deal 2 dans ActionHand
-    // Pas utilser héro => dealOne
-    // Sinon actionHand.moveItems Market
-    return []
+    const playerActionHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
+
+
+    if(playerActionHand.length < 1 && this.playerHeroAvailable) {
+      return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false), this.customMove(CustomMoveType.Pass)]
+    } else {
+      return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Market})]
+    }
+  }
+
+  afterItemMove(move:ItemMove) {
+    if(isMoveItemType(MaterialType.HeroCard)(move)){
+      return [...this.drawPile.deal({type:LocationType.ActionHand, player:this.player}, 2)]
+    } else if(isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
+      const playerActionHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
+      if(playerActionHand.length > 0) {
+        return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Discard})]
+      } else return []
+    } else {
+      return []
+    }
   }
 
   beforeItemMove(move: ItemMove) {
@@ -62,9 +80,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   }
 
   onCustomMove(move: CustomMove): MaterialMove<number, number, number>[] {
-    if (move.type !== CustomMoveType.Pass) return []
-    // Si move Market
-    // Alors défausser toutes les cartes de ActionHand
+    if (move.type !== CustomMoveType.Pass) return [this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
     return []
   }
 
@@ -94,11 +110,11 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   }
 
   get victoryPointsToGive() {
-      const marketCardsNumber = this.marketCardsNumber
-      if (marketCardsNumber >= 12) return 3
-      if (marketCardsNumber >= 8) return 2
-      if (marketCardsNumber >= 4) return 1
-      return 0
+    const marketCardsNumber = this.marketCardsNumber
+    if (marketCardsNumber >= 12) return 3
+    if (marketCardsNumber >= 8) return 2
+    if (marketCardsNumber >= 4) return 1
+    return 0
   }
 
   get marketHasTwoCardsOfSameColor() {
