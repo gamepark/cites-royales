@@ -40,7 +40,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     } else if(isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
       const playerActionHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
       if(playerActionHand.length > 0) {
-        return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Discard})]
+        return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Discard}), this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
       } else return []
     } else {
       return []
@@ -74,7 +74,6 @@ export class AddCardInMarketRule extends PlayerTurnRule {
           )
         }
       }
-      moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
       return moves
     }
   }
