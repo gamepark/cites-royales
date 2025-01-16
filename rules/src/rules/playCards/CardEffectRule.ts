@@ -12,6 +12,7 @@ export abstract class CardEffectRule extends PlayerTurnRule {
 
   get nextRule(){
     if(this.remind(Memory.Revolution)){
+      this.forget(Memory.Revolution)
       return this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
     } else {
       return this.startRule(RuleId.MarketBuy)
