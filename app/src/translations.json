@@ -136,6 +136,8 @@
       "header.setup-build.player": "{player} doit choisir 1 carte de sa main à construire",
       "header.play-card.you": "Défaussez une carte pour son effet ou \u003Cpass\u003Epassez\u003C/pass\u003E",
       "header.play-card.player": "{player} peut défausser une carte pour son effet",
+      "header.emptiness.you": "Le Vide : défaussez 1 carte face visible du Marché",
+      "header.emptiness.player": "Le Vide : {player} défausse 1 carte face visible du Marché",
       "header.market-buy.you": "Achetez des cartes au marché pour {value} ou \u003Cpass\u003Epassez\u003C/pass\u003E",
       "header.market-buy.player": "{player} peut acheter des cartes au marché pour {value}",
       "header.build.you": "Choisissez les cartes de votre main à construire ou \u003Cpass\u003Epassez\u003C/pass\u003E",
