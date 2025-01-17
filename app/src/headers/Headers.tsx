@@ -10,6 +10,9 @@ import { EmptinessHeader } from './EmptinessHeader'
 import { VillagerHeader } from './VillagerHeader'
 import { JesterHeader } from './JesterHeader'
 import { AssassinHeader } from './AssassinHeader'
+import { MerchantHeader } from './MechantHeader'
+import { KnightHeader } from './KnightHeader'
+import { AstrologerHeader } from './AstrologerHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.SetupDraft]: SetupDraftHeader,
@@ -19,6 +22,9 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PlayVillager]: VillagerHeader,
   [RuleId.PlayJester]: JesterHeader,
   [RuleId.PlayAssassin]: AssassinHeader,
+  [RuleId.PlayMerchant]: MerchantHeader,
+  [RuleId.PlayKnight]: KnightHeader,
+  [RuleId.PlayAstrologer]:AstrologerHeader,
   [RuleId.MarketBuy]: MarketBuyHeader,
   [RuleId.CitiesConstruction]:CitiesConstructionHeader
 }
