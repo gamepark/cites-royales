@@ -41,7 +41,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       const playerActionHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
       if(playerActionHand.length > 0) {
         return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Discard}), this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
-      } else return []
+      } else return [this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
     } else {
       return []
     }
