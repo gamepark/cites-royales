@@ -140,6 +140,8 @@
       "header.emptiness.player": "Le Vide : {player} défausse 1 carte face visible du Marché",
       "header.villager.you": "La Villageoise : récuperez la plus haute carte d'une de vos cités en main",
       "header.villager.player": "La Villageoise : {player} récupère la plus haute carte d'une de ses cités en main",
+      "header.jester.you": "Le Bouffon : vous piochez 1 carte",
+      "header.jester.player": "Le Bouffon : {player} pioche 1 carte",
       "header.market-buy.you": "Achetez des cartes au marché pour {value} ou \u003Cpass\u003Epassez\u003C/pass\u003E",
       "header.market-buy.player": "{player} peut acheter des cartes au marché pour {value}",
       "header.build.you": "Choisissez les cartes de votre main à construire ou \u003Cpass\u003Epassez\u003C/pass\u003E",
