@@ -10,7 +10,7 @@ import { EmptinessHeader } from './EmptinessHeader'
 import { VillagerHeader } from './VillagerHeader'
 import { JesterHeader } from './JesterHeader'
 import { AssassinHeader } from './AssassinHeader'
-import { MerchantHeader } from './MechantHeader'
+import { MerchantHeader } from './MerchantHeader'
 import { KnightHeader } from './KnightHeader'
 import { AstrologerHeader } from './AstrologerHeader'
 
