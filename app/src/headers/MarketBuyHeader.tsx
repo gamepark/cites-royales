@@ -5,6 +5,7 @@ import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } fr
 import { isCustomMoveType } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 
+// TODO : Market fix ammounts
 export const MarketBuyHeader = () => {
   const { t } = useTranslation()
   const me = usePlayerId<NobleColor>()
