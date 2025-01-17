@@ -7,7 +7,7 @@ export const EmptinessHeader = () => {
   const { t } = useTranslation()
   const me = usePlayerId<NobleColor>()
   const rules = useRules<CitesRoyalesRules>()!
-  const activePlayer = rules.game.rule!.players![0]
+  const activePlayer = rules.game.rule!.player
   const playerName = usePlayerName(activePlayer)
   if(me !== undefined && rules.isTurnToPlay(me)) {
     return <>{t('header.emptiness.you')}</>
