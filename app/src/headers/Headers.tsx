@@ -7,12 +7,14 @@ import { SetupDraftHeader } from './SetupDraftHeader'
 import { CitiesConstructionHeader } from './CitiesConstructionHeader'
 import { SetupBuildHeader } from './SetupBuildHeader'
 import { EmptinessHeader } from './EmptinessHeader'
+import { VillagerHeader } from './VillagerHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.SetupDraft]: SetupDraftHeader,
   [RuleId.SetupBuild]:SetupBuildHeader,
   [RuleId.PlayCard]: PlayCardHeader,
   [RuleId.PlayEmptiness]: EmptinessHeader,
+  [RuleId.PlayVillager]: VillagerHeader,
   [RuleId.MarketBuy]: MarketBuyHeader,
   [RuleId.CitiesConstruction]:CitiesConstructionHeader
 }
