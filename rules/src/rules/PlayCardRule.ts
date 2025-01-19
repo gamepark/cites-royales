@@ -7,7 +7,7 @@ import { cities } from '../material/City'
 
 export class PlayCardRule extends PlayerTurnRule {
   onRuleStart(){
-    if(this.playerHasNoCardInHand) return [this.startRule(RuleId.MarketBuy)]
+    if(this.playerHasNoCardInHand && this.playerHasNoCardInCity) return [this.startRule(RuleId.MarketBuy)]
     return []
   }
 
@@ -46,5 +46,8 @@ export class PlayCardRule extends PlayerTurnRule {
 
   get playerHasNoCardInHand() {
     return this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(this.player).length === 0
+  }
+  get playerHasNoCardInCity() {
+    return this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(this.player).length === 0
   }
 }
