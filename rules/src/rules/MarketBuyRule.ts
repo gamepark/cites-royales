@@ -32,13 +32,16 @@ export class MarketBuyRule extends PlayerTurnRule {
 
     if (this.hasBought || !this.remind(Memory.Revolution)) {
       moves.push(this.customMove(CustomMoveType.Pass))
+      moves.push()
     }
 
     return moves
   }
 
+
+
   getPurchasingPower() {
-    return (
+    return this.remind(Memory.PurchasingPower) ? this.remind(Memory.PurchasingPower) : (
       this.material(MaterialType.SubjectCard).location(LocationType.Market).length +
       this.material(MaterialType.SubjectCard).location(LocationType.Reserve).length
     )
@@ -73,6 +76,14 @@ export class MarketBuyRule extends PlayerTurnRule {
   }
   get everyOtherPlayersHaveBought() {
     return this.material(MaterialType.MarketToken).id(id => id !== this.player).location(LocationType.OnSeasonCards).length === this.game.players.length - 1
+  }
+
+  get cardsPlayerCanBuy(){
+    const purchasingPower = this.remind(Memory.PurchasingPower)
+
+    return this.material(MaterialType.SubjectCard)
+      .location(LocationType.Market)
+      .filter((item) => getSubjectType(item.id) <= purchasingPower).length
   }
 
   onCustomMove(move: CustomMove) {
