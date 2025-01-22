@@ -158,6 +158,8 @@
       "header.revolt.you": "Révolte ! Vous devez acheter des cartes au marché pour {value}",
       "header.revolt.player": "Révolte ! {player} doit acheter des cartes au marché pour {value}",
       "header.build.you": "Choisissez les cartes de votre main à construire ou \u003Cpass\u003Epassez\u003C/pass\u003E",
+      "header.build.players": "Les joueurs doivent choisir les cartes de leur main à construire",
+      "header.build.player": "{player} doit choisir les cartes de sa main à construire",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",
