@@ -19,20 +19,30 @@ export const MarketBuyHeader = () => {
   const rule = new MarketBuyRule(rules.game)
   const purchasingPower = rule.getPurchasingPower()
   const playerCanBuy = rule.cardsPlayerCanBuy
+  const isRevolt = rule.isRevolt
   const activePlayer = rules.getActivePlayer()
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
   const player = usePlayerName(activePlayer)
   if (me === activePlayer) {
     if(playerCanBuy){
-      return (
-        <Trans
-          defaults="header.market-buy.you"
-          values={{value:purchasingPower}}
-          components={{
-            pass: <PlayMoveButton move={pass} />
-          }}
-        />
-      )
+      if(isRevolt){
+        return (
+          <Trans
+            defaults="header.revolt.you"
+            values={{value:purchasingPower}}
+          />
+        )
+      } else {
+        return (
+          <Trans
+            defaults="header.market-buy.you"
+            values={{value:purchasingPower}}
+            components={{
+              pass: <PlayMoveButton move={pass} />
+            }}
+          />
+        )
+      }
     } else {
       return (
         <Trans
@@ -45,8 +55,15 @@ export const MarketBuyHeader = () => {
       )
     }
   }
-  return <Trans
-    defaults="header.market-buy.player"
-    values={{player, value: purchasingPower}}
-  />
+  if(isRevolt){
+    return <Trans
+      defaults="header.revolt.player"
+      values={{player, value: purchasingPower}}
+    />
+  } else {
+    return <Trans
+      defaults="header.market-buy.player"
+      values={{player, value: purchasingPower}}
+    />
+  }
 }

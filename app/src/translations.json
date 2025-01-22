@@ -155,6 +155,8 @@
       "header.market-buy.validate": "Vous ne pouvez plus acheter, vous devez \u003Cvalidate\u003EValider\u003C/validate\u003E ou \u003Cundo\u003EAnnuler\u003C/undo\u003E",
       "header.market-draw.you": "\u003Cdraw\u003EAjoutez une carte au Marché\u003C/draw\u003E ou \u003Chero\u003EUtilisez votre Héros\u003C/hero\u003E",
       "header.market-draw.player": "{player} doit ajouter une carte au Marché ou utiliser son héros",
+      "header.revolt.you": "Révolte ! Vous devez acheter des cartes au marché pour {value}",
+      "header.revolt.player": "Révolte ! {player} doit acheter des cartes au marché pour {value}",
       "header.build.you": "Choisissez les cartes de votre main à construire ou \u003Cpass\u003Epassez\u003C/pass\u003E",
       "Menu": "Menu",
       "OK": "OK",

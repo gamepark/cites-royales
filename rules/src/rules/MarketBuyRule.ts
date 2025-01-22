@@ -87,6 +87,10 @@ export class MarketBuyRule extends PlayerTurnRule {
       .filter((item) => getSubjectType(item.id) <= purchasingPower).length
   }
 
+  get isRevolt(){
+    return this.remind(Memory.Revolution)
+  }
+
   onCustomMove(move: CustomMove) {
     if (move.type !== CustomMoveType.Pass) return []
 
