@@ -28,7 +28,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
 
 
     if(playerActionHand.length < 1 && this.playerHeroAvailable) {
-      return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false), this.customMove(CustomMoveType.Pass)]
+      return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false), this.customMove(CustomMoveType.Pass), this.customMove(CustomMoveType.Hero)]
     } else {
       return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Market})]
     }
@@ -79,7 +79,8 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   }
 
   onCustomMove(move: CustomMove): MaterialMove<number, number, number>[] {
-    if (move.type !== CustomMoveType.Pass) return [this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
+    if(move.type === CustomMoveType.Pass) return [this.drawPile.dealOne({type:LocationType.Market}), this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
+    else if(move.type === CustomMoveType.Hero) return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false)]
     return []
   }
 

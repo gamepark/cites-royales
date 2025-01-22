@@ -7,6 +7,7 @@ import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
+// TODO : Probleme peut pas passer à certains moments
 export class MarketBuyRule extends PlayerTurnRule {
   onRuleStart() {
     const playerHasAlreadyBoughtThisSeason = this.playerHasAlreadyBought

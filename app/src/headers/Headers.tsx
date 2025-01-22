@@ -13,6 +13,7 @@ import { AssassinHeader } from './AssassinHeader'
 import { MerchantHeader } from './MerchantHeader'
 import { KnightHeader } from './KnightHeader'
 import { AstrologerHeader } from './AstrologerHeader'
+import { AddCardInMarketHeader } from './AddCardInMarketHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.SetupDraft]: SetupDraftHeader,
@@ -26,5 +27,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PlayKnight]: KnightHeader,
   [RuleId.PlayAstrologer]:AstrologerHeader,
   [RuleId.MarketBuy]: MarketBuyHeader,
+  [RuleId.AddCardInMarket]:AddCardInMarketHeader,
   [RuleId.CitiesConstruction]:CitiesConstructionHeader
 }
