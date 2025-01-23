@@ -112,9 +112,9 @@ export class AddCardInMarketRule extends PlayerTurnRule {
 
   get victoryPointsToGive() {
     const marketCardsNumber = this.marketCardsNumber
-    if (marketCardsNumber >= 12) return 3
-    if (marketCardsNumber >= 8) return 2
-    if (marketCardsNumber >= 4) return 1
+    if (marketCardsNumber > 12) return 3
+    if (marketCardsNumber > 8) return 2
+    if (marketCardsNumber > 4) return 1
     return 0
   }
 
