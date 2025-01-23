@@ -115,7 +115,7 @@ export class CitesRoyalesRules
   }
 
   getScore(player:NobleColor){
-    return this.material(MaterialType.NobleToken).player(player).getItem()?.location.x!
+    return this.material(MaterialType.NobleToken).player(player).getItem()!.location.x!
   }
 
   getTieBreaker(tieBreaker: number, player: NobleColor){
