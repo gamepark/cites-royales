@@ -5,27 +5,24 @@ import { getSubjectCity, Subject } from '../material/Subject'
 import { NobleColor } from '../NobleColor'
 import { RuleId } from './RuleId'
 
-export class EndSeasonRule extends PlayerTurnRule {
-  drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
 
+export class EndSeasonRule extends PlayerTurnRule {
   onRuleStart() {
     const moves: MaterialMove[] = []
 
     moves.push(this.material(MaterialType.SeasonCard).id(this.season).rotateItem(true))
 
+    const drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
     for (const player of this.game.players) {
       const cardsToDraw = this.getPlayerCardsToDraw(player)
 
-      // TODO : ANIMATION_COMPLETE event received but not animation found with provided id -> Après construction peut pas passer
-      // "You are trying to deal one card from an empty deck"
       if (cardsToDraw > 0) {
-        console.log(this.drawPile)
-        moves.push(...this.drawPile.deal({ type: LocationType.PlayerHand, player }, cardsToDraw))
+        moves.push(...drawPile.deal({ type: LocationType.PlayerHand, player }, cardsToDraw))
       }
     }
 
     if (this.marketCards.length < 4) {
-      moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
+      moves.push(drawPile.dealOne({ type: LocationType.Market }))
     } else {
       moves.push(...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }))
       moves.push(this.nextRule)
@@ -75,17 +72,16 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.season === this.seasons ? this.startRule(RuleId.EndGame) : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
   }
 
-  beforeItemMove(move: ItemMove) {
+  afterItemMove(move: ItemMove) {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
       const newCardColor = getSubjectCity(this.material(move.itemType).getItem<Subject>(move.itemIndex).id)
-      if (this.marketCards.getItems<Subject>().some(item => getSubjectCity(item.id) === newCardColor)) {
+      const drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
+      if (this.marketCards.index(index => index !== move.itemIndex).getItems<Subject>().some(item => getSubjectCity(item.id) === newCardColor)) {
         moves.push(this.material(move.itemType).index(move.itemIndex).moveItem({ type: LocationType.Discard }))
-        // TODO : ICI
-        console.log(this.drawPile)
-        moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
-      } else if (this.marketCards.length + 1 < 4) {
-        moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
+        moves.push(drawPile.dealOne({ type: LocationType.Market }))
+      } else if (this.marketCards.length < 4) {
+        moves.push(drawPile.dealOne({ type: LocationType.Market }))
       } else {
         moves.push(...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }))
         moves.push(this.nextRule)
