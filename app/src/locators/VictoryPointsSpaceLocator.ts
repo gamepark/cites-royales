@@ -10,8 +10,9 @@ class VictoryPointsSpaceLocator extends Locator {
     return victoryPointsTrackDescription.getStaticItems(context)[0]
   }
   getPositionOnParent(location: Location) {
-    const line = this.getLineOnParent(location.x!)
-    const column = this.getColumnOnParent(location.x!)
+    const locationX = location.x! > 50 ? location.x! % 50 : location.x!
+    const line = this.getLineOnParent(locationX)
+    const column = this.getColumnOnParent(locationX)
 
     const baseX = 13
     const baseY = 14.5
