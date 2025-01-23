@@ -18,7 +18,7 @@ export class PlayAstrologerRule extends CardEffectRule {
     const moves: MaterialMove[] = []
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand)
     const inCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
-      // TODO : Fix White cards ?
+
     for (const city of cities) {
 
       moves.push(

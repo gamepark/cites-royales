@@ -13,6 +13,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
   }
 
   getActivePlayerLegalMoves(player: NobleColor){
+    // TODO : Voir avec romain pour cacher les cartes construites
 
     const moves:MaterialMove[]=[]
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)

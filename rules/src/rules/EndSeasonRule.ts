@@ -16,9 +16,10 @@ export class EndSeasonRule extends PlayerTurnRule {
     for (const player of this.game.players) {
       const cardsToDraw = this.getPlayerCardsToDraw(player)
 
+      // TODO : ANIMATION_COMPLETE event received but not animation found with provided id -> Après construction peut pas passer
+      // "You are trying to deal one card from an empty deck"
       if (cardsToDraw > 0) {
-
-
+        console.log(this.drawPile)
         moves.push(...this.drawPile.deal({ type: LocationType.PlayerHand, player }, cardsToDraw))
       }
     }
@@ -80,6 +81,8 @@ export class EndSeasonRule extends PlayerTurnRule {
       const newCardColor = getSubjectCity(this.material(move.itemType).getItem<Subject>(move.itemIndex).id)
       if (this.marketCards.getItems<Subject>().some(item => getSubjectCity(item.id) === newCardColor)) {
         moves.push(this.material(move.itemType).index(move.itemIndex).moveItem({ type: LocationType.Discard }))
+        // TODO : ICI
+        console.log(this.drawPile)
         moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
       } else if (this.marketCards.length + 1 < 4) {
         moves.push(this.drawPile.dealOne({ type: LocationType.Market }))

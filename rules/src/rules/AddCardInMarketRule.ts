@@ -54,7 +54,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
       const subjectCity = getSubjectCity(card.id)
       const sameCitySubjects = this.material(MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => getSubjectCity(id) === subjectCity)
-
+      // TODO : Les 3 cartes sont défaussées lors de la révolution
       if (sameCitySubjects.length >= 3) {
         moves.push(...this.triggerRevolution(sameCitySubjects))
       } else {
