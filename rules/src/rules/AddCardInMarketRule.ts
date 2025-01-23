@@ -54,9 +54,8 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
       const subjectCity = getSubjectCity(card.id)
       const sameCitySubjects = this.material(MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => getSubjectCity(id) === subjectCity)
-      // TODO : Les 3 cartes sont défaussées lors de la révolution
       if (sameCitySubjects.length >= 3) {
-        moves.push(...this.triggerRevolution(sameCitySubjects))
+        moves.push(...this.triggerRevolution(sameCitySubjects, card.id))
       } else {
         if (!this.playerHasAlreadyBought && this.marketHasTwoCardsOfSameColor) {
           const pointsToGive = this.victoryPointsToGive
@@ -85,9 +84,9 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     return []
   }
 
-  triggerRevolution(sameCitySubjects: Material) {
+  triggerRevolution(sameCitySubjects: Material, cardId: number) {
     this.memorize(Memory.Revolution, true)
-    const moves: MaterialMove[] = sameCitySubjects.moveItems({ type: LocationType.Discard })
+    const moves: MaterialMove[] = sameCitySubjects.id(id => id !== cardId).moveItems({ type: LocationType.Discard })
 
     if (this.playerHasAlreadyBought) {
       const subject = sameCitySubjects.minBy(card => card.id).getItem<Subject>()!.id
