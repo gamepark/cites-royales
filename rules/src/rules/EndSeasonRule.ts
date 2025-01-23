@@ -1,5 +1,4 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { cities } from '../material/City'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectCity, Subject } from '../material/Subject'
@@ -24,10 +23,12 @@ export class EndSeasonRule extends PlayerTurnRule {
       }
     }
 
-    moves.push(this.dealCardInMarket())
-
-    moves.push(...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }))
-
+    if (this.marketCards.length < 4) {
+      moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
+    } else {
+      moves.push(...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }))
+      moves.push(this.nextRule)
+    }
 
     return moves
   }
@@ -41,14 +42,8 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.material(MaterialType.SeasonCard).length
   }
 
-  dealCardInMarket() {
-    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).length
-
-    if (marketCards >= 4 && this.marketCardsToDiscard.length < 1) {
-      return this.nextRule
-    } else {
-      return this.drawPile.dealOne({ type: LocationType.Market })
-    }
+  get marketCards() {
+    return this.material(MaterialType.SubjectCard).location(LocationType.Market)
   }
 
   getPlayerCardsToDraw(player: NobleColor) {
@@ -79,37 +74,19 @@ export class EndSeasonRule extends PlayerTurnRule {
     return this.season === this.seasons ? this.startRule(RuleId.EndGame) : this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)
   }
 
-  get marketCardsToDiscard() {
-    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
-    const marketCardsItems = marketCards.getItems()
-
-    const cardsToDiscard = cities.flatMap(city => {
-      let cityFound = false
-
-      const marketCityCards = marketCards
-        .id<Subject>(id => getSubjectCity(id) === city)
-        .sort(item => item.location.x!)
-
-      return marketCityCards.filter(card => {
-        if (!cityFound) {
-          cityFound = true
-          return false
-        }
-        return marketCardsItems.some(
-          item => getSubjectCity(card.id) === getSubjectCity(item.id)
-        )
-      }).getItems()
-    })
-
-    return marketCards.id<Subject>(id => cardsToDiscard.some(item => item.id === id))
-  }
-
-
-  afterItemMove(move: ItemMove) {
+  beforeItemMove(move: ItemMove) {
     const moves: MaterialMove[] = []
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
-      moves.push(...this.marketCardsToDiscard.moveItems({ type: LocationType.Discard }))
-      moves.push(this.dealCardInMarket())
+      const newCardColor = getSubjectCity(this.material(move.itemType).getItem<Subject>(move.itemIndex).id)
+      if (this.marketCards.getItems<Subject>().some(item => getSubjectCity(item.id) === newCardColor)) {
+        moves.push(this.material(move.itemType).index(move.itemIndex).moveItem({ type: LocationType.Discard }))
+        moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
+      } else if (this.marketCards.length + 1 < 4) {
+        moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
+      } else {
+        moves.push(...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }))
+        moves.push(this.nextRule)
+      }
     }
 
     return moves
