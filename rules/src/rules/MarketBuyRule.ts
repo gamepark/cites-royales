@@ -7,12 +7,11 @@ import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
-// TODO : Probleme peut pas passer à certains moments
 export class MarketBuyRule extends PlayerTurnRule {
   onRuleStart() {
     const playerHasAlreadyBoughtThisSeason = this.playerHasAlreadyBought
 
-    if (!this.remind(Memory.Revolution) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4 || playerHasAlreadyBoughtThisSeason) {
+    if ((!this.remind(Memory.Revolution) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length < 4) || playerHasAlreadyBoughtThisSeason) {
       return [this.startRule(RuleId.AddCardInMarket)]
     }
     this.memorize(Memory.PurchasingPower, this.getPurchasingPower())

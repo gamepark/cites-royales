@@ -8,10 +8,11 @@ import { RuleId } from './RuleId'
 
 export class AddCardInMarketRule extends PlayerTurnRule {
   drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
+
   onRuleStart() {
 
     const playerHeroAvailable = this.playerHeroAvailable
-    if(playerHeroAvailable) return []
+    if (playerHeroAvailable) return []
 
     return [this.material(MaterialType.SubjectCard)
       .location(LocationType.DrawPile)
@@ -27,69 +28,67 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     const playerActionHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
 
 
-    if(playerActionHand.length < 1 && this.playerHeroAvailable) {
+    if (playerActionHand.length < 1 && this.playerHeroAvailable) {
       return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false), this.customMove(CustomMoveType.Pass)]
     } else {
-      return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Market})]
+      return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({ type: LocationType.Market })]
     }
   }
 
-  afterItemMove(move:ItemMove) {
-    if(isMoveItemType(MaterialType.HeroCard)(move)){
-      return [...this.drawPile.deal({type:LocationType.ActionHand, player:this.player}, 2)]
-    } else if(isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
-      const playerActionHand = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
-      if(playerActionHand.length > 0) {
-        return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Discard}), this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
-      } else return [this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
-    } else {
-      return []
-    }
-  }
-
-  beforeItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Market) return []
-    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
-    if(marketCards.length < 3) return [this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
-
-
-    const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
-    const subjectCity = getSubjectCity(card.id)
-    const sameCitySubjects = this.material(MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => getSubjectCity(id) === subjectCity)
-
-    if(sameCitySubjects.length >= 2) {
-      return this.triggerRevolution(sameCitySubjects)
-    } else {
-      const moves:MaterialMove[]=[]
-      if (!this.playerHasAlreadyBought && this.marketHasTwoCardsOfSameColor) {
-        const pointsToGive = this.victoryPointsToGive
-        if (pointsToGive > 0) {
-          moves.push(
-            ...this.material(MaterialType.NobleToken)
-              .id(this.player)
-              .moveItems((item) => ({
-                type: LocationType.VictoryPointsSpace,
-                x: item.location.x! + pointsToGive
-              }))
-          )
-        }
-      }
-      return moves
-    }
-  }
-
-  onCustomMove(move: CustomMove) {
-    if (move.type === CustomMoveType.Pass) {
-      return [this.drawPile.dealOne({ type: LocationType.Market }), this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
+  afterItemMove(move: ItemMove) {
+    if (isMoveItemType(MaterialType.HeroCard)(move)) {
+      return [...this.drawPile.deal({ type: LocationType.ActionHand, player: this.player }, 2)]
     }
     return []
   }
 
-  triggerRevolution(sameCitySubjects: Material){
-    this.memorize(Memory.Revolution, true)
-    const moves:MaterialMove[] = sameCitySubjects.moveItems({type:LocationType.Discard})
+  beforeItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Market) return []
+    const moves: MaterialMove[] = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({ type: LocationType.Discard })
 
-    if(this.playerHasAlreadyBought){
+    const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
+    if (marketCards.length < 4) {
+      moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
+    } else {
+      const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
+      const subjectCity = getSubjectCity(card.id)
+      const sameCitySubjects = this.material(MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => getSubjectCity(id) === subjectCity)
+
+      if (sameCitySubjects.length >= 2) {
+        moves.push(...this.triggerRevolution(sameCitySubjects))
+      } else {
+        if (!this.playerHasAlreadyBought && this.marketHasTwoCardsOfSameColor) {
+          const pointsToGive = this.victoryPointsToGive
+          if (pointsToGive > 0) {
+            moves.push(
+              ...this.material(MaterialType.NobleToken)
+                .id(this.player)
+                .moveItems((item) => ({
+                  type: LocationType.VictoryPointsSpace,
+                  x: item.location.x! + pointsToGive
+                }))
+            )
+          }
+        }
+        moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
+      }
+    }
+
+    return moves
+  }
+
+  onCustomMove(move: CustomMove) {
+    if (move.type === CustomMoveType.Pass) {
+      return [this.drawPile.dealOne({ type: LocationType.Market })]
+    }
+    return []
+  }
+
+  triggerRevolution(sameCitySubjects: Material) {
+    this.memorize(Memory.Revolution, true)
+    const moves: MaterialMove[] = sameCitySubjects.moveItems({ type: LocationType.Discard })
+
+    if (this.playerHasAlreadyBought) {
       const subject = sameCitySubjects.minBy(card => card.id).getItem<Subject>()!.id
       moves.push(this.startRule(getSubjectRule(subject)))
     } else {
@@ -124,7 +123,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
 
     for (const card of marketCards.getItems()) {
       const color = getSubjectCity(card.id) || 0
-      if(colorFound.get(color)) return true
+      if (colorFound.get(color)) return true
       colorFound.set(color, true)
     }
 
@@ -134,6 +133,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   get playerMarketToken() {
     return this.material(MaterialType.MarketToken).id(this.player)
   }
+
   get playerHasAlreadyBought() {
     return this.playerMarketToken.location((location) => location.type === LocationType.OnSeasonCards).length > 0
   }
