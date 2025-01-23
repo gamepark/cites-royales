@@ -32,7 +32,6 @@ export class MarketBuyRule extends PlayerTurnRule {
 
     if (this.hasBought || !this.remind(Memory.Revolution)) {
       moves.push(this.customMove(CustomMoveType.Pass))
-      moves.push()
     }
 
     return moves
