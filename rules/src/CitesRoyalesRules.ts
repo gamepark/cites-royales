@@ -2,6 +2,7 @@ import {
   CompetitiveScore,
   hideItemId,
   hideItemIdToOthers,
+  isMoveItem,
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
@@ -12,6 +13,15 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
 import { AddCardInMarketRule } from './rules/AddCardInMarketRule'
+import { CitiesConstructionRule } from './rules/CitiesConstructionRule'
+import { EndGameRule } from './rules/EndGameRule'
+import { EndSeasonRule } from './rules/EndSeasonRule'
+import { BlueCityScoring } from './rules/majoritiesChecks/BlueCityScoring'
+import { GreenCityScoring } from './rules/majoritiesChecks/GreenCityScoring'
+import { PinkCityScoring } from './rules/majoritiesChecks/PinkCityScoring'
+import { PurpleCityScoring } from './rules/majoritiesChecks/PurpleCityScoring'
+import { RedCityScoring } from './rules/majoritiesChecks/RedCityScoring'
+import { YellowCityScoring } from './rules/majoritiesChecks/YellowCityScoring'
 import { MarketBuyRule } from './rules/MarketBuyRule'
 import { PlayCardRule } from './rules/PlayCardRule'
 import { PlayAssassinRule } from './rules/playCards/PlayAssassinRule'
@@ -25,15 +35,6 @@ import { RuleId } from './rules/RuleId'
 import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
 import { StackingStrategy } from './rules/utils/StackingStrategy'
-import { CitiesConstructionRule } from './rules/CitiesConstructionRule'
-import { PurpleCityScoring } from './rules/majoritiesChecks/PurpleCityScoring'
-import { YellowCityScoring } from './rules/majoritiesChecks/YellowCityScoring'
-import { PinkCityScoring } from './rules/majoritiesChecks/PinkCityScoring'
-import { RedCityScoring } from './rules/majoritiesChecks/RedCityScoring'
-import { BlueCityScoring } from './rules/majoritiesChecks/BlueCityScoring'
-import { GreenCityScoring } from './rules/majoritiesChecks/GreenCityScoring'
-import { EndSeasonRule } from './rules/EndSeasonRule'
-import { EndGameRule } from './rules/EndGameRule'
 
 /**
  * This class implements the rules of the board game.
@@ -41,16 +42,14 @@ import { EndGameRule } from './rules/EndGameRule'
  */
 export class CitesRoyalesRules
   extends SecretMaterialRules<NobleColor, MaterialType, LocationType>
-  implements
-    TimeLimit<
-      MaterialGame<NobleColor, MaterialType, LocationType>,
-      MaterialMove<NobleColor, MaterialType, LocationType>,
-      NobleColor
-    >, CompetitiveScore<
+  implements TimeLimit<
     MaterialGame<NobleColor, MaterialType, LocationType>,
     MaterialMove<NobleColor, MaterialType, LocationType>,
-    NobleColor>
-{
+    NobleColor
+  >, CompetitiveScore<
+    MaterialGame<NobleColor, MaterialType, LocationType>,
+    MaterialMove<NobleColor, MaterialType, LocationType>,
+    NobleColor> {
   rules = {
     [RuleId.SetupDraft]: SetupDraftRule,
     [RuleId.SetupBuild]: SetupBuildRule,
@@ -64,7 +63,7 @@ export class CitesRoyalesRules
     [RuleId.PlayAstrologer]: PlayAstrologerRule,
     [RuleId.MarketBuy]: MarketBuyRule,
     [RuleId.AddCardInMarket]: AddCardInMarketRule,
-    [RuleId.CitiesConstruction]:CitiesConstructionRule,
+    [RuleId.CitiesConstruction]: CitiesConstructionRule,
     [RuleId.PurpleMajority]: PurpleCityScoring,
     [RuleId.YellowMajority]: YellowCityScoring,
     [RuleId.PinkMajority]: PinkCityScoring,
@@ -72,7 +71,7 @@ export class CitesRoyalesRules
     [RuleId.BlueMajority]: BlueCityScoring,
     [RuleId.GreenMajority]: GreenCityScoring,
     [RuleId.EndSeason]: EndSeasonRule,
-    [RuleId.EndGame]:EndGameRule,
+    [RuleId.EndGame]: EndGameRule
   }
 
   locationsStrategies = {
@@ -114,14 +113,23 @@ export class CitesRoyalesRules
     return 60
   }
 
-  getScore(player:NobleColor){
+  getScore(player: NobleColor) {
     return this.material(MaterialType.NobleToken).player(player).getItem()!.location.x!
   }
 
-  getTieBreaker(tieBreaker: number, player: NobleColor){
-    if(tieBreaker === 1){
+  getTieBreaker(tieBreaker: number, player: NobleColor) {
+    if (tieBreaker === 1) {
       return this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).length
     }
     return
+  }
+
+  keepMoveSecret(move: MaterialMove<NobleColor, MaterialType, LocationType>, player: NobleColor): boolean {
+    if (this.game.rule?.id === RuleId.CitiesConstruction) {
+      if (isMoveItem(move) && move.itemType === MaterialType.SubjectCard && move.location.type === LocationType.InCity) {
+        return move.location.player !== player
+      }
+    }
+    return false
   }
 }
