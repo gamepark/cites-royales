@@ -1,10 +1,11 @@
-import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
+import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
+import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { AddCardInMarketRule } from '@gamepark/cites-royales/rules/AddCardInMarketRule'
-import { Trans } from 'react-i18next'
-import { isCustomMoveType } from '@gamepark/rules-api'
 import { CustomMoveType } from '@gamepark/cites-royales/rules/CustomMoveType'
+import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { isCustomMoveType, isMoveItemType } from '@gamepark/rules-api'
+import { Trans } from 'react-i18next'
 
 export const AddCardInMarketHeader = () => {
   const me = usePlayerId<NobleColor>()
@@ -14,7 +15,7 @@ export const AddCardInMarketHeader = () => {
   const player = usePlayerName(activePlayer)
   const playerHeroAvailable = rule.playerHeroAvailable
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
-  const hero = useLegalMove(isCustomMoveType(CustomMoveType.Hero))
+  const hero = useLegalMove(isMoveItemType(MaterialType.HeroCard))
 
   if(me === activePlayer) {
     if(playerHeroAvailable) {

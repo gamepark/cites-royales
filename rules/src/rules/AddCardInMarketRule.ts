@@ -1,10 +1,10 @@
-import {CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule} from '@gamepark/rules-api'
-import {LocationType} from '../material/LocationType'
-import {MaterialType} from '../material/MaterialType'
-import {getSubjectCity, getSubjectRule, Subject} from '../material/Subject'
-import {Memory} from './Memory'
-import {RuleId} from './RuleId'
-import {CustomMoveType} from './CustomMoveType'
+import { CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { LocationType } from '../material/LocationType'
+import { MaterialType } from '../material/MaterialType'
+import { getSubjectCity, getSubjectRule, Subject } from '../material/Subject'
+import { CustomMoveType } from './CustomMoveType'
+import { Memory } from './Memory'
+import { RuleId } from './RuleId'
 
 export class AddCardInMarketRule extends PlayerTurnRule {
   drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
@@ -28,7 +28,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
 
 
     if(playerActionHand.length < 1 && this.playerHeroAvailable) {
-      return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false), this.customMove(CustomMoveType.Pass), this.customMove(CustomMoveType.Hero)]
+      return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false), this.customMove(CustomMoveType.Pass)]
     } else {
       return [...this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({type:LocationType.Market})]
     }
@@ -78,9 +78,10 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     }
   }
 
-  onCustomMove(move: CustomMove): MaterialMove<number, number, number>[] {
-    if(move.type === CustomMoveType.Pass) return [this.drawPile.dealOne({type:LocationType.Market}), this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
-    else if(move.type === CustomMoveType.Hero) return [this.material(MaterialType.HeroCard).player(this.player).rotateItem(false)]
+  onCustomMove(move: CustomMove) {
+    if (move.type === CustomMoveType.Pass) {
+      return [this.drawPile.dealOne({ type: LocationType.Market }), this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer)]
+    }
     return []
   }
 
