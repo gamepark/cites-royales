@@ -1,4 +1,4 @@
-import { CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, MoveItem, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectCity, getSubjectRule, Subject } from '../material/Subject'
@@ -38,23 +38,24 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.HeroCard)(move)) {
       return [...this.drawPile.deal({ type: LocationType.ActionHand, player: this.player }, 2)]
+    } else if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
+      return this.afterSubjectToMarket(move)
     }
     return []
   }
 
-  beforeItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Market) return []
+  afterSubjectToMarket(move: MoveItem) {
     const moves: MaterialMove[] = this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player).moveItems({ type: LocationType.Discard })
 
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
-    if (marketCards.length < 4) {
+    if (marketCards.length <= 4) {
       moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
     } else {
       const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
       const subjectCity = getSubjectCity(card.id)
       const sameCitySubjects = this.material(MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => getSubjectCity(id) === subjectCity)
 
-      if (sameCitySubjects.length >= 2) {
+      if (sameCitySubjects.length >= 3) {
         moves.push(...this.triggerRevolution(sameCitySubjects))
       } else {
         if (!this.playerHasAlreadyBought && this.marketHasTwoCardsOfSameColor) {
