@@ -2,14 +2,13 @@ import { Material, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { City } from '../../material/City'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { getSubjectCity, getSubjectType, Subject } from '../../material/Subject'
+import { getSubjectType } from '../../material/Subject'
 import { NobleColor } from '../../NobleColor'
 
 export abstract class CityScoring extends PlayerTurnRule {
   abstract city: City
 
   // TODO : Pas le même scoring visuellement + Pas bon scoring
-  // TODO : Compter les cartes blanches dans les majorités
   onRuleStart() {
     const moves: MaterialMove[] = []
     const winners = this.getMajorityWinners()
@@ -42,8 +41,7 @@ export abstract class CityScoring extends PlayerTurnRule {
       influence: this.getCityInfluence(
         this.material(MaterialType.SubjectCard)
           .location(LocationType.InCity)
-          .player(player)
-          .id<Subject>(id => getSubjectCity(id) === this.city)
+          .player(player).filter(card => card.location.id === this.city)
       )
     }))
 
