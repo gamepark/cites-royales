@@ -20,6 +20,7 @@ export class PlayAstrologerRule extends CardEffectRule {
     const inCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 
     for (const city of cities) {
+      // TODO : Règles de placement des blancs
 
       moves.push(
         ...playerHand

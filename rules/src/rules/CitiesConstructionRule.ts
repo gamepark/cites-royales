@@ -18,6 +18,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
     return []
   }
 
+  // TODO : Fix peut poser des cartes plus petites au dessus
   getActivePlayerLegalMoves(player: NobleColor) {
     const moves: MaterialMove[] = []
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
@@ -78,6 +79,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
   }
 
   getMovesAfterPlayersDone() {
+    // TODO : Tour au joueur de gauche par rapport à celui qui a acheté en dernier
     return [this.startPlayerTurn(RuleId.PurpleMajority, this.game.players[1])]
   }
 

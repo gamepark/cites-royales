@@ -54,6 +54,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       const card = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex)
       const subjectCity = getSubjectCity(card.id)
       const sameCitySubjects = this.material(MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => getSubjectCity(id) === subjectCity)
+      // TODO : Fix points à donner quand on tire dans le market
       if (sameCitySubjects.length >= 3) {
         moves.push(...this.triggerRevolution(sameCitySubjects, move.itemIndex))
       } else {

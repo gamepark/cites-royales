@@ -8,6 +8,8 @@ import { NobleColor } from '../../NobleColor'
 export abstract class CityScoring extends PlayerTurnRule {
   abstract city: City
 
+  // TODO : Pas le même scoring visuellement + Pas bon scoring
+  // TODO : Compter les cartes blanches dans les majorités 
   onRuleStart() {
     const moves: MaterialMove[] = []
     const winners = this.getMajorityWinners()
