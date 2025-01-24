@@ -5,7 +5,7 @@ class MarketTokenSpotLocator extends Locator {
   coordinates = { x: -50 }
 
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
-    const { x, y = 0, z = 0 } = super.getItemCoordinates(item, context)
+    const { x, y = 5.5, z = 0 } = super.getItemCoordinates(item, context)
 
     return {
       x,

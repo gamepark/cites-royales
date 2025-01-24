@@ -16,8 +16,8 @@ class VictoryPointsSpaceLocator extends Locator {
 
     const baseX = 13
     const baseY = 14.5
-    const cellWidth = 9.1
-    const cellHeight = 11.7
+    const cellWidth = 9.4
+    const cellHeight = 12
 
     const x = baseX + column * cellWidth - (line % 2) * 5
     const y = baseY + line * cellHeight
@@ -54,6 +54,9 @@ class VictoryPointsSpaceLocator extends Locator {
       z: z + item.location.z! * 0.2,
     }
   }
+
+
 }
 
 export const victoryPointsSpaceLocator = new VictoryPointsSpaceLocator()
+
