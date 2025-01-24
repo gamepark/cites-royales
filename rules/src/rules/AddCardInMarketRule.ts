@@ -90,7 +90,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     const moves: MaterialMove[] = sameCitySubjects.index(index => index !== cardIndex).moveItems({ type: LocationType.Discard })
 
     if (this.playerHasAlreadyBought) {
-      const subject = sameCitySubjects.minBy(card => card.id).getItem<Subject>()!.id
+      const subject = sameCitySubjects.index(index => index !== cardIndex).minBy(card => card.id).getItem<Subject>()!.id
       moves.push(this.startRule(getSubjectRule(subject)))
     } else {
       const pointsToGive = this.victoryPointsToGive
