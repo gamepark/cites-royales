@@ -107,6 +107,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       moves.push(this.startRule(RuleId.MarketBuy))
     }
 
+    // TODO : Gérer quand il n'y a plus de cartes dans la pioche
     return moves
   }
 
