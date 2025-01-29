@@ -18,7 +18,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
     return []
   }
 
-  // TODO : Fix peut poser des cartes plus petites au dessus
+  // TODO : Fix peut poser des cartes plus petites au dessus (Pas pu reproduire ?)
   getActivePlayerLegalMoves(player: NobleColor) {
     const moves: MaterialMove[] = []
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
@@ -42,7 +42,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
 
     const whiteCards = playerHand.id<Subject>(id => !getSubjectCity(id))
     for (const city of cities) {
-      const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).filter(card => card.location.id === city)
+        const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).filter(card => card.location.id === city)
 
         const highestCityCard = inCityCards.maxBy(card => getSubjectType(card.id)).getItem()
         const cardsCanBuild = whiteCards.filter(card => {
