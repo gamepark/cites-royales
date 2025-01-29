@@ -106,6 +106,7 @@ export class MarketBuyRule extends PlayerTurnRule {
 
       if (this.everyOtherPlayersHaveBought) {
         moves.push(this.startSimultaneousRule(RuleId.CitiesConstruction))
+        this.memorize(Memory.LastPlayerToBuy, this.player)
       } else {
         moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
       }

@@ -1,4 +1,11 @@
-import { CustomMove, isMoveItemType, ItemMove, MaterialMove, PlayMoveContext, SimultaneousRule } from '@gamepark/rules-api'
+import {
+  CustomMove,
+  isMoveItemType,
+  ItemMove,
+  MaterialMove,
+  PlayMoveContext,
+  SimultaneousRule
+} from '@gamepark/rules-api'
 import { cities, City } from '../material/City'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -11,7 +18,6 @@ import { RuleId } from './RuleId'
 export class CitiesConstructionRule extends SimultaneousRule {
   onRuleStart() {
     for (const player of this.game.players) {
-
       this.memorize(Memory.CitiesWithColorBuild, [], player)
       this.memorize(Memory.CitiesWithWhiteBuild, [], player)
     }
@@ -79,13 +85,13 @@ export class CitiesConstructionRule extends SimultaneousRule {
   }
 
   getMovesAfterPlayersDone() {
-    // TODO : Tour au joueur de gauche par rapport à celui qui a acheté en dernier
-    return [this.startPlayerTurn(RuleId.PurpleMajority, this.game.players[1])]
+    return [this.startPlayerTurn(RuleId.PurpleMajority, this.remind(Memory.LastPlayerToBuy))]
   }
 
   onRuleEnd() {
     this.forget(Memory.CitiesWithColorBuild)
     this.forget(Memory.CitiesWithWhiteBuild)
+    this.forget(Memory.LastPlayerToBuy)
     return []
   }
 }

@@ -3,5 +3,6 @@ export enum Memory {
   hasBought = 2,
   Revolution = 3,
   CitiesWithColorBuild,
-  CitiesWithWhiteBuild
+  CitiesWithWhiteBuild,
+  LastPlayerToBuy
 }
