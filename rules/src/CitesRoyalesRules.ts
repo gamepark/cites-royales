@@ -13,6 +13,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { NobleColor } from './NobleColor'
 import { AddCardInMarketRule } from './rules/AddCardInMarketRule'
+import { CatchupBonusRule } from './rules/CatchupBonusRule'
 import { CitiesConstructionRule } from './rules/CitiesConstructionRule'
 import { EndGameRule } from './rules/EndGameRule'
 import { EndSeasonRule } from './rules/EndSeasonRule'
@@ -71,6 +72,7 @@ export class CitesRoyalesRules
     [RuleId.BlueMajority]: BlueCityScoring,
     [RuleId.GreenMajority]: GreenCityScoring,
     [RuleId.EndSeason]: EndSeasonRule,
+    [RuleId.CatchupBonus]: CatchupBonusRule,
     [RuleId.EndGame]: EndGameRule
   }
 
