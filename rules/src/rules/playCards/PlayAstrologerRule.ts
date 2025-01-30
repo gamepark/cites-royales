@@ -56,7 +56,7 @@ export class PlayAstrologerRule extends CardEffectRule {
       const deck = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
       return [
         ...deck.deal({ type: LocationType.ActionHand, player: this.player }, 3),
-        ...deck.deal({ type: LocationType.Reserve }, 4)
+        ...new DeckHelper(this.game).dealReserve(deck)
       ]
     }
     return []

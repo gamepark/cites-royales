@@ -10,4 +10,12 @@ export class DeckHelper extends MaterialRulesPart {
       cards.shuffle()
     ]
   }
+
+  get deck() {
+    return this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
+  }
+
+  dealReserve(deck = this.deck) {
+    return deck.deal({ type: LocationType.Reserve }, 4)
+  }
 }

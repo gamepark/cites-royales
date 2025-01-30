@@ -74,7 +74,7 @@ export class CatchupBonusRule extends PlayerTurnRule {
       const deck = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
       return [
         ...this.dealCatchupBonus(deck),
-        ...deck.deal({ type: LocationType.Reserve }, 4),
+        ...new DeckHelper(this.game).dealReserve(deck),
         this.nextRule
       ]
     }

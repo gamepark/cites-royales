@@ -50,7 +50,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       const deck = this.drawPile
       return [
         ...deck.deal({ type: LocationType.ActionHand, player: this.player }, 2),
-        ...deck.deal({ type: LocationType.Reserve }, 4)
+        ...new DeckHelper(this.game).dealReserve(deck)
       ]
     }
     return []

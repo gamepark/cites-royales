@@ -8,6 +8,7 @@ import { MaterialType } from './material/MaterialType'
 import { seasons } from './material/Season'
 import { getSubjectCity, isEmptiness, isWhite, Subject, subjects } from './material/Subject'
 import { NobleColor } from './NobleColor'
+import { DeckHelper } from './rules/DeckHelper'
 import { RuleId } from './rules/RuleId'
 
 /**
@@ -46,10 +47,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
   }
 
   setupReserve() {
-    this.material(MaterialType.SubjectCard)
-      .location(LocationType.DrawPile)
-      .deck()
-      .deal({ type: LocationType.Reserve }, 4)
+    new DeckHelper(this.game).dealReserve()
   }
 
   setupMarket() {
