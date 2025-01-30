@@ -1,11 +1,4 @@
-import {
-  CustomMove,
-  isMoveItemType,
-  ItemMove,
-  MaterialMove,
-  PlayMoveContext,
-  SimultaneousRule
-} from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, MoveItem, PlayMoveContext, SimultaneousRule } from '@gamepark/rules-api'
 import { cities, City } from '../material/City'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -25,13 +18,16 @@ export class CitiesConstructionRule extends SimultaneousRule {
   }
 
   getActivePlayerLegalMoves(player: NobleColor) {
-    const moves: MaterialMove[] = []
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
+    return this.getBuildMoves(player, playerHand)
+  }
+
+  getBuildMoves(player: NobleColor, hand: Material) {
+    const moves: MaterialMove[] = []
     const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 
-
     for (const city of cities) {
-      const sameCityCards = playerHand.filter(card => getSubjectCity(card.id) === city)
+      const sameCityCards = hand.filter(card => getSubjectCity(card.id) === city)
       const inSameCityCards = inCityCards.filter(card => card.location.id === city)
       const highestSameCityCard = inSameCityCards.maxBy(card => getSubjectType(card.id)).getItem()
 
@@ -45,37 +41,42 @@ export class CitiesConstructionRule extends SimultaneousRule {
 
     const citiesWithColorBuild = this.remind<City[]>(Memory.CitiesWithColorBuild, player)
 
-    const whiteCards = playerHand.id<Subject>(id => !getSubjectCity(id))
+    const whiteCards = hand.id<Subject>(id => !getSubjectCity(id))
     for (const city of cities) {
-        const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).filter(card => card.location.id === city)
+      const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).filter(card => card.location.id === city)
 
-        const highestCityCard = inCityCards.maxBy(card => getSubjectType(card.id)).getItem()
-        const cardsCanBuild = whiteCards.filter(card => {
-          const subjectType = getSubjectType(card.id)
-          if (highestCityCard && subjectType <= getSubjectType(highestCityCard.id)) return false
-          if (citiesWithColorBuild.includes(city)) return true
-          return playerHand.id<Subject>(id => getSubjectCity(id) === city && subjectType < getSubjectType(id)).length > 0
-        })
+      const highestCityCard = inCityCards.maxBy(card => getSubjectType(card.id)).getItem()
+      const cardsCanBuild = whiteCards.filter(card => {
+        const subjectType = getSubjectType(card.id)
+        if (highestCityCard && subjectType <= getSubjectType(highestCityCard.id)) return false
+        if (citiesWithColorBuild.includes(city)) return true
+        return hand.id<Subject>(id => getSubjectCity(id) === city && subjectType < getSubjectType(id)).length > 0
+      })
 
-        moves.push(...cardsCanBuild.moveItems({ type: LocationType.InCity, player, id: city }))
+      moves.push(...cardsCanBuild.moveItems({ type: LocationType.InCity, player, id: city }))
     }
 
     if (this.remind<City[]>(Memory.CitiesWithWhiteBuild, player).every(city => citiesWithColorBuild.includes(city))) {
       moves.push(this.customMove(CustomMoveType.Pass, { player }))
     }
+
     return moves
   }
 
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity) {
-      const cardColor = getSubjectCity(this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex).id)
-      if (cardColor === undefined) {
-        this.remind<City[]>(Memory.CitiesWithWhiteBuild, move.location.player).push(move.location.id)
-      } else {
-        this.remind<City[]>(Memory.CitiesWithColorBuild, move.location.player).push(move.location.id)
-      }
+      this.afterSubjectCardBuild(move)
     }
     return []
+  }
+
+  afterSubjectCardBuild(move: MoveItem) {
+    const cardColor = getSubjectCity(this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex).id)
+    if (cardColor === undefined) {
+      this.remind<City[]>(Memory.CitiesWithWhiteBuild, move.location.player).push(move.location.id)
+    } else {
+      this.remind<City[]>(Memory.CitiesWithColorBuild, move.location.player).push(move.location.id)
+    }
   }
 
   onCustomMove(move: CustomMove, _context?: PlayMoveContext) {
