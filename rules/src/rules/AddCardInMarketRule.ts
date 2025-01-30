@@ -36,22 +36,29 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     }
   }
 
+  beforeItemMove(move: ItemMove) {
+    if (isMoveItemType(MaterialType.SubjectCard)(move)
+      && this.material(MaterialType.SubjectCard).getItem(move.itemIndex).location.type === LocationType.DrawPile
+      && this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).length === 1) {
+      return new DeckHelper(this.game).renewDeck()
+    }
+    return []
+  }
+
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.HeroCard)(move)) {
       const deck = this.drawPile
-      if (deck.length > 2) {
-        return deck.deal({ type: LocationType.ActionHand, player: this.player }, 2)
-      } else {
-        return new DeckHelper(this.game).renewDeck()
-      }
+      return deck.deal({ type: LocationType.ActionHand, player: this.player }, 2)
     } else if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
       return this.afterSubjectToMarket(move)
     } else if (isShuffle(move)) {
+      const moves: MaterialMove[] = []
       const deck = this.drawPile
-      return [
-        ...deck.deal({ type: LocationType.ActionHand, player: this.player }, 2),
-        ...new DeckHelper(this.game).dealReserve(deck)
-      ]
+      if (this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).length === 1) {
+        moves.push(deck.dealOne({ type: LocationType.ActionHand, player: this.player }))
+      }
+      moves.push(...new DeckHelper(this.game).dealReserve(deck))
+      return moves
     }
     return []
   }
@@ -118,7 +125,6 @@ export class AddCardInMarketRule extends PlayerTurnRule {
       moves.push(this.startRule(RuleId.MarketBuy))
     }
 
-    // TODO : Gérer quand il n'y a plus de cartes dans la pioche
     return moves
   }
 
@@ -130,7 +136,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     return 0
   }
 
-  getMarketHasTwoCardsOfSameColor(cardIndex:number) {
+  getMarketHasTwoCardsOfSameColor(cardIndex: number) {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market).index(index => index !== cardIndex)
     const colorFound = new Map<number, boolean>()
 
