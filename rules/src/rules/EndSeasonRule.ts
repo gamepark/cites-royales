@@ -1,26 +1,32 @@
-import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, isShuffle, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectCity, Subject } from '../material/Subject'
+import { DeckHelper } from './DeckHelper'
 import { RuleId } from './RuleId'
 
 
 export class EndSeasonRule extends PlayerTurnRule {
   onRuleStart() {
-    const moves: MaterialMove[] = []
+    return [
+      this.material(MaterialType.SeasonCard).id(this.season).rotateItem(true),
+      ...this.completeMarketIfNeeded()
+    ]
+  }
 
-    moves.push(this.material(MaterialType.SeasonCard).id(this.season).rotateItem(true))
+  get deck() {
+    return this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
+  }
 
-    const drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
-
+  completeMarketIfNeeded(deck = this.deck) {
     if (this.marketCards.length < 4) {
-      moves.push(drawPile.dealOne({ type: LocationType.Market }))
+      return [deck.dealOne({ type: LocationType.Market })]
     } else {
-      moves.push(...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }))
-      moves.push(this.startRule(RuleId.CatchupBonus))
+      return [
+        ...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }),
+        this.startRule(RuleId.CatchupBonus)
+      ]
     }
-
-    return moves
   }
 
   get season() {
@@ -33,21 +39,29 @@ export class EndSeasonRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    const moves: MaterialMove[] = []
-    if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
-      const newCardColor = getSubjectCity(this.material(move.itemType).getItem<Subject>(move.itemIndex).id)
+    if (isMoveItemType(MaterialType.SubjectCard)(move)) {
       const drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
-      if (this.marketCards.index(index => index !== move.itemIndex).getItems<Subject>().some(item => getSubjectCity(item.id) === newCardColor)) {
-        moves.push(this.material(move.itemType).index(move.itemIndex).moveItem({ type: LocationType.Discard }))
-        moves.push(drawPile.dealOne({ type: LocationType.Market }))
-      } else if (this.marketCards.length < 4) {
-        moves.push(drawPile.dealOne({ type: LocationType.Market }))
-      } else {
-        moves.push(...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }))
-        moves.push(this.startRule(RuleId.CatchupBonus))
+      if (move.location.type === LocationType.Market) {
+        const newCardColor = getSubjectCity(this.material(move.itemType).getItem<Subject>(move.itemIndex).id)
+        if (this.marketCards.index(index => index !== move.itemIndex).getItems<Subject>().some(item => getSubjectCity(item.id) === newCardColor)) {
+          return [this.material(move.itemType).index(move.itemIndex).moveItem({ type: LocationType.Discard })]
+        } else {
+          return this.completeMarketIfNeeded()
+        }
+      } else if (move.location.type === LocationType.Discard) {
+        if (drawPile.length > 0) {
+          return [drawPile.dealOne({ type: LocationType.Market })]
+        } else {
+          return new DeckHelper(this.game).renewDeck()
+        }
+      } else if (isShuffle(move)) {
+        const deck = this.deck
+        return [
+          ...new DeckHelper(this.game).dealReserve(deck),
+          ...this.completeMarketIfNeeded(deck)
+        ]
       }
     }
-
-    return moves
+    return []
   }
 }
