@@ -2,7 +2,7 @@ import {
   CompetitiveScore,
   hideItemId,
   hideItemIdToOthers,
-  isMoveItem,
+  isMoveItem, isStartPlayerTurn,
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
@@ -131,5 +131,13 @@ export class CitesRoyalesRules
       }
     }
     return false
+  }
+
+  /**
+   * CitiesConstructionRule getMovesAfterPlayersDone consequence must be unpredictable because we keep construction moves secret: players cannot predict
+   * who will have the majorities before the construction moves are collected.
+   */
+  isUnpredictableMove(move: MaterialMove<NobleColor, MaterialType, LocationType>, player: NobleColor): boolean {
+    return super.isUnpredictableMove(move, player) || (isStartPlayerTurn(move) && move.id === RuleId.PurpleMajority)
   }
 }
