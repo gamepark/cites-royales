@@ -2,11 +2,13 @@ import {
   CompetitiveScore,
   hideItemId,
   hideItemIdToOthers,
-  isMoveItem, isStartPlayerTurn,
+  isMoveItem,
+  isStartPlayerTurn,
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
   SecretMaterialRules,
+  StackingStrategy,
   TimeLimit
 } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
@@ -35,7 +37,6 @@ import { PlayVillagerRule } from './rules/playCards/PlayVillagerRule'
 import { RuleId } from './rules/RuleId'
 import { SetupBuildRule } from './rules/SetupBuildRule'
 import { SetupDraftRule } from './rules/SetupDraftRule'
-import { StackingStrategy } from './rules/utils/StackingStrategy'
 
 /**
  * This class implements the rules of the board game.
