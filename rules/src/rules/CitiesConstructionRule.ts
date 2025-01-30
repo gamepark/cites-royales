@@ -24,7 +24,6 @@ export class CitiesConstructionRule extends SimultaneousRule {
     return []
   }
 
-  // TODO : Fix peut poser des cartes plus petites au dessus (Pas pu reproduire ?)
   getActivePlayerLegalMoves(player: NobleColor) {
     const moves: MaterialMove[] = []
     const playerHand = this.material(MaterialType.SubjectCard).location(LocationType.PlayerHand).player(player)
