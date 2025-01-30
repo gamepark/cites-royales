@@ -1,8 +1,9 @@
-import { CustomMove, isMoveItemType, ItemMove, Material, MaterialMove, MoveItem, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, isShuffle, ItemMove, Material, MaterialMove, MoveItem, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectCity, getSubjectRule, Subject } from '../material/Subject'
 import { CustomMoveType } from './CustomMoveType'
+import { DeckHelper } from './DeckHelper'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -37,9 +38,20 @@ export class AddCardInMarketRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.HeroCard)(move)) {
-      return [...this.drawPile.deal({ type: LocationType.ActionHand, player: this.player }, 2)]
+      const deck = this.drawPile
+      if (deck.length > 2) {
+        return deck.deal({ type: LocationType.ActionHand, player: this.player }, 2)
+      } else {
+        return new DeckHelper(this.game).renewDeck()
+      }
     } else if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
       return this.afterSubjectToMarket(move)
+    } else if (isShuffle(move)) {
+      const deck = this.drawPile
+      return [
+        ...deck.deal({ type: LocationType.ActionHand, player: this.player }, 2),
+        ...deck.deal({ type: LocationType.Reserve }, 4)
+      ]
     }
     return []
   }
