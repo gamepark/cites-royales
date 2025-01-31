@@ -28,5 +28,12 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PlayAstrologer]:AstrologerHeader,
   [RuleId.MarketBuy]: MarketBuyHeader,
   [RuleId.AddCardInMarket]:AddCardInMarketHeader,
-  [RuleId.CitiesConstruction]:CitiesConstructionHeader
+  [RuleId.CitiesConstruction]:CitiesConstructionHeader,
+  // [RuleId.PurpleMajority]:CityScoringHeader,
+  // [RuleId.PurpleMajority]:CityScoringHeader,
+  // [RuleId.YellowMajority]:CityScoringHeader,
+  // [RuleId.PinkMajority]:CityScoringHeader,
+  // [RuleId.RedMajority]:CityScoringHeader,
+  // [RuleId.BlueMajority]:CityScoringHeader,
+  // [RuleId.GreenMajority]:CityScoringHeader
 }
