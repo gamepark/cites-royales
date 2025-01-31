@@ -9,6 +9,7 @@ class VictoryPointsSpaceLocator extends Locator {
   getParentItem(_location: Location, context: MaterialContext) {
     return victoryPointsTrackDescription.getStaticItems(context)[0]
   }
+
   getPositionOnParent(location: Location) {
     const locationX = location.x! > 50 ? location.x! % 50 : location.x!
     const line = this.getLineOnParent(locationX)
@@ -16,8 +17,8 @@ class VictoryPointsSpaceLocator extends Locator {
 
     const baseX = 13
     const baseY = 14.5
-    const cellWidth = 9.4
-    const cellHeight = 12
+    const cellWidth = 9.12
+    const cellHeight = 11.8
 
     const x = baseX + column * cellWidth - (line % 2) * 5
     const y = baseY + line * cellHeight
@@ -54,7 +55,6 @@ class VictoryPointsSpaceLocator extends Locator {
       z: z + item.location.z! * 0.2,
     }
   }
-
 
 }
 
