@@ -23,8 +23,8 @@ export class EndSeasonRule extends PlayerTurnRule {
       return [deck.dealOne({ type: LocationType.Market })]
     } else {
       return [
-        ...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot }),
-        this.startRule(RuleId.CatchupBonus)
+        this.startRule(RuleId.CatchupBonus),
+        ...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot })
       ]
     }
   }
