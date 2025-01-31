@@ -1,7 +1,7 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { getSubjectRule } from '../material/Subject'
+import { getSubjectRule, Subject } from '../material/Subject'
 import { RuleId } from './RuleId'
 import { cities } from '../material/City'
 
@@ -23,7 +23,7 @@ export class PlayCardRule extends PlayerTurnRule {
 
       if (hasHighestCard) {
         moves.push(
-          ...highestCard.moveItems((item) => ({ type: LocationType.Discard, player, id: item.id }))
+          ...highestCard.moveItems({ type: LocationType.Discard})
         )
       }
     }
@@ -31,7 +31,7 @@ export class PlayCardRule extends PlayerTurnRule {
     moves.push(...this.material(MaterialType.SubjectCard)
       .location(LocationType.PlayerHand)
       .player(player)
-      .moveItems((item) => ({ type: LocationType.Discard, player, id: item.id })))
+      .moveItems({ type: LocationType.Discard }))
 
     moves.push(this.startRule(RuleId.MarketBuy))
 
@@ -41,7 +41,9 @@ export class PlayCardRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.SubjectCard)(move) || move.location.type !== LocationType.Discard) return []
 
-    return [this.startRule(getSubjectRule(move.location.id))]
+    const subjectId = this.material(MaterialType.SubjectCard).getItem<Subject>(move.itemIndex).id
+
+    return [this.startRule(getSubjectRule(subjectId))]
   }
 
   get playerHasNoCardInHand() {

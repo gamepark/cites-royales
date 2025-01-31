@@ -7,8 +7,7 @@ import {
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
-  SecretMaterialRules,
-  StackingStrategy,
+  SecretMaterialRules, StackingStrategy,
   TimeLimit
 } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
