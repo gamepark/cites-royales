@@ -4,7 +4,6 @@ import { NobleColor } from '../../NobleColor'
 import { MaterialMove } from '@gamepark/rules-api'
 import { MaterialType } from '../../material/MaterialType'
 import { LocationType } from '../../material/LocationType'
-import { getSubjectCity, Subject } from '../../material/Subject'
 import { RuleId } from '../RuleId'
 
 export class YellowCityScoring extends CityScoring {
@@ -18,7 +17,7 @@ export class YellowCityScoring extends CityScoring {
     let maxCityCards = 0;
 
     for (const city of cities) {
-      const cityCards = playerCityCards.id<Subject>(id => getSubjectCity(id) === city);
+      const cityCards = playerCityCards.location(location => location.id === city);
 
       const cityLength = cityCards.length
 

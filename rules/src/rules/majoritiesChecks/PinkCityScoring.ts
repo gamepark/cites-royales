@@ -13,9 +13,9 @@ export class PinkCityScoring extends CityScoring {
   getPlayerVictoryPoints(player: NobleColor): number {
     const playerPinkCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).id<Subject>(id => getSubjectCity(id) === this.city)
 
-    const count = playerPinkCityCards.length;
+    const influence = this.getCityInfluence(playerPinkCityCards)
 
-    return Math.floor(count / 3) === 0 ? 1 : Math.floor(count / 3)
+    return Math.floor(influence / 3) === 0 ? 1 : Math.floor(influence / 3)
   }
 
   goToNextRule(): MaterialMove {

@@ -4,7 +4,7 @@ import { Material, MaterialMove } from '@gamepark/rules-api'
 import { NobleColor } from '../../NobleColor'
 import { MaterialType } from '../../material/MaterialType'
 import { LocationType } from '../../material/LocationType'
-import { getSubjectCity, getSubjectType, Subject, SubjectType } from '../../material/Subject'
+import { getSubjectType, SubjectType } from '../../material/Subject'
 import { RuleId } from '../RuleId'
 
 export class BlueCityScoring extends CityScoring {
@@ -15,7 +15,7 @@ export class BlueCityScoring extends CityScoring {
 
     let points = 0
     for(const city of cities){
-      const cityCards = playerInCityCards.id<Subject>(id => getSubjectCity(id) === city)
+      const cityCards = playerInCityCards.location(location => location.id === city)
 
 
       if(this.hasVillager(cityCards) || this.hasJester(cityCards)) points++

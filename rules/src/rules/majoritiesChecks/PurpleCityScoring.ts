@@ -28,11 +28,11 @@ export class PurpleCityScoring extends CityScoring {
   }
 
   hasBottomCrown(type:SubjectType):boolean {
-    return type === SubjectType.Emptiness ||
+    return (type === SubjectType.Emptiness ||
       type === SubjectType.Jester ||
       type === SubjectType.Assassin ||
       type === SubjectType.Merchant ||
       type === SubjectType.Knight ||
-      type === SubjectType.Astrologer;
+      type === SubjectType.Astrologer);
   }
 }
