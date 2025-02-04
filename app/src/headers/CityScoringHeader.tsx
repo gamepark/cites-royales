@@ -1,37 +1,63 @@
-import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { useAnimation, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { CityScoring } from '@gamepark/cites-royales/rules/majoritiesChecks/CityScoring'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { Trans } from 'react-i18next'
+import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
+import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
+import { City } from '@gamepark/cites-royales/material/City'
 
 export const CityScoringHeader = () => {
   const me = usePlayerId<NobleColor>()
   const rules = useRules<CitesRoyalesRules>()!
   const cityScoring = (rules.rulesStep as CityScoring)
   const city = cityScoring.city
-  console.log(city)
-  const winners = cityScoring.getMajorityWinners()
-  if(winners.some(winner => winner === me)){
-    return (<WinnerMeHeader />)
-  } else {
-    return (<></>)
+  const animation = useAnimation<MaterialMove>()
+
+  if(animation && isMoveItemType(MaterialType.NobleToken)(animation.move)){
+    const winner = rules.material(MaterialType.NobleToken).getItem<NobleColor>(animation.move.itemIndex).id
+    const points = cityScoring.getPlayerVictoryPoints(winner)
+    if(winner === me){
+      return (<WinnerMeHeader city={city} points={points} />)
+    } else {
+      return (<WinnerPlayerHeader city={city} points={points} player={winner} />)
+    }
   }
+  return <></>
 }
 
-const WinnerMeHeader = () => {
-  const me = usePlayerId<NobleColor>()!
-  const rules = useRules<CitesRoyalesRules>()!
-  const cityScoring = (rules.rulesStep as CityScoring)
-  const city = cityScoring.city
-  const points = cityScoring.getPlayerVictoryPoints(me);
-  const playerName = usePlayerName(me)
+type WinnerMeHeaderProps = {
+  city: City,
+  points: number
+}
+
+const WinnerMeHeader = ({city, points} : WinnerMeHeaderProps) => {
   return (
     <Trans
-    values={{
-      player: playerName,
-      city,
-      vp: points
-    }}
+      defaults="header.scoring.you"
+      values={{
+        city,
+        vp: points
+      }}
     />
   )
+}
+
+type WinnerPlayerHeaderProps = {
+  city:City,
+  player:NobleColor,
+  points: number
+}
+const WinnerPlayerHeader = ({city, player, points} : WinnerPlayerHeaderProps) => {
+  const playerName = usePlayerName(player)
+  return (
+    <Trans
+      defaults="header.scoring.player"
+      values={{
+        player: playerName,
+        city,
+        vp:points
+      }}
+    />
+)
 }

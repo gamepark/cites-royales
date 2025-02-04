@@ -14,6 +14,9 @@ import { MerchantHeader } from './MerchantHeader'
 import { KnightHeader } from './KnightHeader'
 import { AstrologerHeader } from './AstrologerHeader'
 import { AddCardInMarketHeader } from './AddCardInMarketHeader'
+import { EndSeasonHeader } from './EndSeasonHeader'
+import { CatchupBonusHeader } from './CatchupBonusHeader'
+import { CityScoringHeader } from './CityScoringHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.SetupDraft]: SetupDraftHeader,
@@ -29,11 +32,13 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.MarketBuy]: MarketBuyHeader,
   [RuleId.AddCardInMarket]:AddCardInMarketHeader,
   [RuleId.CitiesConstruction]:CitiesConstructionHeader,
-  // [RuleId.PurpleMajority]:CityScoringHeader,
-  // [RuleId.PurpleMajority]:CityScoringHeader,
-  // [RuleId.YellowMajority]:CityScoringHeader,
-  // [RuleId.PinkMajority]:CityScoringHeader,
-  // [RuleId.RedMajority]:CityScoringHeader,
-  // [RuleId.BlueMajority]:CityScoringHeader,
-  // [RuleId.GreenMajority]:CityScoringHeader
+  [RuleId.PurpleMajority]:CityScoringHeader,
+  [RuleId.PurpleMajority]:CityScoringHeader,
+  [RuleId.YellowMajority]:CityScoringHeader,
+  [RuleId.PinkMajority]:CityScoringHeader,
+  [RuleId.RedMajority]:CityScoringHeader,
+  [RuleId.BlueMajority]:CityScoringHeader,
+  [RuleId.GreenMajority]:CityScoringHeader,
+  [RuleId.CatchupBonus]: CatchupBonusHeader,
+  [RuleId.EndSeason]:EndSeasonHeader,
 }

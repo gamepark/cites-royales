@@ -32,7 +32,7 @@ export abstract class CityScoring extends PlayerTurnRule {
 
   abstract goToNextRule(): MaterialMove
 
-  getMajorityWinners() {
+  getMajorityWinners():NobleColor[] {
     const players = this.game.players
 
     const playersInfluence = players.map(player => ({
