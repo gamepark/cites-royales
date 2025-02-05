@@ -10,6 +10,7 @@ import App from './App'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
+import { CitesRoyalesHistory } from './history/CitesRoyalesHistory'
 
 setupTranslation(translations, { debug: false })
 
@@ -23,6 +24,7 @@ ReactDOM.render(
       material={Material}
       locators={Locators}
       animations={gameAnimations}>
+      MaterialHistory={CitesRoyalesHistory}
       <App/>
     </GameProvider>
   </StrictMode>,
