@@ -10,7 +10,7 @@ class OnSeasonCardsLocator extends Locator {
 
     return {
       x: x + (item.location.id! - 1) * subjectCardDescription.width + (item.location.id! - 1) * 0.5,
-      y: y - item.location.z! * 0.4,
+      y: y - item.location.z! * 0.6,
       z: 1 + z + item.location.z! * 0.4
     }
   }
