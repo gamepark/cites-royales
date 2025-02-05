@@ -157,7 +157,7 @@
       "header.market-draw.player": "{player} doit ajouter une carte au Marché ou utiliser son héros",
       "header.revolt.you": "Révolte ! Vous devez acheter des cartes au marché pour {value}",
       "header.revolt.player": "Révolte ! {player} doit acheter des cartes au marché pour {value}",
-      "header.build.you": "Choisissez les cartes de votre main à construire ou \u003Cpass\u003Epassez\u003C/pass\u003E",
+      "header.build.you": "Choisissez les cartes de votre main à construire ou \u003Cpass\u003Evalidez\u003C/pass\u003E",
       "header.build.players": "Les joueurs doivent choisir les cartes de leur main à construire",
       "header.build.player": "{player} doit choisir les cartes de sa main à construire",
       "header.scoring.you": "Vous gagnez {vp, plural, one{# Point} other{# Points}} de Victoire pour la Cité {city, select, 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}",

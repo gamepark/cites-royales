@@ -10,6 +10,7 @@ export const CitiesConstructionHeader = () => {
   const me = usePlayerId<NobleColor>()
   const rules = useRules<CitesRoyalesRules>()!
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
+  // TODO : Valider plutôt que passer
   if(me !== undefined && rules.isTurnToPlay(me)){
     return (
       <Trans
@@ -22,7 +23,7 @@ export const CitiesConstructionHeader = () => {
   } else {
     const activePlayers = rules.game.rule!.players!
     if(activePlayers.length > 1){
-      return <>{t('header.setup-draft.players')}</>
+      return <>{t('header.build.players')}</>
     } else {
       return <CitiesConstructionPlayer player={activePlayers[0]}/>
     }
