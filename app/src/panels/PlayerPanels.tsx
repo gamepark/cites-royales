@@ -32,7 +32,7 @@ export const PlayerPanels = () => {
 const panelPosition = (index: number, player: NobleColor) => css`
     position: absolute;
     right: 1em;
-    top: ${index === 0 ? 90 : 8.5 + index * 20}em;
+    top: ${index === 0 ? 90 : 1 + index * 22.5}em;
     width: 28em;
     background-image: ${playerPanel[player]};
     background-size: 185%;
