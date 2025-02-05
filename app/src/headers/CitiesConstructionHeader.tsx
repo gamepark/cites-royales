@@ -10,7 +10,6 @@ export const CitiesConstructionHeader = () => {
   const me = usePlayerId<NobleColor>()
   const rules = useRules<CitesRoyalesRules>()!
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
-  // TODO : Valider plutôt que passer
   if(me !== undefined && rules.isTurnToPlay(me)){
     return (
       <Trans
