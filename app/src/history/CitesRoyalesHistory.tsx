@@ -6,6 +6,7 @@ import { PlayEmptinessHistory } from './entry/PlayEmptinessHistory'
 import { PlayCardHistory } from './entry/PlayCardHistory'
 import { css } from '@emotion/react'
 import { PlayVillagerHistory } from './entry/PlayVillagerHistory'
+import { PlayJesterHistory } from './entry/PlayJesterHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
@@ -23,6 +24,10 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
 
   if(game.rule?.id === RuleId.PlayVillager){
     return <PlayVillagerHistory move={move} context={context} />
+  }
+
+  if(game.rule?.id === RuleId.PlayJester){
+    return <PlayJesterHistory move={move} context={context} />
   }
 
   if (game.rule?.id === RuleId.PlayCard){
