@@ -9,6 +9,7 @@ import { PlayVillagerHistory } from './entry/PlayVillagerHistory'
 import { PlayJesterHistory } from './entry/PlayJesterHistory'
 import { PlayAssassinHistory } from './entry/PlayAssassinHistory'
 import { PlayMerchantHistory } from './entry/PlayMerchantHistory'
+import { PlayKnightHistory } from './entry/PlayKnightHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
@@ -38,6 +39,10 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
 
   if(game.rule?.id === RuleId.PlayMerchant){
     return <PlayMerchantHistory move={move} context={context} />
+  }
+
+  if(game.rule?.id === RuleId.PlayKnight){
+    return <PlayKnightHistory move={move} context={context} />
   }
 
   if (game.rule?.id === RuleId.PlayCard){

@@ -176,6 +176,8 @@
       "history.assassin.player": "L'Assassin : {player} a défaussé \u003C0\u003Ela carte {type, select, 0{Vide} 1{Villageoise} 2{Bouffon} 3{Assassin} 4{Marchande} 5{Chevalier} other{Astrologue}} {city, select, 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}\u003C/0\u003E de {target}.",
       "history.merchant.you": "La Marchande : Vous avez récupéré \u003C0\u003Eune carte {type, select, 0{Vide} 1{Villageoise} 2{Bouffon} 3{Assassin} 4{Marchande} 5{Chevalier} other{Astrologue}} {city, select, 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}\u003C/0\u003E du marché.",
       "history.merchant.player": "La Marchande : {player} a récupéré \u003C0\u003Eune carte {type, select, 0{Vide} 1{Villageoise} 2{Bouffon} 3{Assassin} 4{Marchande} 5{Chevalier} other{Astrologue}} {city, select, 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}\u003C/0\u003E du marché.",
+      "history.knight.you": "Le Chevalier : Vous avez déplacé \u003C0\u003Ela carte {type, select, 0{Vide} 1{Villageoise} 2{Bouffon} 3{Assassin} 4{Marchande} 5{Chevalier} other{Astrologue}} {city, select, 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}\u003C/0\u003E de {target} vers votre cité.",
+      "history.knight.player": "Le Chevalier : {player} a déplacé \u003C0\u003Ela carte {type, select, 0{Vide} 1{Villageoise} 2{Bouffon} 3{Assassin} 4{Marchande} 5{Chevalier} other{Astrologue}} {city, select, 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}\u003C/0\u003E de {target} vers sa cité.",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",
