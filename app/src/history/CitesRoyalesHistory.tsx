@@ -20,8 +20,6 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
   const { move, context } = props
   const game = context.game
 
-  // TODO : PlayCard
-  // Machin a joué une carte (Type) (Couleur) -> Effet
   if(game.rule?.id === RuleId.PlayEmptiness){
     return <PlayEmptinessHistory move={move} context={context} />
   }
