@@ -1,17 +1,33 @@
-import { MaterialHistoryProps } from '@gamepark/react-game'
+import { linkButtonCss, MaterialHistoryProps } from '@gamepark/react-game'
 import { FC } from 'react'
-import { MaterialGame } from '@gamepark/rules-api'
+import { MaterialGame, MaterialMove } from '@gamepark/rules-api'
+import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
+import { PlayEmptinessHistory } from './entry/PlayEmptinessHistory'
+import { PlayCardHistory } from './entry/PlayCardHistory'
+import { css } from '@emotion/react'
+import { PlayVillagerHistory } from './entry/PlayVillagerHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
 } & MaterialHistoryProps
 
-export const CitesRoyalesHistory: FC<MaterialHistoryProps> = (props) => {
+export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, MaterialMove>> = (props) => {
   const { move, context } = props
   const game = context.game
 
   // TODO : PlayCard
   // Machin a joué une carte (Type) (Couleur) -> Effet
+  if(game.rule?.id === RuleId.PlayEmptiness){
+    return <PlayEmptinessHistory move={move} context={context} />
+  }
+
+  if(game.rule?.id === RuleId.PlayVillager){
+    return <PlayVillagerHistory move={move} context={context} />
+  }
+
+  if (game.rule?.id === RuleId.PlayCard){
+    return <PlayCardHistory move={move} context={context} />
+  }
 
   // TODO : MarketBuy
   // Machin a acheté (nb) carte(s) pour (PurchasingPower)
@@ -43,4 +59,12 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps> = (props) => {
   // TODO : Endgame ?
   // Machin gagne 2 points grâce à son héro du peuple
   // Rappel des scores
+
+  return <></>
 }
+
+export const rulesLinkButton = [linkButtonCss, css`
+  color: inherit;
+  background-color: transparent;
+  font-style: italic;
+`]

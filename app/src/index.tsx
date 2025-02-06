@@ -23,10 +23,11 @@ ReactDOM.render(
       GameSetup={CitesRoyalesSetup}
       material={Material}
       locators={Locators}
-      animations={gameAnimations}>
-      MaterialHistory={CitesRoyalesHistory}
+      animations={gameAnimations}
+      MaterialHistory={CitesRoyalesHistory}>
       <App/>
     </GameProvider>
   </StrictMode>,
   document.getElementById('root')
 )
+

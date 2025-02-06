@@ -8,9 +8,11 @@ import BrownPanel from '../images/panels/Brown.jpg'
 import CyanPanel from '../images/panels/Cyan.jpg'
 import BeigePanel from '../images/panels/Beige.jpg'
 
+// TODO : Score sur Panel
 export const PlayerPanels = () => {
   const players = usePlayers<NobleColor>({ sortFromMe: true })
   const root = document.getElementById('root')
+  // const rules = useRules()!
   if (!root) {
     return null
   }
@@ -43,7 +45,7 @@ const panelPosition = (index: number, player: NobleColor) => css`
 export const playerColorCode: Record<NobleColor, string> = {
   [NobleColor.Brown]: '#693711',
   [NobleColor.Cyan]: '#057E77',
-  [NobleColor.Black]: '#057E77',
+  [NobleColor.Black]: '#474243',
   [NobleColor.Beige]: '#AC9D67',
 }
 
