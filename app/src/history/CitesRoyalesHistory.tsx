@@ -11,6 +11,7 @@ import { PlayAssassinHistory } from './entry/PlayAssassinHistory'
 import { PlayMerchantHistory } from './entry/PlayMerchantHistory'
 import { PlayKnightHistory } from './entry/PlayKnightHistory'
 import { PlayAstrologerHistory } from './entry/PlayAstrologerHistory'
+import { MarketBuyHistory } from './entry/MarketBuyHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
@@ -52,14 +53,18 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
   }
 
   // TODO : MarketBuy
+  if(game.rule?.id === RuleId.MarketBuy){
+    return <MarketBuyHistory move={move} context={context} />
+  }
   // Machin a acheté (nb) carte(s) pour (PurchasingPower)
-  // Machin a provoqué une révolte et doit acheter des cartes au marché.
-  // Bidule et Chouette gagnent (nb) points.
+
 
   // TODO : AddCardInMarket
 
   // Machin a utilisé son héros du peuple
   // Machin a ajouté une carte au marché, n'a pas provoqué de révolte et gagne (nb) points.
+  // Machin a provoqué une révolte et doit acheter des cartes au marché.
+  // Bidule et Chouette gagnent (nb) points.
 
   // TODO : Construction
   // Machin a construit (nb) carte(s)

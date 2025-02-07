@@ -15,6 +15,7 @@ export class MarketBuyRule extends PlayerTurnRule {
       return [this.startRule(RuleId.AddCardInMarket)]
     }
     this.memorize(Memory.PurchasingPower, this.getPurchasingPower())
+    this.memorize(Memory.BoughtCards, [], this.player)
     return []
   }
 
@@ -50,6 +51,7 @@ export class MarketBuyRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
       const card = this.material(MaterialType.SubjectCard).index(move.itemIndex).getItems()[0]
       const cardValue = getSubjectType(card.id)
+      this.remind<number[]>(Memory.BoughtCards, move.location.player).push(move.itemIndex)
       this.memorize<number>(Memory.PurchasingPower, purchasingPower => purchasingPower - cardValue)
       this.memorize(Memory.hasBought, true)
     }
@@ -119,6 +121,7 @@ export class MarketBuyRule extends PlayerTurnRule {
 
   onRuleEnd() {
     this.forget(Memory.PurchasingPower)
+    this.forget(Memory.BoughtCards)
     this.forget(Memory.hasBought)
     this.forget(Memory.Revolution)
     return []
