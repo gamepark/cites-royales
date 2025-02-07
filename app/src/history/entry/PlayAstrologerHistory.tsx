@@ -20,8 +20,8 @@ export const PlayAstrologerHistory: FC<PlayAstrologerRuleHistoryProps> = (props)
   const rules = new CitesRoyalesRules(context.game)
   rules.play(move)
 
-  if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Discard) {
-    console.log(context)
+  const cardsInActionHand = rules.material(MaterialType.SubjectCard).location(LocationType.ActionHand).length === 0
+  if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Discard && cardsInActionHand) {
     const builtCards = 3 - context.action.consequences.filter(consequence => consequence.itemType === MaterialType.SubjectCard).length
 
     return (
