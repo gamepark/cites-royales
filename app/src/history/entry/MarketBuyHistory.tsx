@@ -24,14 +24,16 @@ export const MarketBuyHistory: FC<MarketBuyProps> = (props) => {
   rules.play(move)
 
   if(isCustomMove(move) && move.type === (CustomMoveType.Pass)){
-    const cardIndexes = rules.remind(Memory.BoughtCards, playerId)
+    const cardIndexes = rules.remind(Memory.BoughtCards, actionPlayer)
     const cards = rules.material(MaterialType.SubjectCard).index(index => cardIndexes && cardIndexes.includes(index))
-    const influence = cards.getItems().reduce((influence: number, card) => influence + getSubjectType(card.id), 0)
+    const influence = cards.entries
+      .map(entry => entry[1])
+      .reduce((influence: number, card) => influence + getSubjectType(card.id), 0)
 
     return (
       <HistoryEntry player={actionPlayer} backgroundColor={getPlayerColor(actionPlayer)}>
         <Trans defaults={isMe ? 'history.market-buy.you' : 'history.market-buy.player'}
-               values={{ player: name, cards:cards.length, influence:influence}}>
+               values={{ player: name, cards:cards.length, influence:influence }}>
         </Trans>
       </HistoryEntry>
     )
