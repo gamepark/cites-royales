@@ -3,6 +3,7 @@ export enum Memory {
   BoughtCards,
   hasBought,
   Revolution,
+  PointsToGive,
   CitiesWithColorBuild,
   CitiesWithWhiteBuild,
   LastPlayerToBuy

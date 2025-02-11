@@ -1,4 +1,13 @@
-import { CustomMove, isMoveItemType, isShuffle, ItemMove, Material, MaterialMove, MoveItem, PlayerTurnRule } from '@gamepark/rules-api'
+import {
+  CustomMove,
+  isMoveItemType,
+  isShuffle,
+  ItemMove,
+  Material,
+  MaterialMove,
+  MoveItem,
+  PlayerTurnRule
+} from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectCity, getSubjectRule, Subject } from '../material/Subject'
@@ -87,6 +96,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
                   x: item.location.x! + pointsToGive
                 }))
             )
+            this.memorize(Memory.PointsToGive, pointsToGive)
           }
         }
         moves.push(this.startPlayerTurn(RuleId.PlayCard, this.nextPlayer))
@@ -121,6 +131,7 @@ export class AddCardInMarketRule extends PlayerTurnRule {
               x: item.location.x! + pointsToGive
             }))
         )
+        this.memorize(Memory.PointsToGive, pointsToGive)
       }
       moves.push(this.startRule(RuleId.MarketBuy))
     }
@@ -160,5 +171,10 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   get marketCardsNumber() {
     const marketCards = this.material(MaterialType.SubjectCard).location(LocationType.Market)
     return marketCards.length
+  }
+
+  onRuleEnd() {
+    this.forget(Memory.PointsToGive)
+    return []
   }
 }

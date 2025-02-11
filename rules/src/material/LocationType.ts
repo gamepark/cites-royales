@@ -10,7 +10,6 @@ export enum LocationType {
   MarketTokenSpot, // in front of a player
   OnSeasonCards, // used Market tokens
   CityBoardSpot,
-  HelpCardSpot,
   HeroSpot,
   PlayerHand,
   PlayerArea, // For cards face-down in front of a player waiting to be revealed
