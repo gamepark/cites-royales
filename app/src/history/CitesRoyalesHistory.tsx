@@ -13,6 +13,8 @@ import { PlayKnightHistory } from './entry/PlayKnightHistory'
 import { PlayAstrologerHistory } from './entry/PlayAstrologerHistory'
 import { MarketBuyHistory } from './entry/MarketBuyHistory'
 import { AddCardInMarketHistory } from './entry/AddCardInMarketHistory'
+import { CitiesConstructionHistory } from './entry/CitiesConstructionHistory'
+import { CatchupHistory } from './entry/CatchupHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
@@ -61,12 +63,9 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
     return <AddCardInMarketHistory move={move} context={context} />
   }
 
-  // Machin a utilisé son héros du peuple
-  // Machin a ajouté une carte au marché, n'a pas provoqué de révolte et gagne (nb) points.
-  // Machin a provoqué une révolte et doit acheter des cartes au marché.
-  // Bidule et Chouette gagnent (nb) points.
-
-  // TODO : Construction
+  if(game.rule?.id === RuleId.CitiesConstruction){
+    return <CitiesConstructionHistory move={move} context={context} />
+  }
   // Machin a construit (nb) carte(s)
 
   // TODO : Scoring
@@ -77,7 +76,9 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
   // Machin a gagné (nb) points dans sa cité (autre cité)
   // Bidule a gagné (nb) points dans sa cité (cité)
 
-  // TODO : Catchup ?
+  if(game.rule?.id === RuleId.CatchupBonus){
+    return <CatchupHistory move={move} context={context}/>
+  }
   // Machin a pioché (nb) cartes en fin de saison.
 
   // TODO : EndSeason
