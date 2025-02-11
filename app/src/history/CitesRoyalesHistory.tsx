@@ -57,9 +57,6 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
     return <MarketBuyHistory move={move} context={context} />
   }
 
-
-  // TODO : AddCardInMarket
-
   if(game.rule?.id === RuleId.AddCardInMarket){
     return <AddCardInMarketHistory move={move} context={context} />
   }
