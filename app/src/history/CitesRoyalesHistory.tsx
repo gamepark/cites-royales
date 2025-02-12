@@ -17,6 +17,7 @@ import { CitiesConstructionHistory } from './entry/CitiesConstructionHistory'
 import { CatchupHistory } from './entry/CatchupHistory'
 import { SeasonEndHistory } from './entry/SeasonEndHistory'
 import { CityScoringHistory } from './entry/CityScoringHistory'
+import { EndGameHistory } from './entry/EndGameHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
@@ -81,9 +82,9 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
     return <SeasonEndHistory move={move} context={context}/>
   }
 
-  // TODO : Endgame ?
-  // Machin gagne 2 points grâce à son héro du peuple
-  // Rappel des scores
+  if(game.rule?.id === RuleId.EndGame){
+    return <EndGameHistory move={move} context={context}/>
+  }
 
   return <></>
 }
