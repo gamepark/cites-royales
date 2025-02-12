@@ -16,6 +16,7 @@ import { AddCardInMarketHistory } from './entry/AddCardInMarketHistory'
 import { CitiesConstructionHistory } from './entry/CitiesConstructionHistory'
 import { CatchupHistory } from './entry/CatchupHistory'
 import { SeasonEndHistory } from './entry/SeasonEndHistory'
+import { CityScoringHistory } from './entry/CityScoringHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
@@ -68,13 +69,9 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
     return <CitiesConstructionHistory move={move} context={context} />
   }
 
-  // TODO : Scoring
-  // Machin a gagné (nb) points dans (Cité), (nb) points dans (autre Cité)
-  // Bidule a gagné (nb) points dans (Cité), (nb) points dans (autre Cité)
-  // ou
-  // Machin a gagné (nb) points dans sa cité (cité)
-  // Machin a gagné (nb) points dans sa cité (autre cité)
-  // Bidule a gagné (nb) points dans sa cité (cité)
+  if(game.rule && isCityScoringRule(game.rule.id)){
+    return <CityScoringHistory move={move} context={context} />
+  }
 
   if(game.rule?.id === RuleId.CatchupBonus){
     return <CatchupHistory move={move} context={context}/>
@@ -96,3 +93,7 @@ export const rulesLinkButton = [linkButtonCss, css`
   background-color: transparent;
   font-style: italic;
 `]
+
+function isCityScoringRule(rule: RuleId): boolean {
+  return rule >= RuleId.PurpleMajority && rule <= RuleId.GreenMajority;
+}

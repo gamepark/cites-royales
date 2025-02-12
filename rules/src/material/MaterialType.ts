@@ -5,7 +5,6 @@ export enum MaterialType {
   HeroCard,
   SubjectCard,
   SeasonCard,
-  MarketCard,
   MarketHalfSizedCard,
   VictoryPointsTrack,
 }
