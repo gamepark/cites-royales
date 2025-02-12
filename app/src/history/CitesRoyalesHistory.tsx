@@ -15,6 +15,7 @@ import { MarketBuyHistory } from './entry/MarketBuyHistory'
 import { AddCardInMarketHistory } from './entry/AddCardInMarketHistory'
 import { CitiesConstructionHistory } from './entry/CitiesConstructionHistory'
 import { CatchupHistory } from './entry/CatchupHistory'
+import { SeasonEndHistory } from './entry/SeasonEndHistory'
 
 export type CitesRoyalesHistoryProps = {
   game: MaterialGame
@@ -66,7 +67,6 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
   if(game.rule?.id === RuleId.CitiesConstruction){
     return <CitiesConstructionHistory move={move} context={context} />
   }
-  // Machin a construit (nb) carte(s)
 
   // TODO : Scoring
   // Machin a gagné (nb) points dans (Cité), (nb) points dans (autre Cité)
@@ -79,10 +79,10 @@ export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, Material
   if(game.rule?.id === RuleId.CatchupBonus){
     return <CatchupHistory move={move} context={context}/>
   }
-  // Machin a pioché (nb) cartes en fin de saison.
 
-  // TODO : EndSeason
-  // La Saison (Nom de Saison) se termine.
+  if(game.rule?.id === RuleId.EndSeason){
+    return <SeasonEndHistory move={move} context={context}/>
+  }
 
   // TODO : Endgame ?
   // Machin gagne 2 points grâce à son héro du peuple
