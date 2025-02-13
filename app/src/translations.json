@@ -216,6 +216,8 @@
       "description.hero.recto": "La carte Héro du peuple se retourne en cas de révolution.",
       "description.hero.verso": "Vous pouvez, au moment d’AJOUTER UNE CARTE AU MARCHÉ, retourner cette carte pour piocher 2 cartes (au lieu de 1) et choisir celle que vous ajoutez au Marché.",
       "description.hero.vp": "Si cette carte est face colorée visible à la fin de la partie, vous gagnez 2 points de victoire.",
+      "description.token.title": "Pion {type, select, 8{Noble} other{Marché}} de {player}.",
+      "description.token.points": "Le score de {player} est de {points, plural, =1{{points} point} other{{points} points}}.",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",

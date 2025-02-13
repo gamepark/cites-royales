@@ -11,12 +11,11 @@ export const SubjectCardHelp: FC<MaterialHelpProps> = (props) => {
   const { t } = useTranslation()
   const rules = useRules<CitesRoyalesRules>()!
   const { item } = props
-  console.log(item)
+
   const isFlipped =  item.id === undefined || !!item.location?.rotation
   const subjectType = getSubjectType(item.id)
   const subjectCity = getSubjectCity(item.id)
 
-  console.log(isFlipped)
   return (
     <>
       <h2 css={titleCss}>{isFlipped ? t('description.card.title.face-down') : <Trans defaults={'description.card.title.face-up'} values={{type:subjectType, city:subjectCity}}/>}</h2>

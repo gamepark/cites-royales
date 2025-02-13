@@ -4,6 +4,7 @@ import Beige from '../images/tokens/noble/Beige.png'
 import Black from '../images/tokens/noble/Black.png'
 import Brown from '../images/tokens/noble/Brown.png'
 import Cyan from '../images/tokens/noble/Cyan.png'
+import { TokenHelp } from './help/TokenHelp'
 
 class NobleTokenDescription extends TokenDescription {
   borderRadius = 0.5
@@ -16,6 +17,7 @@ class NobleTokenDescription extends TokenDescription {
     [NobleToken.Brown]: Brown,
     [NobleToken.Black]: Black,
   }
+  help = TokenHelp
 }
 
 export const nobleTokenDescription = new NobleTokenDescription()
