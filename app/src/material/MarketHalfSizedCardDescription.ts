@@ -6,6 +6,7 @@ import row2Front from "../images/cards/marketHalfSizedCards/row2Front.jpg";
 import row3Front from "../images/cards/marketHalfSizedCards/row3Front.jpg";
 import row4Front from "../images/cards/marketHalfSizedCards/row4Front.jpg";
 import row5Front from "../images/cards/marketHalfSizedCards/row5Front.jpg";
+import { MarketHalfSizedCardHelp } from './help/MarketHalfSizedCardHelp'
 
 class MarketHalfSizedCardDescription extends CardDescription {
   height = 4.4;
@@ -16,6 +17,8 @@ class MarketHalfSizedCardDescription extends CardDescription {
     [MarketHalfSizedCard.row4]: row4Front,
     [MarketHalfSizedCard.row5]: row5Front,
   };
+
+  help = MarketHalfSizedCardHelp
 }
 
 export const marketHalfSizedCardDescription = new MarketHalfSizedCardDescription();
