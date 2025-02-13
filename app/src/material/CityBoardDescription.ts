@@ -4,6 +4,7 @@ import BeigeCity from '../images/boards/BeigeCity.jpg'
 import BlackCity from '../images/boards/BlackCity.jpg'
 import BrownCity from '../images/boards/BrownCity.jpg'
 import CyanCity from '../images/boards/CyanCity.jpg'
+import { CityBoardHelp } from './help/CityBoardHelp'
 
 class CityBoardDescription extends BoardDescription {
   height = 3.2
@@ -14,6 +15,8 @@ class CityBoardDescription extends BoardDescription {
     [NobleColor.Black]: BlackCity,
     [NobleColor.Beige]: BeigeCity,
   }
+
+  help= CityBoardHelp
 }
 
 export const cityBoardDescription = new CityBoardDescription()
