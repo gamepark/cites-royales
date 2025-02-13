@@ -51,6 +51,7 @@ import YellowMerchant from "../images/cards/subjects/YellowMerchant.jpg";
 import YellowVillager from "../images/cards/subjects/YellowVillager.jpg";
 
 import Back from "../images/cards/subjects/SubjectCardBack.jpg";
+import { SubjectCardHelp } from './help/SubjectCardHelp'
 
 class SubjectCardDescription extends CardDescription {
   backImage = Back;
@@ -106,6 +107,8 @@ class SubjectCardDescription extends CardDescription {
     [Subject.WhiteKnight]: WhiteKnight,
     [Subject.WhiteAstrologer]: WhiteAstrologer,
   };
+
+  help = SubjectCardHelp
 }
 
 export const subjectCardDescription = new SubjectCardDescription();

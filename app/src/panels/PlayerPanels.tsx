@@ -19,14 +19,18 @@ export const PlayerPanels = () => {
 
   return createPortal(
     <>
-      {players.map((player, index) => (
-        <StyledPlayerPanel
-          key={player.id}
-          player={player}
-          color={playerColorCode[player.id]}
-          css={panelPosition(index, player.id)}
-        />
-      ))}
+      {players.map((player, index) => {
+        // const playerScore = rules.game.scores[player.id]
+        return (
+          <StyledPlayerPanel
+            key={player.id}
+            player={player}
+            color={playerColorCode[player.id]}
+            css={panelPosition(index, player.id)}
+          >
+          </StyledPlayerPanel>
+        )
+      })}
     </>,
     root
   )

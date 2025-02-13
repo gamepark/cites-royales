@@ -9,6 +9,7 @@ import BrownHeroFront from '../images/cards/heroes/BrownHeroFront.jpg'
 import CyanHeroBack from '../images/cards/heroes/CyanHeroBack.jpg'
 import CyanHeroFront from '../images/cards/heroes/CyanHeroFront.jpg'
 import { MaterialItem } from '@gamepark/rules-api'
+import { HeroCardHelp } from './help/HeroCardHelp'
 
 class HeroCardDescription extends CardDescription {
   isFlipped = (item: MaterialItem) => item.location.rotation
@@ -25,6 +26,8 @@ class HeroCardDescription extends CardDescription {
     [NobleColor.Black]: BlackHeroBack,
     [NobleColor.Beige]: BeigeHeroBack,
   }
+
+  help = HeroCardHelp
 }
 
 export const heroCardDescription = new HeroCardDescription()
