@@ -10,8 +10,6 @@ export const MarketHalfSizedCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
   const rules = useRules<CitesRoyalesRules>()!
 
-  console.log(item)
-
   return <>{item.id === 0 ? <Trans defaults={'description.half-card.0'} values={{cards: rules.material(MaterialType.SubjectCard).location(location => {
     return location.type === LocationType.Market || location.type === LocationType.Reserve
     }).length}}/> : t('description.half-card.'+item.id) }</>

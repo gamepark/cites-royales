@@ -12,7 +12,7 @@ export const CityBoardHelp: FC<MaterialHelpProps> = (props) => {
     <>
       <h2 css={titleCss}><Trans defaults={'description.city-board.title'} values={{player:playerName}}/></h2>
       {cities.map(city => {
-        return city !== undefined && <p><Trans key={city} defaults={'description.city-board.'+city}><strong/></Trans></p>
+        return city !== undefined && <p key={city}><Trans defaults={'description.city-board.'+city}><strong/></Trans></p>
       })}
     </>
   )

@@ -51,7 +51,7 @@ export class MarketBuyRule extends PlayerTurnRule {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
       const card = this.material(MaterialType.SubjectCard).index(move.itemIndex).getItems()[0]
       const cardValue = getSubjectType(card.id)
-      this.remind<number[]>(Memory.BoughtCards, move.location.player).push(move.itemIndex)
+      this.remind<number[]>(Memory.BoughtCards, move.location.player).push(card.id)
       this.memorize<number>(Memory.PurchasingPower, purchasingPower => purchasingPower - cardValue)
       this.memorize(Memory.hasBought, true)
     }
