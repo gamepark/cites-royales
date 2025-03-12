@@ -11,6 +11,7 @@ import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
 import { CitesRoyalesHistory } from './history/CitesRoyalesHistory'
+import { CitesRoyalesTutorial } from './tutorial/CitesRoyalesTutorial'
 
 setupTranslation(translations, { debug: false })
 
@@ -19,6 +20,7 @@ ReactDOM.render(
     <GameProvider
       game="cites-royales"
       Rules={CitesRoyalesRules}
+      tutorial={new CitesRoyalesTutorial()}
       optionsSpec={CitesRoyalesOptionsSpec}
       GameSetup={CitesRoyalesSetup}
       material={Material}
