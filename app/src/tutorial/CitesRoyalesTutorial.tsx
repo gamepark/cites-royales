@@ -341,7 +341,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
       popup: {
         text: () => <Trans defaults="tuto.buy-cards.buy" />,
       },
-      focus: (game, context) => ({
+      focus: (_game, _context) => ({
       //   Cartes 1 3 et 4
       })
     }
