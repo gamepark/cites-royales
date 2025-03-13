@@ -23,7 +23,6 @@ export const AddCardInMarketHistory: FC<AddCardInMarketHistoryProps> = (props) =
   const isRevolt = rules.remind(Memory.Revolution)
 
   if(isMoveItemType(MaterialType.HeroCard)(move)) {
-    // Machin a utilisé son Héro
     return (
       <HistoryEntry player={actionPlayer} backgroundColor={getPlayerColor(actionPlayer)}>
         <Trans defaults={isMe ? 'history.market-draw.hero.you' : 'history.market-draw.hero.player'}

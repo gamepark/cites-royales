@@ -19,13 +19,21 @@ export class EndSeasonRule extends PlayerTurnRule {
   }
 
   completeMarketIfNeeded(deck = this.deck) {
-    if (this.marketCards.length < 4) {
+    if (this.marketCards.length < 4 && !this.isEndGame) {
       return [deck.dealOne({ type: LocationType.Market })]
     } else {
       return [
         this.startRule(RuleId.CatchupBonus),
         ...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot })
       ]
+    }
+  }
+
+  get isEndGame(){
+    if(this.game.players.length < 4){
+      return this.material(MaterialType.SeasonCard).rotation(true).length === 3
+    } else {
+      return this.material(MaterialType.SeasonCard).rotation(true).length === 4
     }
   }
 

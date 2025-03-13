@@ -20,8 +20,8 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
     this.setupSeasonCards()
     this.setupSubjectCards()
     this.setupReserve()
-    this.setupMarket()
     this.setupMarketBeginning()
+    this.setupMarket()
     this.setupPlayers()
     this.deal3CardsToPlayers()
   }

@@ -6,7 +6,6 @@ import { NobleColor } from '../NobleColor'
 import { DeckHelper } from './DeckHelper'
 import { RuleId } from './RuleId'
 
-// TODO : Ne pas piocher ni distribuer si fin de jeu.
 export class CatchupBonusRule extends PlayerTurnRule {
   onRuleStart() {
     const deck = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
