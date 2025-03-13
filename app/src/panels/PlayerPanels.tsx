@@ -1,18 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
-import { StyledPlayerPanel, usePlayers } from '@gamepark/react-game'
+import { CounterProps, StyledPlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
 import { createPortal } from 'react-dom'
 import BlackPanel from '../images/panels/Black.jpg'
 import BrownPanel from '../images/panels/Brown.jpg'
 import CyanPanel from '../images/panels/Cyan.jpg'
 import BeigePanel from '../images/panels/Beige.jpg'
+import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
+import vpIcon from "../images/panels/Laurier.png"
 
-// TODO : Score sur Panel
 export const PlayerPanels = () => {
   const players = usePlayers<NobleColor>({ sortFromMe: true })
   const root = document.getElementById('root')
-  // const rules = useRules()!
+  const rules = useRules()!
+  const CitesRules = new CitesRoyalesRules(rules.game)
   if (!root) {
     return null
   }
@@ -20,13 +22,17 @@ export const PlayerPanels = () => {
   return createPortal(
     <>
       {players.map((player, index) => {
-        // const playerScore = rules.game.scores[player.id]
+        const counters: CounterProps[] = [{
+          image: vpIcon,
+          value: CitesRules.getScore(player.id),
+        }]
         return (
           <StyledPlayerPanel
             key={player.id}
             player={player}
             color={playerColorCode[player.id]}
             css={panelPosition(index, player.id)}
+            counters={counters}
           >
           </StyledPlayerPanel>
         )
