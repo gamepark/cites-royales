@@ -28,6 +28,7 @@ export class PlayCardRule extends PlayerTurnRule {
       }
     }
 
+    // TODO : Demander à Romain bug Discard toujours en dessous
     moves.push(...this.material(MaterialType.SubjectCard)
       .location(LocationType.PlayerHand)
       .player(player)
