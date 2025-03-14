@@ -1,30 +1,23 @@
-import { linkButtonCss, MaterialHistoryProps } from '@gamepark/react-game'
-import { FC } from 'react'
-import { MaterialGame, MaterialMove } from '@gamepark/rules-api'
-import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
-import { PlayEmptinessHistory } from './entry/PlayEmptinessHistory'
-import { PlayCardHistory } from './entry/PlayCardHistory'
 import { css } from '@emotion/react'
-import { PlayVillagerHistory } from './entry/PlayVillagerHistory'
-import { PlayJesterHistory } from './entry/PlayJesterHistory'
-import { PlayAssassinHistory } from './entry/PlayAssassinHistory'
-import { PlayMerchantHistory } from './entry/PlayMerchantHistory'
-import { PlayKnightHistory } from './entry/PlayKnightHistory'
-import { PlayAstrologerHistory } from './entry/PlayAstrologerHistory'
-import { MarketBuyHistory } from './entry/MarketBuyHistory'
+import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
+import { linkButtonCss, MaterialHistoryProps } from '@gamepark/react-game'
 import { AddCardInMarketHistory } from './entry/AddCardInMarketHistory'
-import { CitiesConstructionHistory } from './entry/CitiesConstructionHistory'
 import { CatchupHistory } from './entry/CatchupHistory'
-import { SeasonEndHistory } from './entry/SeasonEndHistory'
+import { CitiesConstructionHistory } from './entry/CitiesConstructionHistory'
 import { CityScoringHistory } from './entry/CityScoringHistory'
 import { EndGameHistory } from './entry/EndGameHistory'
+import { MarketBuyHistory } from './entry/MarketBuyHistory'
+import { PlayAssassinHistory } from './entry/PlayAssassinHistory'
+import { PlayAstrologerHistory } from './entry/PlayAstrologerHistory'
+import { PlayCardHistory } from './entry/PlayCardHistory'
+import { PlayEmptinessHistory } from './entry/PlayEmptinessHistory'
+import { PlayJesterHistory } from './entry/PlayJesterHistory'
+import { PlayKnightHistory } from './entry/PlayKnightHistory'
+import { PlayMerchantHistory } from './entry/PlayMerchantHistory'
+import { PlayVillagerHistory } from './entry/PlayVillagerHistory'
+import { SeasonEndHistory } from './entry/SeasonEndHistory'
 
-export type CitesRoyalesHistoryProps = {
-  game: MaterialGame
-} & MaterialHistoryProps
-
-export const CitesRoyalesHistory: FC<MaterialHistoryProps<MaterialGame, MaterialMove>> = (props) => {
-  const { move, context } = props
+export const CitesRoyalesHistory = ({ move, context }: MaterialHistoryProps) => {
   const game = context.game
 
   if(game.rule?.id === RuleId.PlayEmptiness){
