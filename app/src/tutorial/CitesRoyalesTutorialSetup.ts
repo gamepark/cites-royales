@@ -13,7 +13,7 @@ export class CitesRoyalesTutorialSetup extends CitesRoyalesSetup {
     )
     this.setupPlayerHand()
     this.setupOpponentHand()
-    this.setupRevolt()
+    this.setupDrawPile()
   }
 
   private setupPlayerHand(): void {
@@ -37,10 +37,14 @@ export class CitesRoyalesTutorialSetup extends CitesRoyalesSetup {
     this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck().shuffle()
 
 
-    this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).moveItems({type:LocationType.DrawPile})
+    this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).id(Subject.PinkMerchant).moveItem({type:LocationType.DrawPile})
+    this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).id(Subject.GreenAssassin).moveItem({type:LocationType.DrawPile})
+    this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).id(Subject.GreenEmptiness).moveItem({type:LocationType.DrawPile})
+    this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).id(Subject.YellowJester).moveItem({type:LocationType.DrawPile})
+    this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).id(Subject.YellowMerchant).moveItem({type:LocationType.DrawPile})
   }
 
-  private setupRevolt(): void {
+  private setupDrawPile(): void {
     this.material(MaterialType.SubjectCard).id(Subject.YellowMerchant).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
     this.material(MaterialType.SubjectCard).id(Subject.YellowJester).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
 
@@ -48,6 +52,11 @@ export class CitesRoyalesTutorialSetup extends CitesRoyalesSetup {
     this.material(MaterialType.SubjectCard).id(Subject.GreenKnight).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
     this.material(MaterialType.SubjectCard).id(Subject.PinkAssassin).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
     this.material(MaterialType.SubjectCard).id(Subject.BlueVillager).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
+
+
+    this.material(MaterialType.SubjectCard).id(Subject.GreenEmptiness).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
+    this.material(MaterialType.SubjectCard).id(Subject.GreenAssassin).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
+    this.material(MaterialType.SubjectCard).id(Subject.PinkMerchant).moveItem({type:LocationType.ActionHand, player:NobleColor.Brown})
   }
 
 

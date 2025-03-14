@@ -340,10 +340,183 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     {
       popup: {
         text: () => <Trans defaults="tuto.buy-cards.buy" />,
+        position:{x:-10, y:10}
       },
-      focus: (_game, _context) => ({
-      //   Cartes 1 3 et 4
+      focus: (game, _context) => ({
+        materials: [this.material(game, MaterialType.SubjectCard).location(LocationType.Market).id<Subject>(id => [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(id))],
+        scale: 0.20
+      }),
+      move:{
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move:{
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move:{
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        filter: (move) => {
+          return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
+        }
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.build.start" components={{ bold: <strong/> }}/>
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.build.details" components={{ bold: <strong/> }}/>
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.build.play" />
+      },
+      move: {
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.PinkMerchant].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.WhiteAstrologer].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.GreenEmptiness].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.GreenAssassin].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.build.confirm" components={{ bold: <strong/> }} />
+      },
+      move: {
+        filter: (move, _game) => {
+          return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
+        }
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.build.reveal" />
+      }
+    },
+    {
+      move: {
+        player:NobleColor.Black,
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.RedEmptiness, Subject.BlueKnight, Subject.GreenKnight, Subject.PinkAssassin].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        player:NobleColor.Black,
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.RedEmptiness, Subject.BlueKnight, Subject.GreenKnight, Subject.PinkAssassin].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        player:NobleColor.Black,
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.RedEmptiness, Subject.BlueKnight, Subject.GreenKnight, Subject.PinkAssassin].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        }
+      }
+    },
+    {
+      move: {
+        player:NobleColor.Black,
+        filter: (move, game) => {
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.InCity && [Subject.RedEmptiness, Subject.BlueKnight, Subject.GreenKnight, Subject.PinkAssassin].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+        },
+      }
+    },
+    {
+      move: {
+        player:NobleColor.Black,
+        filter: (move) => {
+          return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
+        },
+        interrupt: (move) => isMoveItemType(MaterialType.NobleToken)(move)
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.majorities.start" components={{ italic: <i/> }}/>
+      },
+      move: {}
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.majorities.details" components={{ bold: <strong/> }}/>
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.history" />
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.catchup" />,
+        position: {x:15}
+      },
+      focus: (_game, context) => ({
+        staticItems: {
+          [MaterialType.VictoryPointsTrack]: victoryPointsTrackDescription.getStaticItems(context),
+        },
+        scale:0.5
+      }),
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.hero" components={{ bold: <strong/> }}/>
+      },
+      focus: (game) => ({
+        materials: [this.material(game, MaterialType.HeroCard).id(NobleColor.Black)]
       })
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.end" />
+      },
     }
   ]
 }
