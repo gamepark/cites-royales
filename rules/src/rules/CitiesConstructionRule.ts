@@ -33,7 +33,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
 
 
       const cardsCanBuild = sameCityCards.filter(card => {
-        return highestSameCityCard ? getSubjectType(card.id) > highestSameCityCard.id : true
+        return highestSameCityCard ? getSubjectType(card.id) > getSubjectType(highestSameCityCard.id) : true
       })
 
       moves.push(...cardsCanBuild.moveItems({ type: LocationType.InCity, player, id: city }))
