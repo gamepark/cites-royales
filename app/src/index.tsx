@@ -12,6 +12,7 @@ import { Material } from './material/Material'
 import translations from './translations.json'
 import { CitesRoyalesHistory } from './history/CitesRoyalesHistory'
 import { CitesRoyalesTutorial } from './tutorial/CitesRoyalesTutorial'
+import { TutorialAI } from './tutorial/TutorialAI'
 
 setupTranslation(translations, { debug: false })
 
@@ -21,12 +22,14 @@ ReactDOM.render(
       game="cites-royales"
       Rules={CitesRoyalesRules}
       tutorial={new CitesRoyalesTutorial()}
+      ai={TutorialAI}
       optionsSpec={CitesRoyalesOptionsSpec}
       GameSetup={CitesRoyalesSetup}
       material={Material}
       locators={Locators}
       animations={gameAnimations}
-      MaterialHistory={CitesRoyalesHistory}>
+      MaterialHistory={CitesRoyalesHistory}
+    >
       <App/>
     </GameProvider>
   </StrictMode>,
