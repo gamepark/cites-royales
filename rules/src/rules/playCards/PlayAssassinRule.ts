@@ -6,7 +6,6 @@ import { CardEffectRule } from './CardEffectRule'
 
 export class PlayAssassinRule extends CardEffectRule {
   getPlayerMoves() {
-    const player = this.player
     const moves: MaterialMove[] = []
 
     this.game.players.forEach((p) => {
@@ -19,7 +18,7 @@ export class PlayAssassinRule extends CardEffectRule {
         const hasHighestCard = highestCard.length > 0
 
         if (hasHighestCard) {
-          moves.push(highestCard.moveItem({ type: LocationType.Discard, player }))
+          moves.push(highestCard.moveItem({ type: LocationType.Discard }))
         }
       }
     })
