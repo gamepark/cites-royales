@@ -9,6 +9,7 @@ import { isCustomMove, isCustomMoveType, isMoveItemType, isStartRule } from '@ga
 import { CustomMoveType } from '@gamepark/cites-royales/rules/CustomMoveType'
 import { MarketHalfSizedCard } from '@gamepark/cites-royales/material/MarketHalfSizedCard'
 import { victoryPointsTrackDescription } from '../material/VictoryPointsTrackDescription'
+import { City } from '@gamepark/cites-royales/material/City'
 
 export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType, LocationType> {
   version = 1
@@ -473,6 +474,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
         player:NobleColor.Black,
         filter: (move) => {
           return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
+
         },
         interrupt: (move) => isMoveItemType(MaterialType.NobleToken)(move)
       }
@@ -480,18 +482,87 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     {
       popup: {
         text: () => <Trans defaults="tuto.majorities.start" components={{ italic: <i/> }}/>
-      },
-      move: {}
+      }
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.majorities.details" components={{ bold: <strong/> }}/>
+      },
+      move: {
+        interrupt: (move) => isMoveItemType(MaterialType.NobleToken)(move)
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.history" />
+        text: () => <Trans defaults="tuto.majorities.purple" components={{ bold: <strong/> }}/>
+      },
+      focus: (game, _context) => ({
+        materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Brown).location(location => location.type === LocationType.InCity && location.id === City.Purple)],
+        scale:0.25
+      }),
+      move: {
+        interrupt: (move) => isMoveItemType(MaterialType.NobleToken)(move)
       }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.majorities.yellow"  components={{ bold: <strong/> }}/>
+      },
+      focus: (game, _context) => ({
+        materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Yellow)],
+        scale:0.25
+      }),
+      move: {
+        interrupt: (move) => isMoveItemType(MaterialType.NobleToken)(move)
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.majorities.pink"  components={{ bold: <strong/> }}/>
+      },
+      focus: (game, _context) => ({
+        materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Brown).location(location => location.type === LocationType.InCity && location.id === City.Pink)],
+        scale:0.25
+      }),
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.majorities.red"  components={{ bold: <strong/> }}/>
+      },
+      focus: (game, _context) => ({
+        materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Red)],
+        scale:0.25
+      }),
+      move: {
+        interrupt: (move) => isMoveItemType(MaterialType.NobleToken)(move)
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.majorities.blue"  components={{ bold: <strong/> }}/>
+      },
+      focus: (game, _context) => ({
+        materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Blue)],
+        scale:0.25
+      }),
+      move: {
+        interrupt: (move) => isMoveItemType(MaterialType.SeasonCard)(move)
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.majorities.green"  components={{ bold: <strong/> }}/>
+      },
+      focus: (game, _context) => ({
+        materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Green)],
+        scale:0.25
+      }),
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.history" />
+      },
+      move:{}
     },
     {
       popup: {
