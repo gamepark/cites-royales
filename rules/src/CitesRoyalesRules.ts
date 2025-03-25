@@ -107,7 +107,6 @@ export class CitesRoyalesRules
       [LocationType.Reserve]: hideItemId,
       [LocationType.PlayerHand]: hideItemIdToOthers,
       [LocationType.PlayerArea]: hideItemId,
-      [LocationType.ActionHand]: hideItemIdToOthers
     }
   }
 
