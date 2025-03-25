@@ -5,32 +5,35 @@ import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
 
 export const gameAnimations = new MaterialGameAnimations()
 
+// TODO : Ralentir draw card bouffon
+// TODO : Remonter à romain hotmail.com ne reçoit pas mail
+
 gameAnimations.when()
   .rule(RuleId.PurpleMajority)
   .move((move) => isMoveItemType(MaterialType.NobleToken)(move))
-  .duration(5)
+  .duration(2)
 
 gameAnimations.when()
   .rule(RuleId.YellowMajority)
   .move((move) => isMoveItemType(MaterialType.NobleToken)(move))
-  .duration(5)
+  .duration(2)
 
 gameAnimations.when()
   .rule(RuleId.PinkMajority)
   .move((move) => isMoveItemType(MaterialType.NobleToken)(move))
-  .duration(5)
+  .duration(2)
 
 gameAnimations.when()
   .rule(RuleId.RedMajority)
   .move((move) => isMoveItemType(MaterialType.NobleToken)(move))
-  .duration(5)
+  .duration(2)
 
 gameAnimations.when()
   .rule(RuleId.BlueMajority)
   .move((move) => isMoveItemType(MaterialType.NobleToken)(move))
-  .duration(5)
+  .duration(2)
 
 gameAnimations.when()
   .rule(RuleId.GreenMajority)
   .move((move) => isMoveItemType(MaterialType.NobleToken)(move))
-  .duration(5)
+  .duration(2)
