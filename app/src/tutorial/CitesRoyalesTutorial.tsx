@@ -222,7 +222,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     {
       popup: {
         text: () => <Trans defaults="tuto.opponent.revolt" />,
-        position: {y: 12}
+        position: {y: 18}
       }
     },
     {
