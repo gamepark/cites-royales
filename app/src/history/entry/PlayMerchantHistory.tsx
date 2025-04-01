@@ -1,17 +1,14 @@
-import { FC } from 'react'
-import { HistoryEntry, MaterialHistoryProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { Trans } from 'react-i18next'
-import { getSubjectCity, getSubjectType } from '@gamepark/cites-royales/material/Subject'
-import { rulesLinkButton } from '../CitesRoyalesHistory'
-import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
-import { getPlayerColor } from './PlayCardHistory'
-import { isMoveItemType, MaterialMoveBuilder } from '@gamepark/rules-api'
-import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
+import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
+import { getSubjectCity, getSubjectType } from '@gamepark/cites-royales/material/Subject'
+import { MaterialHistoryProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
+import { FC } from 'react'
+import { Trans } from 'react-i18next'
+import { rulesLinkButton } from '../CitesRoyalesLogs'
+import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
-export type PlayMerchantRuleHistoryProps = {
-
-} & MaterialHistoryProps
+export type PlayMerchantRuleHistoryProps = {} & MaterialHistoryProps
 
 export const PlayMerchantHistory: FC<PlayMerchantRuleHistoryProps> = (props) => {
   const { move, context } = props
@@ -22,18 +19,12 @@ export const PlayMerchantHistory: FC<PlayMerchantRuleHistoryProps> = (props) => 
   const rules = new CitesRoyalesRules(context.game)
   rules.play(move)
 
-  if (isMoveItemType(MaterialType.SubjectCard)(move)) {
-    const game = context.game
-    const card = game.items[MaterialType.SubjectCard]![move.itemIndex]
-    return (
-      <HistoryEntry depth={1} player={actionPlayer} backgroundColor={getPlayerColor(actionPlayer)}>
-        <Trans defaults={isMe ? 'history.merchant.you' : 'history.merchant.player'}
-               values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id) }}>
-          <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local />
-        </Trans>
-      </HistoryEntry>
-    )
-  }
-
-  return null
+  const game = context.game
+  const card = game.items[MaterialType.SubjectCard]![move.itemIndex]
+  return (
+    <Trans defaults={isMe ? 'history.merchant.you' : 'history.merchant.player'}
+           values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id) }}>
+      <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local/>
+    </Trans>
+  )
 }

@@ -1,15 +1,11 @@
-import { FC } from 'react'
-import { HistoryEntry, MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { isMoveItemType } from '@gamepark/rules-api'
-import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
-import { getPlayerColor } from './PlayCardHistory'
-import { Trans } from 'react-i18next'
+import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { CityScoring } from '@gamepark/cites-royales/rules/majoritiesChecks/CityScoring'
+import { MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { FC } from 'react'
+import { Trans } from 'react-i18next'
 
-export type CityScoringHistoryProps = {
-
-} & MaterialHistoryProps
+export type CityScoringHistoryProps = {} & MaterialHistoryProps
 
 export const CityScoringHistory: FC<CityScoringHistoryProps> = (props) => {
   const { move, context } = props
@@ -22,16 +18,10 @@ export const CityScoringHistory: FC<CityScoringHistoryProps> = (props) => {
 
   const CityScoring = (rules.rulesStep as CityScoring)
 
-  if(isMoveItemType(MaterialType.NobleToken)(move)){
-    const isMe = playerId && nobleTokenPlayer === playerId
-    return (
-      <HistoryEntry player={nobleTokenPlayer} backgroundColor={getPlayerColor(nobleTokenPlayer)}>
-        <Trans defaults={isMe ? 'history.scoring.you' : 'history.scoring.player'}
-               values={{ player: name, points: CityScoring.getPlayerVictoryPoints(nobleTokenPlayer), city: CityScoring.city  }}>
-        </Trans>
-      </HistoryEntry>
-    )
-  }
-
-  return null
+  const isMe = playerId && nobleTokenPlayer === playerId
+  return (
+    <Trans defaults={isMe ? 'history.scoring.you' : 'history.scoring.player'}
+           values={{ player: name, points: CityScoring.getPlayerVictoryPoints(nobleTokenPlayer), city: CityScoring.city }}>
+    </Trans>
+  )
 }
