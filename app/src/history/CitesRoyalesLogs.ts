@@ -6,6 +6,7 @@ import { CustomMoveType } from '@gamepark/cites-royales/rules/CustomMoveType'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
 import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
 import { HistoryEntryContext, linkButtonCss, LogDescription, MoveComponentContext } from '@gamepark/react-game'
+import { MovePlayedLogDescription } from '@gamepark/react-game'
 import { isCustomMove, isCustomMoveType, isMoveItemType, isStartPlayerTurn, isStartRule, MaterialMove } from '@gamepark/rules-api'
 import { MarketDrawAddCardLog } from './entry/add-card-in-market/MarketDrawAddCardLog'
 import { MarketDrawBoughtLog } from './entry/add-card-in-market/MarketDrawBoughtLog'
@@ -28,7 +29,7 @@ import { PlayVillagerHistory } from './entry/PlayVillagerHistory'
 import { SeasonEndHistory } from './entry/SeasonEndHistory'
 
 export class CitesRoyalesLogs implements LogDescription {
-  getMovePlayedLogDescription(move: MaterialMove, context: MoveComponentContext) {
+  getMovePlayedLogDescription(move: MaterialMove, context: MoveComponentContext): MovePlayedLogDescription | undefined {
     const game = context.game
     const actionPlayer = context.action.playerId
     const color = getPlayerColor(actionPlayer)
@@ -37,7 +38,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayEmptinessHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -46,7 +47,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayVillagerHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -55,7 +56,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayJesterHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -64,7 +65,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayAssassinHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -73,7 +74,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayMerchantHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -82,7 +83,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayKnightHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -94,7 +95,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayCardHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color)
+        css: withBackgroundColor(color)
       }
     }
 
@@ -110,7 +111,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: CitiesConstructionHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color)
+        css: withBackgroundColor(color)
       }
     }
 
@@ -125,7 +126,7 @@ export class CitesRoyalesLogs implements LogDescription {
     if (game.rule?.id === RuleId.EndSeason && isStartRule(move)) {
       return {
         Component: SeasonEndHistory,
-        extraCss: withBackgroundColor('transparent', '#002448')
+        css: withBackgroundColor('transparent', '#002448')
       }
     }
 
@@ -146,13 +147,13 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: MarketDrawUseHeroLog,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color)
+        css: withBackgroundColor(color)
       }
     } else if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Market) {
       return {
         Component: MarketDrawAddCardLog,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color)
+        css: withBackgroundColor(color)
       }
     } else if (isStartRule(move)) {
 
@@ -165,14 +166,14 @@ export class CitesRoyalesLogs implements LogDescription {
           return {
             Component: MarketDrawBoughtLog,
             player: actionPlayer,
-            extraCss: withBackgroundColor(color),
+            css: withBackgroundColor(color),
             depth: 1
           }
         } else {
           return {
             Component: MarketDrawRevoltLog,
             player: actionPlayer,
-            extraCss: withBackgroundColor(color),
+            css: withBackgroundColor(color),
             depth: 1
           }
         }
@@ -181,7 +182,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: MarketDrawNoRevoltLog,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -204,7 +205,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: MarketBuyHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(getPlayerColor(actionPlayer))
+        css: withBackgroundColor(getPlayerColor(actionPlayer))
       }
     }
 
@@ -220,7 +221,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: PlayAstrologerHistory,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color),
+        css: withBackgroundColor(color),
         depth: 1
       }
     }
@@ -235,7 +236,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: EndOfGameHeroLog,
         player: actionPlayer,
-        extraCss: withBackgroundColor(color)
+        css: withBackgroundColor(color)
       }
     }
 
@@ -250,7 +251,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return {
         Component: CityScoringHistory,
         player: nobleTokenPlayer,
-        extraCss: withBackgroundColor(color)
+        css: withBackgroundColor(color)
       }
     }
 
