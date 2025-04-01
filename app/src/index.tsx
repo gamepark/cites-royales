@@ -7,10 +7,10 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { gameAnimations } from './animations/GameAnimations'
 import App from './App'
+import { CitesRoyalesLogs } from './history/CitesRoyalesLogs'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
-import { CitesRoyalesHistory } from './history/CitesRoyalesHistory'
 import { CitesRoyalesTutorial } from './tutorial/CitesRoyalesTutorial'
 import { TutorialAI } from './tutorial/TutorialAI'
 
@@ -28,7 +28,7 @@ ReactDOM.render(
       material={Material}
       locators={Locators}
       animations={gameAnimations}
-      MaterialHistory={CitesRoyalesHistory}
+      logs={new CitesRoyalesLogs()}
     >
       <App/>
     </GameProvider>
