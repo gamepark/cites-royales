@@ -1,10 +1,10 @@
-import { ItemContext, Locator } from '@gamepark/react-game'
+import { ItemContext, PileLocator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { subjectCardDescription } from '../material/SubjectCardDescription'
 
-class OnSeasonCardsLocator extends Locator {
+class OnSeasonCardsLocator extends PileLocator {
   coordinates = { x: -50, y: -23 }
-  //   gap = { x: seasonCardDescription.width + 0.5 }
+    radius = 3
   getItemCoordinates(item: MaterialItem, context: ItemContext) {
     const { x = 0, y = 0, z = 0 } = super.getItemCoordinates(item, context)
 

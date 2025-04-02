@@ -12,7 +12,7 @@ export const CityBoardHelp: FC<MaterialHelpProps> = (props) => {
 
   return (
     <>
-      <h2 css={titleCss}><Trans defaults={'description.city-board.title'} values={{player:playerName}}/></h2>
+      <h2><Trans defaults={'description.city-board.title'} values={{player:playerName}} css={titleCss}/></h2>
 
       <MaterialComponent type={MaterialType.CityBoard} itemId={NobleColor.Beige} css={boardCss}/>
       {cities.map(city => {
@@ -23,9 +23,10 @@ export const CityBoardHelp: FC<MaterialHelpProps> = (props) => {
 }
 
 const titleCss = css`
-  margin-bottom: 0.5em !important;
+    margin-bottom: 1em !important;
 `
 const boardCss = css`
-  font-size: 0.7em;
-  position: static;
+    font-size: 0.56em;
+    position: static !important;
+    margin-bottom:4em;
 `
