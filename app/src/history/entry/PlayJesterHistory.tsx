@@ -26,6 +26,4 @@ export const PlayJesterHistory: FC<PlayJesterRuleHistoryProps> = (props) => {
       <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local/>
     </Trans>
   )
-
-  return null
 }
