@@ -1,10 +1,10 @@
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
-import { MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
-export type CitiesConstructionHistoryProps = {} & MaterialHistoryProps
+export type CitiesConstructionHistoryProps = {} & MoveComponentProps
 
 export const CitiesConstructionHistory: FC<CitiesConstructionHistoryProps> = (props) => {
   const playerId = usePlayerId()

@@ -1,12 +1,12 @@
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { getSubjectType, Subject } from '@gamepark/cites-royales/material/Subject'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
-import { MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { sumBy } from 'lodash'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
-export type MarketBuyProps = {} & MaterialHistoryProps
+export type MarketBuyProps = {} & MoveComponentProps
 
 export const MarketBuyHistory: FC<MarketBuyProps> = (props) => {
   const { context } = props

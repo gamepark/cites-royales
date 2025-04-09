@@ -1,10 +1,10 @@
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
-import { MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
-export const MarketDrawRevoltLog: FC<MaterialHistoryProps> = (props) => {
+export const MarketDrawRevoltLog: FC<MoveComponentProps> = (props) => {
   const { context } = props
   const playerId = usePlayerId()
   const actionPlayer = context.action.playerId

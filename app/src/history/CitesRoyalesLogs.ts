@@ -5,8 +5,7 @@ import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { CustomMoveType } from '@gamepark/cites-royales/rules/CustomMoveType'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
 import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
-import { HistoryEntryContext, linkButtonCss, LogDescription, MoveComponentContext } from '@gamepark/react-game'
-import { MovePlayedLogDescription } from '@gamepark/react-game'
+import { linkButtonCss, LogDescription, MoveComponentContext, MovePlayedLogDescription } from '@gamepark/react-game'
 import { isCustomMove, isCustomMoveType, isMoveItemType, isStartPlayerTurn, isStartRule, MaterialMove } from '@gamepark/rules-api'
 import { MarketDrawAddCardLog } from './entry/add-card-in-market/MarketDrawAddCardLog'
 import { MarketDrawBoughtLog } from './entry/add-card-in-market/MarketDrawBoughtLog'
@@ -137,7 +136,7 @@ export class CitesRoyalesLogs implements LogDescription {
     return
   }
 
-  getAddCardInMarketLog(move: MaterialMove, context: HistoryEntryContext) {
+  getAddCardInMarketLog(move: MaterialMove, context: MoveComponentContext) {
     const actionPlayer = context.action.playerId
     const rules = new CitesRoyalesRules(context.game)
     const isRevolt = rules.remind(Memory.Revolution)
@@ -190,7 +189,7 @@ export class CitesRoyalesLogs implements LogDescription {
     return
   }
 
-  private getCatchUpBonusLog(move: MaterialMove, context: HistoryEntryContext) {
+  private getCatchUpBonusLog(move: MaterialMove, context: MoveComponentContext) {
     const cardsDrawn = context.action.consequences.filter(consequence => consequence.location?.type === LocationType.PlayerHand).length
     if (isStartPlayerTurn(move) && cardsDrawn > 0) {
       return { Component: CatchupHistory }
@@ -199,7 +198,7 @@ export class CitesRoyalesLogs implements LogDescription {
     return
   }
 
-  private getMarketBuyLog(move: MaterialMove, context: HistoryEntryContext) {
+  private getMarketBuyLog(move: MaterialMove, context: MoveComponentContext) {
     if (isCustomMoveType(CustomMoveType.Pass)(move)) {
       const actionPlayer = context.action.playerId
       return {
@@ -212,7 +211,7 @@ export class CitesRoyalesLogs implements LogDescription {
     return
   }
 
-  private getPlayAstrologerLog(move: MaterialMove, context: HistoryEntryContext) {
+  private getPlayAstrologerLog(move: MaterialMove, context: MoveComponentContext) {
     const cardsInActionHand = new CitesRoyalesRules(context.game).material(MaterialType.SubjectCard).location(LocationType.ActionHand).length === 0
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Discard && cardsInActionHand) {
       const actionPlayer = context.action.playerId
@@ -229,7 +228,7 @@ export class CitesRoyalesLogs implements LogDescription {
     return
   }
 
-  private getEndGameLog(move: MaterialMove, context: HistoryEntryContext) {
+  private getEndGameLog(move: MaterialMove, context: MoveComponentContext) {
     const actionPlayer = context.action.playerId
     const color = getPlayerColor(actionPlayer)
     if (isMoveItemType(MaterialType.NobleToken)(move)) {
@@ -243,7 +242,7 @@ export class CitesRoyalesLogs implements LogDescription {
     return
   }
 
-  private getScoringLog(move: MaterialMove, context: HistoryEntryContext) {
+  private getScoringLog(move: MaterialMove, context: MoveComponentContext) {
     if (isMoveItemType(MaterialType.NobleToken)(move)) {
       const rules = new CitesRoyalesRules(context.game)
       const nobleTokenPlayer = rules.material(MaterialType.NobleToken).index(move.itemIndex).getItem()?.id

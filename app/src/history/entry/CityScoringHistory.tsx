@@ -1,11 +1,11 @@
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { CityScoring } from '@gamepark/cites-royales/rules/majoritiesChecks/CityScoring'
-import { MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
-export type CityScoringHistoryProps = {} & MaterialHistoryProps
+export type CityScoringHistoryProps = {} & MoveComponentProps
 
 export const CityScoringHistory: FC<CityScoringHistoryProps> = (props) => {
   const { move, context } = props

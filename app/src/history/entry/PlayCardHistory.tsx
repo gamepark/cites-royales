@@ -2,7 +2,7 @@ import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { getSubjectCity, getSubjectType } from '@gamepark/cites-royales/material/Subject'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
-import { MaterialHistoryProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
@@ -10,7 +10,7 @@ import { playerColorCode } from '../../panels/PlayerPanels'
 import { rulesLinkButton } from '../CitesRoyalesLogs'
 import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
-export type PlayCardRuleHistoryProps = {} & MaterialHistoryProps
+export type PlayCardRuleHistoryProps = {} & MoveComponentProps
 
 export const PlayCardHistory: FC<PlayCardRuleHistoryProps> = (props) => {
   const { move, context } = props

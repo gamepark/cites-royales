@@ -1,10 +1,10 @@
 import { LocationType } from '@gamepark/cites-royales/material/LocationType'
-import { MaterialHistoryProps } from '@gamepark/react-game'
+import { MoveComponentProps } from '@gamepark/react-game'
 import { isStartPlayerTurn } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
-export type CatchupHistoryProps = {} & MaterialHistoryProps
+export type CatchupHistoryProps = {} & MoveComponentProps
 
 export const CatchupHistory: FC<CatchupHistoryProps> = (props) => {
   const { move, context } = props

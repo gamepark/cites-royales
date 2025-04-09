@@ -1,8 +1,8 @@
-import { MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
-export const EndOfGameHeroLog: FC<MaterialHistoryProps> = (props) => {
+export const EndOfGameHeroLog: FC<MoveComponentProps> = (props) => {
   const { context } = props
   const playerId = usePlayerId()
   const actionPlayer = context.action.playerId

@@ -1,10 +1,10 @@
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
-import { MaterialHistoryProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
-export type PlayAstrologerRuleHistoryProps = {} & MaterialHistoryProps
+export type PlayAstrologerRuleHistoryProps = {} & MoveComponentProps
 
 export const PlayAstrologerHistory: FC<PlayAstrologerRuleHistoryProps> = (props) => {
   const { move, context } = props

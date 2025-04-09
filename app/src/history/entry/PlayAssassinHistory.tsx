@@ -1,14 +1,14 @@
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { getSubjectCity, getSubjectType } from '@gamepark/cites-royales/material/Subject'
-import { HistoryEntryContext, MaterialHistoryProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MoveComponentContext, MoveComponentProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { MaterialItem, MaterialMoveBuilder } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 import { rulesLinkButton } from '../CitesRoyalesLogs'
 import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
-export type PlayAssassinHistoryProps = {} & MaterialHistoryProps
+export type PlayAssassinHistoryProps = {} & MoveComponentProps
 
 export const PlayAssassinHistory: FC<PlayAssassinHistoryProps> = (props) => {
   const { move, context } = props
@@ -21,7 +21,7 @@ export const PlayAssassinHistory: FC<PlayAssassinHistoryProps> = (props) => {
 
 type PlayAssassinHistoryEntryProps = {
   move: any,
-  context: HistoryEntryContext
+  context: MoveComponentContext
   card: MaterialItem
 }
 
