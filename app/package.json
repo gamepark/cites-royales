@@ -8,7 +8,7 @@
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@emotion/react": "^11.11.1",
-    "@gamepark/avataaars": "^2.2.0",
+    "@gamepark/avataaars": "~2.2.0",
     "@gamepark/react-game": "~6.31.2",
     "@gamepark/rules-api": "~6.30.0",
     "@types/react": "^17.0.68",
