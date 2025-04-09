@@ -19,7 +19,7 @@
     "publish": "lerna publish"
   },
   "peerDependencies": {
-    "@gamepark/rules-api": ">=6.29",
+    "@gamepark/rules-api": ">=6.30",
     "lodash": ">=4.17"
   },
   "devDependencies": {

@@ -5,9 +5,6 @@ import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
 
 export const gameAnimations = new MaterialGameAnimations()
 
-// TODO : Ralentir draw card bouffon
-// TODO : Remonter à romain hotmail.com ne reçoit pas mail
-
 gameAnimations.when()
   .rule(RuleId.PurpleMajority)
   .move((move) => isMoveItemType(MaterialType.NobleToken)(move))

@@ -17,7 +17,7 @@ export default function App() {
   return (
     <>
       { !!game && <GameDisplay players={game.players.length} /> }
-      <LoadingScreen display={loading} author="William Liévin" artist="Marina Coudray" publisher="Origames" developer="Origames"/>
+      <LoadingScreen display={loading} author="William Liévin" artist="Marina Coudray" publisher="Origames" developer="Valentin Dhilly"/>
       <MaterialHeader rulesStepsHeaders={Headers} loading={loading}/>
       <MaterialImageLoader onImagesLoad={() => setImagesLoading(false)} />
       <Menu/>
