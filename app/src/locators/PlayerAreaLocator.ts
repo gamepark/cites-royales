@@ -7,7 +7,7 @@ class PlayerAreaLocator extends Locator {
   getCoordinates(location: Location, context: MaterialContext) {
     const playerIndex = getRelativePlayerIndex(context, location.player)
     const { x = 0, y = 0 } = cityBoardSpotLocator.getCoordinates(location, context)
-    return playerIndex === 0 ? { x: x - 27, y: y - 5 } : { x: x + 7, y: y - 5 }
+    return playerIndex === 0 ? { x: x - 27, y: y - 5 } : { x: x + 7, y: y - 8 }
   }
 
   locationDescription = new playerAreaDescription({
