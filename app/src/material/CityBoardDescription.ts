@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { BoardDescription } from '@gamepark/react-game'
 import BeigeCity from '../images/boards/BeigeCity.jpg'
@@ -17,6 +19,8 @@ class CityBoardDescription extends BoardDescription {
   }
 
   help= CityBoardHelp
+
+  getHelpDisplayExtraCss = () => css`display: none;`
 }
 
 export const cityBoardDescription = new CityBoardDescription()
