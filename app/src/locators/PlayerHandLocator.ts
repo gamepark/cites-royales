@@ -11,7 +11,7 @@ class PlayerHandLocator extends HandLocator {
     return playerIndex === 0 ? { x: x - 40, y: y - 5 } : { x: x + 38, y: y - 8 }
   }
 
-  getGapMaxAngle(location: Location, context: MaterialContext) {
+  getMaxAngle(location: Location, context: MaterialContext) {
     const playerIndex = getRelativePlayerIndex(context, location.player)
     return playerIndex === 0 ? 3 : 2
   }
