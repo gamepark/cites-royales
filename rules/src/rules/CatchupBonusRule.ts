@@ -51,9 +51,9 @@ export class CatchupBonusRule extends PlayerTurnRule {
       let bonusPoints
 
       if (this.game.players.length < 4) {
-        bonusPoints = [11, 21, 31, 41, 51, 61, 71, 81, 91, 101]
+        bonusPoints = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
       } else {
-        bonusPoints = [7, 13, 19, 25, 31, 37, 43, 49, 55, 61, 67, 73, 79, 85, 91, 98]
+        bonusPoints = [6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 98]
       }
 
       for (const bonus of bonusPoints) {
