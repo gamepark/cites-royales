@@ -51,7 +51,7 @@ export class CitesRoyalesLogs implements LogDescription {
       }
     }
 
-    if (game.rule?.id === RuleId.PlayJester && isMoveItemType(MaterialType.SubjectCard)(move)) {
+    if (game.rule?.id === RuleId.PlayJester && isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
       return {
         Component: PlayJesterHistory,
         player: actionPlayer,
