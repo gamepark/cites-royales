@@ -28,7 +28,7 @@ export class MarketBuyRule extends PlayerTurnRule {
       ...this.material(MaterialType.SubjectCard)
         .location(LocationType.Market)
         .filter((item) => getSubjectType(item.id) <= purchasingPower)
-        .moveItems({ type: LocationType.PlayerHand, player: this.player })
+        .moveItems({ type: LocationType.ActionHand, player: this.player })
     )
 
     if (this.hasBought || !this.remind(Memory.Revolution)) {
@@ -119,11 +119,18 @@ export class MarketBuyRule extends PlayerTurnRule {
     }
   }
 
+  get playerCardsInActionHand(){
+    return this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
+  }
+
   onRuleEnd() {
     this.forget(Memory.PurchasingPower)
     this.forget(Memory.BoughtCards)
     this.forget(Memory.hasBought)
     this.forget(Memory.Revolution)
+    if(this.playerCardsInActionHand.length > 0){
+      return [...this.playerCardsInActionHand.moveItems({ type: LocationType.PlayerHand, player: this.player })]
+    }
     return []
   }
 }
