@@ -155,7 +155,6 @@ export class CitesRoyalesLogs implements LogDescription {
         css: withBackgroundColor(color)
       }
     } else if (isStartRule(move)) {
-
       if (isRevolt) {
         const playerHasAlreadyBought = rules.material(MaterialType.MarketToken)
           .id(actionPlayer)
