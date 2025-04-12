@@ -20,10 +20,12 @@ export const SubjectCardHelp: FC<MaterialHelpProps> = (props) => {
       <h2>{isFlipped ? t('description.card.title.face-down') :
         <Trans defaults={'description.card.title.face-up'} values={{ type: subjectType, city: subjectCity }}/>}</h2>
       {!isFlipped && <p><Trans defaults={'description.card.' + subjectType}><strong/></Trans></p>}
+      {!subjectCity && <p><Trans defaults={'description.card.white'}/></p>}
       {isFlipped
         && item.location!.type === LocationType.DrawPile
         && <Trans defaults={'description.card.draw-pile'} values={{ cards: rules.material(MaterialType.SubjectCard).location(LocationType.DrawPile).length }}/>
       }
+
     </>
   )
 }
