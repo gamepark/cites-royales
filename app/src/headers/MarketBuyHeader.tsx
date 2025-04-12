@@ -26,12 +26,14 @@ export const MarketBuyHeader = () => {
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass));
   const marketCards = rules.material(MaterialType.SubjectCard).location(LocationType.Market);
   const notEnoughCardsInMarket = marketCards.length < 4;
+  const hasBought = rule.hasBought
   const player = usePlayerName(activePlayer);
 
 
   const isActivePlayer = me === activePlayer;
 
-  if (notEnoughCardsInMarket) {
+  // TODO : Header Trop long voir avec Romain
+  if (notEnoughCardsInMarket && !playerCanBuy) {
     return (
       <Trans
         defaults={isActivePlayer ? "header.market-buy.cannot.you" : "header.market-buy.cannot.player"}
@@ -43,13 +45,23 @@ export const MarketBuyHeader = () => {
 
   if (isActivePlayer) {
     if (playerCanBuy) {
-      return (
-        <Trans
-          defaults={isRevolt ? "header.revolt.you" : "header.market-buy.you"}
+      if(isRevolt) {
+        return (
+          <Trans
+          defaults={hasBought ? "header.revolt.you.has-bought" : "header.revolt.you"}
           values={{ value: purchasingPower }}
-          components={!isRevolt ? { pass: <PlayMoveButton move={pass} /> } : {}}
-        />
-      )
+          components={hasBought ? { pass: <PlayMoveButton move={pass} /> } : {}}
+          />
+        )
+      } else {
+        return (
+          <Trans
+            defaults={"header.market-buy.you"}
+            values={{ value: purchasingPower }}
+            components={{ pass: <PlayMoveButton move={pass} /> }}
+          />
+        )
+      }
     } else {
       return (
         <Trans

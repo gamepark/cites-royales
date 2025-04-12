@@ -20,7 +20,7 @@ export class MarketBuyRule extends PlayerTurnRule {
 
     const purchasingPower = this.remind(Memory.PurchasingPower)
 
-    if(this.remind(Memory.Revolution) && this.material(MaterialType.SubjectCard).location(LocationType.Market).length >= 4 && !playerHasAlreadyBoughtThisSeason){
+    if(this.remind(Memory.Revolution) || this.material(MaterialType.SubjectCard).location(LocationType.Market).length >= 4 && !playerHasAlreadyBoughtThisSeason){
       moves.push(
         ...this.material(MaterialType.SubjectCard)
           .location(LocationType.Market)
@@ -46,7 +46,7 @@ export class MarketBuyRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand) {
+    if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.ActionHand) {
       const card = this.material(MaterialType.SubjectCard).index(move.itemIndex).getItems()[0]
       const cardValue = getSubjectType(card.id)
       this.remind<number[]>(Memory.BoughtCards, move.location.player).push(card.id)
