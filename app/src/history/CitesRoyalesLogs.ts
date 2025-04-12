@@ -90,7 +90,7 @@ export class CitesRoyalesLogs implements LogDescription {
       return this.getPlayAstrologerLog(move, context)
     }
 
-    if (game.rule?.id === RuleId.PlayCard && isMoveItemType(MaterialType.SubjectCard)(move)) {
+    if (game.rule?.id === RuleId.PlayCard && isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.Discard) {
       return {
         Component: PlayCardHistory,
         player: actionPlayer,
