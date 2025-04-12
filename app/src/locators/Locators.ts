@@ -18,6 +18,7 @@ import { reserveLocator } from './Reserve'
 import { seasonsCardsStackLocator } from './SeasonsCardsStackLocator'
 import { victoryPointsSpaceLocator } from './VictoryPointsSpaceLocator'
 import { victoryPointsTrackSpotLocator } from './VictoryPointsTrackSpotLocator'
+import { cityBoardCountSpotLocator } from './CityBoardCountSpotLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<NobleColor, MaterialType, LocationType>>> = {
   [LocationType.VictoryPointsTrackSpot]: victoryPointsTrackSpotLocator,
@@ -35,5 +36,6 @@ export const Locators: Partial<Record<LocationType, Locator<NobleColor, Material
   [LocationType.PlayerArea]: playerAreaLocator,
   [LocationType.ActionHand]: actionHandLocator,
   [LocationType.InCity]: inCityLocator,
-  [LocationType.OnSeasonCards]: onSeasonCardsLocator
+  [LocationType.OnSeasonCards]: onSeasonCardsLocator,
+  [LocationType.CityBoardCountSpot]: cityBoardCountSpotLocator,
 }
