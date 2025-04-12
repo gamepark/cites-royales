@@ -17,6 +17,9 @@ export class MarketBuyRule extends PlayerTurnRule {
   getPlayerMoves() {
     const moves: MaterialMove[] = []
     const playerHasAlreadyBoughtThisSeason = this.playerHasAlreadyBought
+    if(playerHasAlreadyBoughtThisSeason){
+      this.memorize(Memory.hasAlreadyBoughtThisSeason, true)
+    }
 
     const purchasingPower = this.remind(Memory.PurchasingPower)
 
@@ -126,6 +129,7 @@ export class MarketBuyRule extends PlayerTurnRule {
     this.forget(Memory.BoughtCards)
     this.forget(Memory.hasBought)
     this.forget(Memory.Revolution)
+    this.forget(Memory.hasAlreadyBoughtThisSeason)
     if(this.playerCardsInActionHand.length > 0){
       return [...this.playerCardsInActionHand.moveItems({ type: LocationType.PlayerHand, player: this.player })]
     }

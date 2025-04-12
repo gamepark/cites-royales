@@ -17,28 +17,33 @@ export const TutorialAI = (game: MaterialGame, player: NobleColor) => {
     case RuleId.MarketBuy:
       const hasBought = rules.remind(Memory.hasBought)
       const isRevolt = rules.remind(Memory.Revolution)
-
-      if(hasBought || isRevolt){
-        if(legalMoves.length > 1 && legalMoves.some(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))){
-          legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
-        }
-      } else {
-        const cardsInMarket = new AddCardInMarketRule(game).marketCardsNumber
-
-        const cappedCards = Math.min(cardsInMarket, 10)
-
-        const probabilityToBuy = 0.1 + ((0.9 - 0.1) / 9) * (cappedCards - 1)
-
-        const random = Math.random()
-        const isBuying = random < probabilityToBuy
+      const hasAlreadyBoughtThisSeason = rules.remind(Memory.hasAlreadyBoughtThisSeason)
 
 
-        if(!isBuying){
-          legalMoves = legalMoves.filter(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))
+      if(!hasAlreadyBoughtThisSeason){
+        if(hasBought || isRevolt){
+          if(legalMoves.length > 1 && legalMoves.some(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))){
+            legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
+          }
         } else {
-          legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
+          const cardsInMarket = new AddCardInMarketRule(game).marketCardsNumber
+
+          const cappedCards = Math.min(cardsInMarket, 10)
+
+          const probabilityToBuy = 0.1 + ((0.9 - 0.1) / 9) * (cappedCards - 1)
+
+          const random = Math.random()
+          const isBuying = random < probabilityToBuy
+
+
+          if(!isBuying){
+            legalMoves = legalMoves.filter(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))
+          } else {
+            legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
+          }
         }
       }
+
       break;
 
     case RuleId.PlayAssassin:
