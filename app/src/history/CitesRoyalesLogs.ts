@@ -6,7 +6,7 @@ import { CustomMoveType } from '@gamepark/cites-royales/rules/CustomMoveType'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
 import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
 import { linkButtonCss, LogDescription, MoveComponentContext, MovePlayedLogDescription } from '@gamepark/react-game'
-import { isCustomMove, isCustomMoveType, isMoveItemType, isStartPlayerTurn, isStartRule, MaterialMove } from '@gamepark/rules-api'
+import { isCustomMoveType, isMoveItemType, isStartPlayerTurn, isStartRule, MaterialMove } from '@gamepark/rules-api'
 import { MarketDrawAddCardLog } from './entry/add-card-in-market/MarketDrawAddCardLog'
 import { MarketDrawBoughtLog } from './entry/add-card-in-market/MarketDrawBoughtLog'
 import { MarketDrawNoRevoltLog } from './entry/add-card-in-market/MarketDrawNoRevoltLog'
@@ -106,10 +106,9 @@ export class CitesRoyalesLogs implements LogDescription {
       return this.getAddCardInMarketLog(move, context)
     }
 
-    if (game.rule?.id === RuleId.CitiesConstruction && isCustomMove(move)) {
+    if (game.rule?.id === RuleId.CitiesConstruction && isStartPlayerTurn(move)) {
       return {
         Component: CitiesConstructionHistory,
-        player: actionPlayer,
         css: withBackgroundColor(color)
       }
     }
