@@ -6,6 +6,10 @@ import { getSubjectCity, getSubjectType } from '../../material/Subject'
 import { CardEffectRule } from './CardEffectRule'
 
 export class PlayKnightRule extends CardEffectRule {
+  onRuleStart(){
+    if(!this.getPlayerMoves().length) return [this.nextRule]
+    return []
+  }
   getPlayerMoves() {
     const player = this.player
     const moves: MaterialMove[] = []

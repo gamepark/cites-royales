@@ -5,6 +5,10 @@ import { MaterialType } from '../../material/MaterialType'
 import { CardEffectRule } from './CardEffectRule'
 
 export class PlayAssassinRule extends CardEffectRule {
+  onRuleStart(){
+    if(!this.getPlayerMoves().length) return [this.nextRule]
+    return []
+  }
   getPlayerMoves() {
     const moves: MaterialMove[] = []
 
