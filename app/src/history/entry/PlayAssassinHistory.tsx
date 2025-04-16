@@ -32,6 +32,7 @@ const PlayAssassinHistoryEntry: FC<PlayAssassinHistoryEntryProps> = ({ move, con
   const name = usePlayerName(actionPlayer)
   const rules = new CitesRoyalesRules(context.game)
 
+  // TODO : CardLocationPlayer si vide -> spectateur
   const targetName = usePlayerName(card.location.player)
   rules.play(move)
 
