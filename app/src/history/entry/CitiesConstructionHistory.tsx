@@ -10,11 +10,10 @@ export type CitiesConstructionHistoryProps = {} & MoveComponentProps
 export const CitiesConstructionHistory: FC<CitiesConstructionHistoryProps> = (props) => {
   const { context, move } = props
 
-  const playerElements = context.game.players.map((actionPlayer:NobleColor) => {
-    return <CitiesConstructionHistoryEntry actionPlayer={actionPlayer} context={context} move={move}/>
-  });
-
-  return <>{playerElements}</>
+  return context.game.players.map((actionPlayer: NobleColor) => {
+    return <CitiesConstructionHistoryEntry key={actionPlayer} actionPlayer={actionPlayer} context={context}
+                                           move={move} />
+  })
 }
 
 export type CitiesConstructionHistoryEntryProps = {
