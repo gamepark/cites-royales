@@ -16,9 +16,17 @@ export const PlayAstrologerHistory: FC<PlayAstrologerRuleHistoryProps> = (props)
   rules.play(move)
   const builtCards = 3 - context.action.consequences.filter(consequence => consequence.itemType === MaterialType.SubjectCard).length
 
-  return (
-    <Trans defaults={isMe ? 'history.astrologer.you' : 'history.astrologer.player'}
-           values={{ player: name, cards: builtCards }}>
-    </Trans>
-  )
+  if(builtCards > 1){
+    return (
+      <Trans defaults={isMe ? 'history.astrologer.you.not' : 'history.astrologer.player.not'}
+             values={{ player: name }}>
+      </Trans>
+    )
+  } else {
+    return (
+      <Trans defaults={isMe ? 'history.astrologer.you' : 'history.astrologer.player'}
+             values={{ player: name, cards: builtCards }}>
+      </Trans>
+    )
+  }
 }

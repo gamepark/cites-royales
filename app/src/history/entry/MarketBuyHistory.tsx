@@ -20,9 +20,17 @@ export const MarketBuyHistory: FC<MarketBuyProps> = (props) => {
   const influence = sumBy(cardIds, cardId => getSubjectType(cardId))
 
 
-  return (
-    <Trans defaults={isMe ? 'history.market-buy.you' : 'history.market-buy.player'}
-           values={{ player: name, cards: cardIds.length, influence: influence }}>
-    </Trans>
-  )
+  if(cardIds.length < 1){
+    return (
+      <Trans defaults={isMe ? 'history.market-buy.you.not' : 'history.market-buy.player.not'}
+             values={{ player: name }}>
+      </Trans>
+    )
+  } else {
+    return (
+      <Trans defaults={isMe ? 'history.market-buy.you' : 'history.market-buy.player'}
+             values={{ player: name, cards: cardIds.length, influence: influence }}>
+      </Trans>
+    )
+  }
 }

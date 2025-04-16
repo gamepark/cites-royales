@@ -7,6 +7,7 @@ import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 
 export type CitiesConstructionHistoryProps = {} & MoveComponentProps
 
+// TODO : Voir avec Romain
 export const CitiesConstructionHistory: FC<CitiesConstructionHistoryProps> = (props) => {
   const { context, move } = props
 
@@ -32,10 +33,19 @@ const CitiesConstructionHistoryEntry: FC<CitiesConstructionHistoryEntryProps> = 
     rules.remind(Memory.CitiesWithWhiteBuild, actionPlayer).length +
     rules.remind(Memory.CitiesWithColorBuild, actionPlayer).length
 
-  return (
-    <Trans
-      defaults={isMe ? "history.build.you" : "history.build.player"}
-      values={{ player: name, cards: builtCards }}
-    />
-  )
+  if(builtCards < 1){
+    return (
+      <Trans
+        defaults={isMe ? "history.build.you.not" : "history.build.player.not"}
+        values={{ player: name}}
+      />
+    )
+  } else {
+    return (
+      <Trans
+        defaults={isMe ? "history.build.you" : "history.build.player"}
+        values={{ player: name, cards: builtCards }}
+      />
+    )
+  }
 }
