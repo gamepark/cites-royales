@@ -19,21 +19,19 @@ export const CityBoardCounter = ({ location }: { location: Location }) => {
   const count = CityScoring.getMajorityWinners().includes(location.player!) ? CityScoring.getPlayerVictoryPoints(location.player!) : 0
 
   if (count === 0) return null
-  return <span css={spanCss}>
+  return <span>
     <Picture css={pictureCss} src={Laurier} />
-    <span >{count}</span>
+    <strong>{count}</strong>
   </span>
 }
 
-const spanCss = css(`
-  filter: drop-shadow(0.1em 0.1em black);`
-)
-
 const pictureCss = css(`
+  width:43%;
   position:absolute;
-  top:14px;
-  left:30.5%;
+  top:10px;
+   left:28%;
 `)
+
 
 function getCityScoring(city:City, game:MaterialGame) {
   switch(city) {

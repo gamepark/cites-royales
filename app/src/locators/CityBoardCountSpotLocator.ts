@@ -29,6 +29,12 @@ class CityBoardCountSpotDescription extends DropAreaDescription {
   background-color:rgba(0, 0, 0, 0.8);
   border-bottom-left-radius:20px;
   border-bottom-right-radius:20px;
+  
+  > span {
+    font-size:1.65em;
+    text-align:center;
+    padding-bottom: 12px;
+  }
   `
 
 }
