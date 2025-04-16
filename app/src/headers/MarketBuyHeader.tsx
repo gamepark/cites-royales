@@ -33,7 +33,7 @@ export const MarketBuyHeader = () => {
   const isActivePlayer = me === activePlayer;
 
   // TODO : Header Trop long voir avec Romain
-  if (notEnoughCardsInMarket && !playerCanBuy && !hasBought) {
+  if (notEnoughCardsInMarket && !playerCanBuy && (isRevolt && !hasBought)) {
     return (
       <Trans
         defaults={isActivePlayer ? "header.market-buy.cannot.you" : "header.market-buy.cannot.player"}
