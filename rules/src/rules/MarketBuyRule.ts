@@ -106,9 +106,7 @@ export class MarketBuyRule extends PlayerTurnRule {
           moves.push(heroCard.rotateItem(true))
         }
       }
-      if(this.playerCardsInActionHand.length > 0){
-        moves.push(...this.playerCardsInActionHand.moveItems({ type: LocationType.PlayerHand, player: this.player }))
-      }
+      moves.push(...this.playerCardsInActionHand.moveItems({ type: LocationType.PlayerHand, player: this.player }))
 
       if (this.everyOtherPlayersHaveBought) {
         moves.push(this.startSimultaneousRule(RuleId.CitiesConstruction))
