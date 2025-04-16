@@ -106,6 +106,9 @@ export class MarketBuyRule extends PlayerTurnRule {
           moves.push(heroCard.rotateItem(true))
         }
       }
+      if(this.playerCardsInActionHand.length > 0){
+        moves.push(...this.playerCardsInActionHand.moveItems({ type: LocationType.PlayerHand, player: this.player }))
+      }
 
       if (this.everyOtherPlayersHaveBought) {
         moves.push(this.startSimultaneousRule(RuleId.CitiesConstruction))
@@ -130,9 +133,6 @@ export class MarketBuyRule extends PlayerTurnRule {
     this.forget(Memory.hasBought)
     this.forget(Memory.Revolution)
     this.forget(Memory.hasAlreadyBoughtThisSeason)
-    if(this.playerCardsInActionHand.length > 0){
-      return [...this.playerCardsInActionHand.moveItems({ type: LocationType.PlayerHand, player: this.player })]
-    }
     return []
   }
 }
