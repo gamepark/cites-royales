@@ -24,6 +24,7 @@ export const PlayCardHistory: FC<PlayCardRuleHistoryProps> = (props) => {
   const game = context.game
   const card = game.items[MaterialType.SubjectCard]![move.itemIndex]
 
+  // TODO pas affiché parfois
   return (
     <Trans defaults={isMe ? 'history.play-card.you' : 'history.play-card.player'}
            values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id) }}>
