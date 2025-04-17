@@ -33,6 +33,8 @@ export const MarketBuyHeader = () => {
 
   const isActivePlayer = me === activePlayer;
 
+  // TODO : quand les cartes vont de ActionHand vers playerHand -> return null
+
   if (playerHasAlreadyBought || (notEnoughCardsInMarket && !(hasBought && !playerCanBuy) && !(isRevolt && hasBought))) {
     return (
       <Trans
