@@ -12,8 +12,8 @@ export const CitiesConstructionHistory: FC<CitiesConstructionHistoryProps> = (pr
   const { context, move } = props
 
   return context.game.players.map((actionPlayer: NobleColor) => {
-    return <CitiesConstructionHistoryEntry key={actionPlayer} actionPlayer={actionPlayer} context={context}
-                                           move={move} />
+    return ( <p><CitiesConstructionHistoryEntry key={actionPlayer} actionPlayer={actionPlayer} context={context}
+                                           move={move} /></p>)
   })
 }
 
@@ -26,7 +26,7 @@ const CitiesConstructionHistoryEntry: FC<CitiesConstructionHistoryEntryProps> = 
   const { actionPlayer, context } = props
   const playerId = usePlayerId()
   const isMe = playerId && actionPlayer === playerId;
-  const name = usePlayerName(actionPlayer) // Move this outside loops if needed
+  const name = usePlayerName(actionPlayer)
   const rules = new CitesRoyalesRules(context.game)
 
   const builtCards =
