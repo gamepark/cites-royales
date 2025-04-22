@@ -10,6 +10,9 @@ import { CustomMoveType } from '@gamepark/cites-royales/rules/CustomMoveType'
 import { MarketHalfSizedCard } from '@gamepark/cites-royales/material/MarketHalfSizedCard'
 import { victoryPointsTrackDescription } from '../material/VictoryPointsTrackDescription'
 import { City } from '@gamepark/cites-royales/material/City'
+import { ClotheType, MouthType, TopType } from '@gamepark/avataaars'
+import SkinColor from '@gamepark/avataaars/dist/avatar/SkinColor'
+import HairColorName from '@gamepark/avataaars/dist/avatar/top/HairColorName'
 
 export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType, LocationType> {
   version = 1
@@ -21,7 +24,17 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
   }
   players = [
     {id: NobleColor.Brown},
-    {id: NobleColor.Black}
+    {
+      id: NobleColor.Black,
+      name: 'William',
+      avatar:{
+        topType:TopType.ShortHairShortFlat,
+        clotheType: ClotheType.BlazerShirt,
+        hairColor: HairColorName.Blonde,
+        skinColor: SkinColor.Pale,
+        mouthType: MouthType.Smile,
+      }
+    }
   ]
   setup = new CitesRoyalesTutorialSetup()
   steps: TutorialStep[] = [
