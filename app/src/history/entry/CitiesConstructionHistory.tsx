@@ -7,12 +7,11 @@ import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 
 export type CitiesConstructionHistoryProps = {} & MoveComponentProps
 
-// TODO : Voir avec Romain
 export const CitiesConstructionHistory: FC<CitiesConstructionHistoryProps> = (props) => {
   const { context, move } = props
 
   return context.game.players.map((actionPlayer: NobleColor) => {
-    return ( <p><CitiesConstructionHistoryEntry key={actionPlayer} actionPlayer={actionPlayer} context={context}
+    return ( <p key={actionPlayer}><CitiesConstructionHistoryEntry actionPlayer={actionPlayer} context={context}
                                            move={move} /></p>)
   })
 }
