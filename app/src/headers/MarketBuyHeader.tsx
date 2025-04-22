@@ -32,9 +32,6 @@ export const MarketBuyHeader = () => {
 
   const isActivePlayer = me === activePlayer;
 
-  // TODO : quand les cartes vont de ActionHand vers playerHand -> return null
-
-
   if (!hasBought && notEnoughCardsInMarket) {
     return (
       <Trans

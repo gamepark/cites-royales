@@ -35,7 +35,6 @@ const PlayAssassinHistoryEntry: FC<PlayAssassinHistoryEntryProps> = ({ context, 
   const isMe = playerId && actionPlayer === playerId
   const name = usePlayerName(actionPlayer)
 
-  // TODO : CardLocationPlayer si vide -> spectateur
   const targetName = usePlayerName(card.location.player)
 
   return (
