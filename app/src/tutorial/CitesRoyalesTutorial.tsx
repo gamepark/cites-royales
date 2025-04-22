@@ -13,6 +13,7 @@ import { City } from '@gamepark/cites-royales/material/City'
 import { ClotheType, MouthType, TopType } from '@gamepark/avataaars'
 import SkinColor from '@gamepark/avataaars/dist/avatar/SkinColor'
 import HairColorName from '@gamepark/avataaars/dist/avatar/top/HairColorName'
+import { cityBoardDescription } from '../material/CityBoardDescription'
 
 export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType, LocationType> {
   version = 1
@@ -52,8 +53,10 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
       popup: {
         text: () => <Trans defaults="tuto.city-board" components={{ bold: <strong/> }}/>,
       },
-      focus: (game) => ({
-        materials: [this.material(game, MaterialType.CityBoard).id(NobleColor.Brown)],
+      focus: (_game) => ({
+        staticItems: {
+          [MaterialType.CityBoard]: [cityBoardDescription.getPlayerBoard(NobleColor.Brown)]
+        },
         scale:0.75
       }),
     },
