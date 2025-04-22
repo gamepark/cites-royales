@@ -309,6 +309,16 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
+        text: () => <Trans defaults="tuto.you.cannot-buy" components={{ bold:<strong/> }}/>,
+      },
+      move: {
+        filter: (move) => {
+          return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
+        }
+      }
+    },
+    {
+      popup: {
         text: () => <Trans defaults="tuto.opponent.still-play" components={{ bold:<strong/> }}/>,
       },
     },
@@ -323,7 +333,15 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     {
       move: {
         player: NobleColor.Black,
-        filter: (move) => {
+        filter:(move) => {
+          return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
+        }
+      }
+    },
+    {
+      move: {
+        player: NobleColor.Black,
+        filter:(move) => {
           return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
         }
       }
@@ -349,21 +367,21 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
       }),
       move:{
         filter: (move, game) => {
-          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.ActionHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
         }
       }
     },
     {
       move:{
         filter: (move, game) => {
-          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.ActionHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
         }
       }
     },
     {
       move:{
         filter: (move, game) => {
-          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.PlayerHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
+          return isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.ActionHand && [Subject.GreenAssassin, Subject.PinkMerchant, Subject.BlueVillager].includes(this.material(game, MaterialType.SubjectCard).getItem(move.itemIndex).id)
         }
       }
     },

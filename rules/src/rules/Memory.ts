@@ -7,5 +7,4 @@ export enum Memory {
   CitiesWithColorBuild,
   CitiesWithWhiteBuild,
   LastPlayerToBuy,
-  hasAlreadyBoughtThisSeason,
 }

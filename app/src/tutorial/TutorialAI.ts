@@ -13,38 +13,34 @@ export const TutorialAI = (game: MaterialGame, player: NobleColor) => {
   const rules = new CitesRoyalesRules(game)
   let legalMoves = rules.getLegalMoves(player)
 
-  switch(game.rule?.id){
+  switch (game.rule?.id) {
     case RuleId.MarketBuy:
       const hasBought = rules.remind(Memory.hasBought)
       const isRevolt = rules.remind(Memory.Revolution)
-      const hasAlreadyBoughtThisSeason = rules.remind(Memory.hasAlreadyBoughtThisSeason)
+
+      if (hasBought || isRevolt) {
+        if (legalMoves.length > 1 && legalMoves.some(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))) {
+          legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
+        }
+      } else {
+        const cardsInMarket = new AddCardInMarketRule(game).marketCardsNumber
+
+        const cappedCards = Math.min(cardsInMarket, 10)
+
+        const probabilityToBuy = 0.1 + ((0.9 - 0.1) / 9) * (cappedCards - 1)
+
+        const random = Math.random()
+        const isBuying = random < probabilityToBuy
 
 
-      if(!hasAlreadyBoughtThisSeason){
-        if(hasBought || isRevolt){
-          if(legalMoves.length > 1 && legalMoves.some(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))){
-            legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
-          }
+        if (!isBuying) {
+          legalMoves = legalMoves.filter(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))
         } else {
-          const cardsInMarket = new AddCardInMarketRule(game).marketCardsNumber
-
-          const cappedCards = Math.min(cardsInMarket, 10)
-
-          const probabilityToBuy = 0.1 + ((0.9 - 0.1) / 9) * (cappedCards - 1)
-
-          const random = Math.random()
-          const isBuying = random < probabilityToBuy
-
-
-          if(!isBuying){
-            legalMoves = legalMoves.filter(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))
-          } else {
-            legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
-          }
+          legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
         }
       }
 
-      break;
+      break
 
     case RuleId.PlayAssassin:
       legalMoves = legalMoves.filter(move => {
@@ -53,14 +49,14 @@ export const TutorialAI = (game: MaterialGame, player: NobleColor) => {
             !rules.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).getIndexes().includes(move.itemIndex)
         }
       )
-      break;
+      break
 
     case RuleId.PlayAstrologer:
     case RuleId.CitiesConstruction:
-      if(legalMoves.length > 1 && legalMoves.some(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))){
+      if (legalMoves.length > 1 && legalMoves.some(move => isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass))) {
         legalMoves = legalMoves.filter(move => !(isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)))
       }
-      break;
+      break
   }
   return Promise.resolve([sample(legalMoves)])
 }

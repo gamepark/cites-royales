@@ -28,14 +28,14 @@ export const MarketBuyHeader = () => {
   const notEnoughCardsInMarket = marketCards.length < 4;
   const hasBought = rule.hasBought
   const player = usePlayerName(activePlayer);
-  const playerHasAlreadyBought = rule.playerHasAlreadyBought
 
 
   const isActivePlayer = me === activePlayer;
 
   // TODO : quand les cartes vont de ActionHand vers playerHand -> return null
 
-  if (playerHasAlreadyBought || (notEnoughCardsInMarket && !(hasBought && !playerCanBuy) && !(isRevolt && hasBought))) {
+
+  if (!hasBought && notEnoughCardsInMarket) {
     return (
       <Trans
         defaults={isActivePlayer ? "header.market-buy.cannot.you" : "header.market-buy.cannot.player"}
@@ -44,6 +44,7 @@ export const MarketBuyHeader = () => {
       />
     )
   }
+
 
   if (isActivePlayer) {
     if (playerCanBuy) {
