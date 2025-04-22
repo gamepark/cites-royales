@@ -7,12 +7,16 @@ export const SetupBuildHeader = () => {
   const { t } = useTranslation()
   const me = usePlayerId<NobleColor>()
   const rules = useRules<CitesRoyalesRules>()!
+
+  console.log(me)
   if(me !== undefined && rules.isTurnToPlay(me)) {
     return <>{t('header.setup-build.you')}</>
   } else {
     const activePlayers = rules.game.rule!.players!
     if (activePlayers.length > 1) {
       return <>{t('header.setup-build.players')}</>
+    } else if(!activePlayers.length) {
+      return null
     } else {
       return <SetupBuildHeaderPlayer player={activePlayers[0]}/>
     }
