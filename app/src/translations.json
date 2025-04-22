@@ -357,7 +357,7 @@
       "history.season-end": "La saison {season, select, 1{Printemps} 2{Été} 3{Automne} other{Hiver}} s'est terminé.",
       "history.end-game.hero.you": "Vous gagnez 2 points grâce à votre Héros du peuple.",
       "history.end-game.hero.player": "{player} gagne 2 points grâce à son Héros du peuple.",
-      "description.card.title.face-up": "({type}) {type, select, 0{Vide} 1{Villageoise} 2{Bouffon} 3{Assassin} 4{Marchande} 5{Chevalier} other{Astrologue}} {city, select, undefined{Blanche} 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}",
+      "description.card.title.face-up": "({type}) Carte {type, select, 0{Vide} 1{Villageoise} 2{Bouffon} 3{Assassin} 4{Marchande} 5{Chevalier} other{Astrologue}} {city, select, undefined{Blanche} 1{Violette} 2{Jaune} 3{Rose} 4{Rouge} 5{Bleue} other{Verte}}",
       "description.card.title.face-down": "Carte Sujet",
       "description.card.0": "\u003C0\u003EDéfaussez 1 carte face visible du Marché.\u003C/0\u003E Il n’y a qu’une carte 0 par couleur. Les 0 ne permettent pas de gagner une majorité.",
       "description.card.1": "\u003C0\u003ERécupérez la plus haute carte d’une de vos Cités dans votre main.\u003C/0\u003E Vous ne pouvez pas récupérer une carte recouverte.",
