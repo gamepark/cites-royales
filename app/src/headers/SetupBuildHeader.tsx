@@ -8,7 +8,6 @@ export const SetupBuildHeader = () => {
   const me = usePlayerId<NobleColor>()
   const rules = useRules<CitesRoyalesRules>()!
 
-  console.log(me)
   if(me !== undefined && rules.isTurnToPlay(me)) {
     return <>{t('header.setup-build.you')}</>
   } else {
