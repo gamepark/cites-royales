@@ -16,7 +16,7 @@ export const MarketBuyHistory: FC<MarketBuyProps> = (props) => {
   const name = usePlayerName(actionPlayer)
   const rules = new CitesRoyalesRules(context.game)
 
-  const cardIds = rules.remind<Subject[]>(Memory.BoughtCards, actionPlayer)
+  const cardIds = rules.remind<Subject[]>(Memory.BoughtCards, actionPlayer) ?? []
   const influence = sumBy(cardIds, cardId => getSubjectType(cardId))
 
 
