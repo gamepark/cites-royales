@@ -9,7 +9,6 @@ import { RuleId } from './RuleId'
 export class EndSeasonRule extends PlayerTurnRule {
   onRuleStart() {
     return [
-      this.material(MaterialType.SeasonCard).id(this.season).rotateItem(true),
       ...this.completeMarketIfNeeded()
     ]
   }
@@ -23,6 +22,7 @@ export class EndSeasonRule extends PlayerTurnRule {
       return [deck.dealOne({ type: LocationType.Market })]
     } else {
       return [
+        this.material(MaterialType.SeasonCard).id(this.season).rotateItem(true),
         this.startRule(RuleId.CatchupBonus),
         ...this.material(MaterialType.MarketToken).moveItems({ type: LocationType.MarketTokenSpot })
       ]
