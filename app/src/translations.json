@@ -298,7 +298,7 @@
       "header.play-card.player": "{player} peut défausser une carte pour son effet",
       "header.emptiness.you": "Le Vide : défaussez 1 carte face visible du Marché",
       "header.emptiness.player": "Le Vide : {player} défausse 1 carte face visible du Marché",
-      "header.villager.you": "La Villageoise : récuperez la plus haute carte d'une de vos cités",
+      "header.villager.you": "La Villageoise : récupérez la plus haute carte d'une de vos cités",
       "header.villager.player": "La Villageoise : {player} récupère la plus haute carte d'une de ses Cités",
       "header.jester.you": "Le Bouffon : vous piochez 1 carte",
       "header.jester.player": "Le Bouffon : {player} pioche 1 carte",
