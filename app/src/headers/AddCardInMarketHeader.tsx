@@ -27,14 +27,20 @@ export const AddCardInMarketHeader = () => {
           hero: <PlayMoveButton move={hero} />
         }}/>
       )
+    }
+  } else {
+    if(playerHeroAvailable) {
+      return (
+        <Trans
+          defaults={"header.market-draw.player"}
+          values={{player}}
+        />
+      )
     } else {
-
+      return (
+        <Trans defaults={"header.market-draw.add.player"} values={{player}}/>
+      )
     }
   }
-  return (
-    <Trans
-    defaults={"header.market-draw.player"}
-    values={{player}}
-    />
-  )
+  return null
 }
