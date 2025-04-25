@@ -8,9 +8,7 @@ import { RuleId } from './RuleId'
 
 export class EndSeasonRule extends PlayerTurnRule {
   onRuleStart() {
-    return [
-      ...this.completeMarketIfNeeded()
-    ]
+    return this.completeMarketIfNeeded()
   }
 
   get deck() {
