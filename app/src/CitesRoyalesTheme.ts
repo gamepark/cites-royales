@@ -4,7 +4,7 @@ export const CitesRoyalesTheme = {
   root: {
     background: {
       image: redBackground,
-      overlay: 'rgba(0, 0, 0, 0.2)'
+      overlay: 'rgba(0, 0, 0, 0.5)'
     }
   }
 }
