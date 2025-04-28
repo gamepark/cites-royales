@@ -322,7 +322,7 @@
       "header.market-draw.add.player": "{player} ajoute une carte au marché.",
       "header.revolt.you.has-bought": "Révolte ! Vous pouvez acheter des cartes au Marché pour {value} ou \u003Cpass\u003Epasser\u003C/pass\u003E",
       "header.revolt.you": "Révolte ! Vous devez acheter des cartes au Marché pour {value}",
-      "header.revolt.player": "Révolte ! {player} doit acheter des cartes",
+      "header.revolt.player": "Révolte ! {player} doit acheter des cartes au Marché",
       "header.build.you": "Choisissez les cartes de votre main à construire ou \u003Cpass\u003Evalidez\u003C/pass\u003E",
       "header.build.players": "Les Nobles doivent choisir les cartes de leur main à construire",
       "header.build.player": "{player} doit choisir les cartes de sa main à construire",
