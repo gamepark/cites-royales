@@ -12,7 +12,7 @@ export class MarketBuyRule extends PlayerTurnRule {
     this.memorize(Memory.PurchasingPower, this.getPurchasingPower())
     this.memorize(Memory.BoughtCards, [], this.player)
 
-    if(this.playerHasAlreadyBought) return [this.startRule(RuleId.AddCardInMarket)]
+    if (this.playerHasAlreadyBought) return [this.startRule(RuleId.AddCardInMarket)]
     return []
   }
 
@@ -21,7 +21,7 @@ export class MarketBuyRule extends PlayerTurnRule {
 
     const purchasingPower = this.remind(Memory.PurchasingPower)
 
-    if(this.remind(Memory.Revolution) || this.hasBought && this.cardsPlayerCanBuy || this.material(MaterialType.SubjectCard).location(LocationType.Market).length >= 4){
+    if (this.remind(Memory.Revolution) || this.hasBought && this.cardsPlayerCanBuy || this.material(MaterialType.SubjectCard).location(LocationType.Market).length >= 4) {
       moves.push(
         ...this.material(MaterialType.SubjectCard)
           .location(LocationType.Market)
@@ -37,15 +37,11 @@ export class MarketBuyRule extends PlayerTurnRule {
     return moves
   }
 
-
   getPurchasingPower() {
-    return (this.remind(Memory.PurchasingPower) !== null &&
-      this.remind(Memory.PurchasingPower) !== undefined
-      ? this.remind(Memory.PurchasingPower)
-      : (this.material(MaterialType.SubjectCard).location(LocationType.Market).length +
-        this.material(MaterialType.SubjectCard).location(LocationType.Reserve).length))
+    return this.remind(Memory.PurchasingPower) ??
+      this.material(MaterialType.SubjectCard).location(LocationType.Market).length
+      + this.material(MaterialType.SubjectCard).location(LocationType.Reserve).length
   }
-
 
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.ActionHand) {
@@ -69,17 +65,20 @@ export class MarketBuyRule extends PlayerTurnRule {
       .minBy((item) => item.location.x!)
       .getItem<Season>()!.id
   }
+
   get playerMarketToken() {
     return this.material(MaterialType.MarketToken).id(this.player)
   }
+
   get playerHasAlreadyBought() {
     return this.playerMarketToken.location(location => location.type === LocationType.OnSeasonCards).length > 0
   }
+
   get everyOtherPlayersHaveBought() {
     return this.material(MaterialType.MarketToken).id(id => id !== this.player).location(LocationType.OnSeasonCards).length === this.game.players.length - 1
   }
 
-  get cardsPlayerCanBuy(){
+  get cardsPlayerCanBuy() {
     const purchasingPower = this.remind(Memory.PurchasingPower)
 
     return this.material(MaterialType.SubjectCard)
@@ -87,7 +86,7 @@ export class MarketBuyRule extends PlayerTurnRule {
       .filter((item) => getSubjectType(item.id) <= purchasingPower).length
   }
 
-  get isRevolt(){
+  get isRevolt() {
     return this.remind(Memory.Revolution)
   }
 
@@ -120,7 +119,7 @@ export class MarketBuyRule extends PlayerTurnRule {
     }
   }
 
-  get playerCardsInActionHand(){
+  get playerCardsInActionHand() {
     return this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).player(this.player)
   }
 
