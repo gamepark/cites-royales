@@ -29,8 +29,8 @@ export const MarketBuyHeader = () => {
   const hasBought = rule.hasBought
   const player = usePlayerName(activePlayer);
 
-
   const isActivePlayer = me === activePlayer;
+
 
   if (!hasBought && notEnoughCardsInMarket) {
     return (
@@ -41,7 +41,6 @@ export const MarketBuyHeader = () => {
       />
     )
   }
-
 
   if (isActivePlayer) {
     if (playerCanBuy) {
@@ -78,7 +77,7 @@ export const MarketBuyHeader = () => {
   return (
     <Trans
       defaults={isRevolt ? "header.revolt.player" : "header.market-buy.player"}
-      values={{ player, value: purchasingPower }}
+      values={{ player, value: !purchasingPower && playerCanBuy ? 0 : purchasingPower }}
     />
   )
 }
