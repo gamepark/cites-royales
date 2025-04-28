@@ -13,6 +13,7 @@ import { Material } from './material/Material'
 import translations from './translations.json'
 import { CitesRoyalesTutorial } from './tutorial/CitesRoyalesTutorial'
 import { TutorialAI } from './tutorial/TutorialAI'
+import { CitesRoyalesTheme } from './CitesRoyalesTheme'
 
 setupTranslation(translations, { debug: false })
 
@@ -29,6 +30,7 @@ ReactDOM.render(
       locators={Locators}
       animations={gameAnimations}
       logs={new CitesRoyalesLogs()}
+      theme={CitesRoyalesTheme}
     >
       <App/>
     </GameProvider>
