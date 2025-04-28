@@ -38,13 +38,14 @@ export class MarketBuyRule extends PlayerTurnRule {
   }
 
 
-
   getPurchasingPower() {
-    return this.remind(Memory.PurchasingPower) ? this.remind(Memory.PurchasingPower) : (
-      this.material(MaterialType.SubjectCard).location(LocationType.Market).length +
-      this.material(MaterialType.SubjectCard).location(LocationType.Reserve).length
-    )
+    return (this.remind(Memory.PurchasingPower) !== null &&
+      this.remind(Memory.PurchasingPower) !== undefined
+      ? this.remind(Memory.PurchasingPower)
+      : (this.material(MaterialType.SubjectCard).location(LocationType.Market).length +
+        this.material(MaterialType.SubjectCard).location(LocationType.Reserve).length))
   }
+
 
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.SubjectCard)(move) && move.location.type === LocationType.ActionHand) {

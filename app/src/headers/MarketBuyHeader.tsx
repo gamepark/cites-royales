@@ -31,7 +31,6 @@ export const MarketBuyHeader = () => {
 
   const isActivePlayer = me === activePlayer;
 
-
   if (!hasBought && notEnoughCardsInMarket) {
     return (
       <Trans
