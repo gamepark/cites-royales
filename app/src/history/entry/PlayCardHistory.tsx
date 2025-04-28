@@ -1,4 +1,3 @@
-import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
 import { getSubjectCity, getSubjectType } from '@gamepark/cites-royales/material/Subject'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
@@ -18,11 +17,10 @@ export const PlayCardHistory: FC<PlayCardRuleHistoryProps> = (props) => {
   const actionPlayer = context.action.playerId
   const isMe = playerId && actionPlayer === playerId
   const name = usePlayerName(actionPlayer)
-  const rules = new CitesRoyalesRules(context.game)
-  rules.play(move)
 
   const game = context.game
   const card = game.items[MaterialType.SubjectCard]![move.itemIndex]
+
 
   return (
     <Trans defaults={isMe ? 'history.play-card.you' : 'history.play-card.player'}
