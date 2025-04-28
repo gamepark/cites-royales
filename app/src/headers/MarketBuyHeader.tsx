@@ -48,7 +48,7 @@ export const MarketBuyHeader = () => {
         return (
           <Trans
           defaults={hasBought ? "header.revolt.you.has-bought" : "header.revolt.you"}
-          values={{ value: purchasingPower }}
+          values={{ value: !purchasingPower && playerCanBuy ? 0 : purchasingPower }}
           components={hasBought ? { pass: <PlayMoveButton move={pass} /> } : {}}
           />
         )
@@ -56,7 +56,7 @@ export const MarketBuyHeader = () => {
         return (
           <Trans
             defaults={"header.market-buy.you"}
-            values={{ value: purchasingPower }}
+            values={{ value: !purchasingPower && playerCanBuy ? 0 : purchasingPower }}
             components={{ pass: <PlayMoveButton move={pass} /> }}
           />
         )
@@ -77,7 +77,7 @@ export const MarketBuyHeader = () => {
   return (
     <Trans
       defaults={isRevolt ? "header.revolt.player" : "header.market-buy.player"}
-      values={{ player, value: !purchasingPower && playerCanBuy ? 0 : purchasingPower }}
+      values={{ player }}
     />
   )
 }
