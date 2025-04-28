@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/cites-royales-app",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "private": true,
   "description": "The user interface of Cités Royales adaptation for Game Park",
   "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
