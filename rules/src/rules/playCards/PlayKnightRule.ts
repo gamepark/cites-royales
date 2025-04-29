@@ -53,7 +53,7 @@ export class PlayKnightRule extends CardEffectRule {
     const cardItem = card.getItem()
     const cardType = getSubjectType(cardItem!.id)
 
-    const cardsInSameCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(this.player).filter((cityCard) => getSubjectCity(cityCard.id) === city)
+    const cardsInSameCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(this.player).filter((cityCard) => cityCard.location.id === city)
 
     const higherCityCards = cardsInSameCity.filter((cityCard) => {
       return getSubjectType(cityCard.id) >= cardType
