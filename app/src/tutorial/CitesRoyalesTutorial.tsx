@@ -355,14 +355,6 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
       }
     },
     {
-      move: {
-        player: NobleColor.Black,
-        filter:(move) => {
-          return isCustomMove(move) && isCustomMoveType(CustomMoveType.Pass)(move)
-        }
-      }
-    },
-    {
       popup: {
         text: () => <Trans defaults="tuto.play-card.pass" components={{ bold:<strong/> }} />,
       },
