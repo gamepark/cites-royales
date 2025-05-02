@@ -2,7 +2,7 @@ import { isMoveItemType, ItemMove, Material, MaterialMove } from '@gamepark/rule
 import { cities, City } from '../../material/City'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { getSubjectCity, getSubjectType } from '../../material/Subject'
+import { getSubjectCity, getSubjectType, Subject } from '../../material/Subject'
 import { CardEffectRule } from './CardEffectRule'
 
 export class PlayKnightRule extends CardEffectRule {
@@ -55,7 +55,7 @@ export class PlayKnightRule extends CardEffectRule {
 
     const cardsInSameCity = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(this.player).filter((cityCard) => cityCard.location.id === city)
 
-    const higherCityCards = cardsInSameCity.filter((cityCard) => {
+    const higherCityCards = cardsInSameCity.filter<Subject>((cityCard) => {
       return getSubjectType(cityCard.id) >= cardType
     })
 

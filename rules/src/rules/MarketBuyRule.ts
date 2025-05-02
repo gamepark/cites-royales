@@ -2,7 +2,7 @@ import { CustomMove, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } fr
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Season } from '../material/Season'
-import { getSubjectType } from '../material/Subject'
+import { getSubjectType, Subject } from '../material/Subject'
 import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
@@ -25,7 +25,7 @@ export class MarketBuyRule extends PlayerTurnRule {
       moves.push(
         ...this.material(MaterialType.SubjectCard)
           .location(LocationType.Market)
-          .filter((item) => getSubjectType(item.id) <= purchasingPower)
+          .filter<Subject>((item) => getSubjectType(item.id) <= purchasingPower)
           .moveItems({ type: LocationType.ActionHand, player: this.player })
       )
     }
@@ -83,7 +83,7 @@ export class MarketBuyRule extends PlayerTurnRule {
 
     return this.material(MaterialType.SubjectCard)
       .location(LocationType.Market)
-      .filter((item) => getSubjectType(item.id) <= purchasingPower).length
+      .filter<Subject>((item) => getSubjectType(item.id) <= purchasingPower).length
   }
 
   get isRevolt() {
