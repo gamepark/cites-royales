@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/cites-royales",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The rules of Cités Royales adapted for Game Park",
   "sideEffects": false,
   "main": "dist/index.js",
