@@ -27,12 +27,12 @@ export class CitiesConstructionRule extends SimultaneousRule {
     const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 
     for (const city of cities) {
-      const sameCityCards = hand.filter(card => getSubjectCity(card.id) === city)
+      const sameCityCards = hand.filter<Subject>(card => getSubjectCity(card.id) === city)
       const inSameCityCards = inCityCards.filter(card => card.location.id === city)
       const highestSameCityCard = inSameCityCards.maxBy(card => getSubjectType(card.id)).getItem()
 
 
-      const cardsCanBuild = sameCityCards.filter(card => {
+      const cardsCanBuild = sameCityCards.filter<Subject>(card => {
         return highestSameCityCard ? getSubjectType(card.id) > getSubjectType(highestSameCityCard.id) : true
       })
 
@@ -46,7 +46,7 @@ export class CitiesConstructionRule extends SimultaneousRule {
       const inCityCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player).filter(card => card.location.id === city)
 
       const highestCityCard = inCityCards.maxBy(card => getSubjectType(card.id)).getItem()
-      const cardsCanBuild = whiteCards.filter(card => {
+      const cardsCanBuild = whiteCards.filter<Subject>(card => {
         const subjectType = getSubjectType(card.id)
         if (highestCityCard && subjectType <= getSubjectType(highestCityCard.id)) return false
         if (citiesWithColorBuild.includes(city)) return true

@@ -62,7 +62,7 @@ export class CitesRoyalesSetup extends MaterialGameSetup<NobleColor, MaterialTyp
 
       const marketCardsItems = marketCards.getItems()
 
-      const cardsToDiscard = marketCards.filter((item) =>
+      const cardsToDiscard = marketCards.filter<Subject>((item) =>
         marketCardsItems.every(
           (item2) => item2.location.x! >= item.location.x! || getSubjectCity(item2.id) !== getSubjectCity(item.id)
         )
