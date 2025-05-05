@@ -20,14 +20,13 @@ export class AddCardInMarketRule extends PlayerTurnRule {
   drawPile = this.material(MaterialType.SubjectCard).location(LocationType.DrawPile).deck()
 
   onRuleStart() {
+    if(this.drawPile.length === 0) {
+      return new DeckHelper(this.game).renewDeck()
+    } else if(!this.playerHeroAvailable) {
+      return [this.drawPile.dealOne({ type: LocationType.Market })]
+    }
 
-    const playerHeroAvailable = this.playerHeroAvailable
-    if (playerHeroAvailable) return []
-
-    return [this.material(MaterialType.SubjectCard)
-      .location(LocationType.DrawPile)
-      .deck()
-      .dealOne({ type: LocationType.Market })]
+    return []
   }
 
   get playerHeroAvailable() {
@@ -63,10 +62,12 @@ export class AddCardInMarketRule extends PlayerTurnRule {
     } else if (isShuffle(move)) {
       const moves: MaterialMove[] = []
       const deck = this.drawPile
+      moves.push(...new DeckHelper(this.game).dealReserve(deck))
       if (this.material(MaterialType.SubjectCard).location(LocationType.ActionHand).length === 1) {
         moves.push(deck.dealOne({ type: LocationType.ActionHand, player: this.player }))
+      } else if(!this.playerHeroAvailable){
+        moves.push(this.drawPile.dealOne({ type: LocationType.Market }))
       }
-      moves.push(...new DeckHelper(this.game).dealReserve(deck))
       return moves
     }
     return []
