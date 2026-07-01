@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { cities } from '@gamepark/cites-royales/material/City'
 import { MaterialType } from '@gamepark/cites-royales/material/MaterialType'
@@ -12,11 +11,11 @@ export const CityBoardHelp: FC<MaterialHelpProps> = (props) => {
 
   return (
     <>
-      <h2><Trans defaults={'description.city-board.title'} values={{player:playerName}}/></h2>
+      <h2><Trans i18nKey={'description.city-board.title'} values={{player:playerName}}/></h2>
 
       <MaterialComponent type={MaterialType.CityBoard} itemId={item.id} css={boardCss}/>
       {cities.map(city => {
-        return city !== undefined && <p key={city}><Trans defaults={'description.city-board.'+city}><strong/></Trans></p>
+        return city !== undefined && <p key={city}><Trans i18nKey={'description.city-board.'+city}><strong/></Trans></p>
       })}
     </>
   )

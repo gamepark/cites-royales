@@ -9,9 +9,9 @@ export const TokenHelp: FC<MaterialHelpProps> = (props) => {
 
   return (
     <>
-      <h2><Trans defaults={'description.token.title'} values={{ type: item.location!.type, player: playerName }}/></h2>
+      <h2><Trans i18nKey={'description.token.title'} values={{ type: item.location!.type, player: playerName }}/></h2>
       {item.location!.type === LocationType.VictoryPointsSpace &&
-        <p><Trans defaults={'description.token.points'} values={{ player: playerName, points: item.location!.x }}/></p>}
+        <p><Trans i18nKey={'description.token.points'} values={{ player: playerName, points: item.location!.x }}/></p>}
     </>
   )
 }

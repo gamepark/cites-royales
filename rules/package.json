@@ -2,8 +2,8 @@
   "name": "@gamepark/cites-royales",
   "version": "1.1.0",
   "description": "The rules of Cités Royales adapted for Game Park",
-  "type": "module",
   "sideEffects": false,
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -15,18 +15,20 @@
     "access": "public"
   },
   "scripts": {
+    "test": "vitest",
     "build": "tsc",
-    "prepublishOnly": "tsc",
-    "publish": "lerna publish"
+    "prepack": "yarn build",
+    "publish": "yarn version ${0:-patch} && yarn npm publish && git commit -am v$(node -p \"require('./package.json').version\") && git tag v$(node -p \"require('./package.json').version\") && git push --follow-tags",
+    "lint": "eslint --fix"
   },
   "peerDependencies": {
-    "@gamepark/rules-api": ">=6.33",
-    "lodash": ">=4.17"
+    "@gamepark/rules-api": ">=7",
+    "es-toolkit": "^1.45.1"
   },
   "devDependencies": {
-    "@gamepark/rules-api": "~6.37.1",
-    "@types/lodash": "^4.17.7",
-    "i18next": "^22.0.3",
-    "lodash": "^4.17.21"
+    "@gamepark/rules-api": "~7.6.4",
+    "es-toolkit": "^1.49.0",
+    "i18next": "^25.10.10",
+    "vitest": "^4.1.9"
   }
 }

@@ -22,7 +22,7 @@ export const PlayJesterHistory: FC<PlayJesterRuleHistoryProps> = (props) => {
   const card = game.items[MaterialType.SubjectCard]![move.itemIndex]
 
   return (
-    <Trans defaults={isMe ? 'history.jester.you' : 'history.jester.player'}
+    <Trans i18nKey={isMe ? 'history.jester.you' : 'history.jester.player'}
            values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id) }}>
       <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local/>
     </Trans>

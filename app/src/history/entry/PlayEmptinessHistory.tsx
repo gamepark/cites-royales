@@ -21,7 +21,7 @@ export const PlayEmptinessHistory: FC<PlayEmptinessRuleHistoryProps> = (props) =
   const game = context.game
   const card = game.items[MaterialType.SubjectCard]![move.itemIndex]
   return (
-    <Trans defaults={isMe ? 'history.emptiness.you' : 'history.emptiness.player'}
+    <Trans i18nKey={isMe ? 'history.emptiness.you' : 'history.emptiness.player'}
            values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id) }}>
       <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local/>
     </Trans>

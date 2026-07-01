@@ -7,22 +7,26 @@
   "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
   "license": "ISC",
   "devDependencies": {
-    "lerna": "^8.1.8",
-    "typescript": "^4.9.5"
-  },
-  "resolutions": {
-    "@types/react": "^17"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.6.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.62.0",
+    "vitest": "^4.1.9"
   },
   "scripts": {
-    "linkall": "yarn link react @types/react react-dom react-redux @dnd-kit/core @emotion/react react-i18next @gamepark/rules-api @gamepark/react-client @gamepark/react-game",
-    "unlinkall": "yarn unlink react @types/react react-dom react-redux @dnd-kit/core @emotion/react react-i18next @gamepark/rules-api @gamepark/react-client @gamepark/react-game",
-    "linkgp": "yarn link @gamepark/react-client @gamepark/rules-api @gamepark/react-game",
-    "unlinkgp": "yarn unlink @gamepark/react-client @gamepark/rules-api @gamepark/react-game",
-    "start": "yarn workspace @gamepark/cites-royales-app run start",
+    "dev": "yarn workspace @gamepark/cites-royales-app run dev",
+    "test": "yarn workspace @gamepark/cites-royales run test && yarn workspace @gamepark/cites-royales-app run test",
+    "preview": "yarn workspace @gamepark/cites-royales-app run preview",
     "build": "yarn workspace @gamepark/cites-royales-app run build",
     "deploy": "yarn workspace @gamepark/cites-royales-app run deploy",
-    "cwebp-osx": "rm -f ./node_modules/cwebp-bin/vendor/cwebp && ln -s /opt/homebrew/bin/cwebp ./node_modules/cwebp-bin/vendor/cwebp",
-    "publish": "lerna publish"
+    "publish": "yarn workspace @gamepark/cites-royales run publish",
+    "lint": "yarn workspace @gamepark/cites-royales run lint && yarn workspace @gamepark/cites-royales-app run lint",
+    "linkgp": "yarn link ../rules-api ../react-client ../react-game -r && git update-index --skip-worktree package.json yarn.lock",
+    "unlinkgp": "git update-index --no-skip-worktree package.json yarn.lock && yarn unlink ../react-game ../react-client ../rules-api"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.9.4"
 }

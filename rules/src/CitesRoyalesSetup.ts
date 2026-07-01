@@ -1,5 +1,5 @@
 import { MaterialGameSetup } from '@gamepark/rules-api'
-import { uniq } from 'lodash'
+import { uniq } from 'es-toolkit'
 import { CitesRoyalesOptions } from './CitesRoyalesOptions'
 import { CitesRoyalesRules } from './CitesRoyalesRules'
 import { LocationType } from './material/LocationType'

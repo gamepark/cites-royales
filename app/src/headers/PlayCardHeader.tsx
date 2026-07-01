@@ -14,7 +14,7 @@ export const PlayCardHeader = () => {
   if (me === activePlayer) {
     return (
       <Trans
-        defaults="header.play-card.you"
+        i18nKey="header.play-card.you"
         components={{
           pass: <PlayMoveButton move={pass} />
         }}

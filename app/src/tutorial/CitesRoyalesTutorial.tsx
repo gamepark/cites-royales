@@ -41,17 +41,17 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
   steps: TutorialStep[] = [
     {
       popup: {
-        text: () => <Trans defaults="tuto.welcome" components={{ bold: <strong /> }} />,
+        text: () => <Trans i18nKey="tuto.welcome" components={{ bold: <strong /> }} />,
       },
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.goal" />,
+        text: () => <Trans i18nKey="tuto.goal" />,
       },
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.city-board" components={{ bold: <strong/> }}/>,
+        text: () => <Trans i18nKey="tuto.city-board" components={{ bold: <strong/> }}/>,
       },
       focus: (_game) => ({
         staticItems: {
@@ -62,7 +62,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.subject-cards" components={{ bold: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.subject-cards" components={{ bold: <strong/> }} />,
       },
       focus: (game) => ({
         materials: [this.material(game, MaterialType.SubjectCard).location(LocationType.PlayerHand).player(NobleColor.Brown)],
@@ -71,7 +71,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.give-cards" components={{ bold: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.give-cards" components={{ bold: <strong/> }} />,
       },
       focus: (game) => ({
         materials: [this.material(game, MaterialType.SubjectCard).location(LocationType.PlayerHand).id(id => id !== Subject.PurpleVillager).player(NobleColor.Brown)],
@@ -108,7 +108,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.setup-build.players" />
+        text: () => <Trans i18nKey="tuto.setup-build.players" />
       },
       focus: (game) => ({
         materials: [this.material(game, MaterialType.SubjectCard).location(LocationType.PlayerHand).player(NobleColor.Brown)],
@@ -117,7 +117,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.setup-build.build" />
+        text: () => <Trans i18nKey="tuto.setup-build.build" />
       },
       focus: (game) => ({
         materials: [this.material(game, MaterialType.SubjectCard).location(LocationType.PlayerHand).player(NobleColor.Brown).id(Subject.PurpleVillager)],
@@ -139,7 +139,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.setup-build.first-player" />,
+        text: () => <Trans i18nKey="tuto.setup-build.first-player" />,
       },
       focus: (game) => ({
         materials: [this.material(game, MaterialType.SubjectCard).location(LocationType.InCity)],
@@ -147,7 +147,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.seasons" components={{ bold:<strong/> }}/>,
+        text: () => <Trans i18nKey="tuto.seasons" components={{ bold:<strong/> }}/>,
       },
       focus: (game) => ({
         materials: [this.material(game, MaterialType.SeasonCard)],
@@ -156,7 +156,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.play-card.details" components={{ bold:<strong/> }} />,
+        text: () => <Trans i18nKey="tuto.play-card.details" components={{ bold:<strong/> }} />,
       },
       move: {
         filter: (move) => {
@@ -166,7 +166,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.buy-cards.details"  components={{ bold:<strong/> }} />,
+        text: () => <Trans i18nKey="tuto.buy-cards.details"  components={{ bold:<strong/> }} />,
         position:{x:-10,y:30}
       },
       focus: (game) => ({
@@ -176,7 +176,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.buy-cards.purchasing-power" components={{ bold:<strong/>, italic: <i/> }} />,
+        text: () => <Trans i18nKey="tuto.buy-cards.purchasing-power" components={{ bold:<strong/>, italic: <i/> }} />,
         position:{x:-10,y:20}
       },
       focus: (game) => ({
@@ -186,7 +186,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.buy-cards.pass" components={{ bold: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.buy-cards.pass" components={{ bold: <strong/> }} />,
         position:{y:15}
       },
       move: {
@@ -198,18 +198,18 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text:() => <Trans defaults="tuto.add-card" components={{ bold: <strong/> }} />
+        text:() => <Trans i18nKey="tuto.add-card" components={{ bold: <strong/> }} />
       },
       move: {}
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.add-card.risk" components={{ bold: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.add-card.risk" components={{ bold: <strong/> }} />
       },
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent-turn" />
+        text: () => <Trans i18nKey="tuto.opponent-turn" />
       },
     },
     {
@@ -222,7 +222,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.add-card" />,
+        text: () => <Trans i18nKey="tuto.opponent.add-card" />,
         position: {y: 12}
       },
     },
@@ -237,13 +237,13 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.revolt" />,
+        text: () => <Trans i18nKey="tuto.opponent.revolt" />,
         position: {y: 18}
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.discard-cards" />,
+        text: () => <Trans i18nKey="tuto.opponent.discard-cards" />,
         position: {y: 25}
       },
       focus: (game) => ({
@@ -255,7 +255,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.give-points-revolt" />,
+        text: () => <Trans i18nKey="tuto.opponent.give-points-revolt" />,
         position: {x: 30}
       },
       focus: (game) => ({
@@ -268,7 +268,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.score-board" />,
+        text: () => <Trans i18nKey="tuto.score-board" />,
         position: {x:15}
       },
       focus: (game, context) => ({
@@ -281,7 +281,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.buy-cards" components={{ bold: <strong /> }} />,
+        text: () => <Trans i18nKey="tuto.opponent.buy-cards" components={{ bold: <strong /> }} />,
         position: {y:25}
       },
       focus: (game) => ({
@@ -315,7 +315,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.play-jester" />,
+        text: () => <Trans i18nKey="tuto.play-jester" />,
       },
       move: {
         filter: (move, game) => {
@@ -325,7 +325,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.you.cannot-buy" components={{ bold:<strong/> }}/>,
+        text: () => <Trans i18nKey="tuto.you.cannot-buy" components={{ bold:<strong/> }}/>,
       },
       move: {
         filter: (move) => {
@@ -335,7 +335,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.still-play" components={{ bold:<strong/> }}/>,
+        text: () => <Trans i18nKey="tuto.opponent.still-play" components={{ bold:<strong/> }}/>,
       },
     },
     {
@@ -356,7 +356,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.play-card.pass" components={{ bold:<strong/> }} />,
+        text: () => <Trans i18nKey="tuto.play-card.pass" components={{ bold:<strong/> }} />,
       },
       move: {
         filter: (move) => {
@@ -366,7 +366,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.buy-cards.buy" />,
+        text: () => <Trans i18nKey="tuto.buy-cards.buy" />,
         position:{x:-10, y:10}
       },
       focus: (game, _context) => ({
@@ -402,17 +402,17 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.build.start" components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.build.start" components={{ bold: <strong/> }}/>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.build.details" components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.build.details" components={{ bold: <strong/> }}/>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.build.play" />
+        text: () => <Trans i18nKey="tuto.build.play" />
       },
       move: {
         filter: (move, game) => {
@@ -450,7 +450,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.build.confirm" components={{ bold: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.build.confirm" components={{ bold: <strong/> }} />
       },
       move: {
         filter: (move, _game) => {
@@ -460,7 +460,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.build.reveal" />
+        text: () => <Trans i18nKey="tuto.build.reveal" />
       }
     },
     {
@@ -507,12 +507,12 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.start" components={{ italic: <i/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.start" components={{ italic: <i/> }}/>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.details" components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.details" components={{ bold: <strong/> }}/>
       },
       move: {
         interrupt: (move) => isMoveItemType(MaterialType.NobleToken)(move)
@@ -520,7 +520,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.purple" components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.purple" components={{ bold: <strong/> }}/>
       },
       focus: (game, _context) => ({
         materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Brown).location(location => location.type === LocationType.InCity && location.id === City.Purple)],
@@ -532,7 +532,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.yellow"  components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.yellow"  components={{ bold: <strong/> }}/>
       },
       focus: (game, _context) => ({
         materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Yellow)],
@@ -544,7 +544,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.pink"  components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.pink"  components={{ bold: <strong/> }}/>
       },
       focus: (game, _context) => ({
         materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Brown).location(location => location.type === LocationType.InCity && location.id === City.Pink)],
@@ -553,7 +553,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.red"  components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.red"  components={{ bold: <strong/> }}/>
       },
       focus: (game, _context) => ({
         materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Red)],
@@ -565,7 +565,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.blue"  components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.blue"  components={{ bold: <strong/> }}/>
       },
       focus: (game, _context) => ({
         materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Blue)],
@@ -577,7 +577,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.majorities.green"  components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.majorities.green"  components={{ bold: <strong/> }}/>
       },
       focus: (game, _context) => ({
         materials: [this.material(game, MaterialType.SubjectCard).player(NobleColor.Black).location(location => location.type === LocationType.InCity && location.id === City.Green)],
@@ -586,13 +586,13 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.history" />
+        text: () => <Trans i18nKey="tuto.history" />
       },
       move:{}
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.catchup" />,
+        text: () => <Trans i18nKey="tuto.catchup" />,
         position: {x:15}
       },
       focus: (_game, context) => ({
@@ -604,7 +604,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.hero" components={{ bold: <strong/> }}/>
+        text: () => <Trans i18nKey="tuto.hero" components={{ bold: <strong/> }}/>
       },
       focus: (game) => ({
         materials: [this.material(game, MaterialType.HeroCard).id(NobleColor.Black)]
@@ -612,7 +612,7 @@ export class CitesRoyalesTutorial extends MaterialTutorial<number, MaterialType,
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.end" />
+        text: () => <Trans i18nKey="tuto.end" />
       },
     }
   ]

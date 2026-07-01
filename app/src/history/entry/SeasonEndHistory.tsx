@@ -12,6 +12,6 @@ export const SeasonEndHistory: FC<SeasonEndHistoryProps> = (props) => {
   const EndSeason = (rules.rulesStep as EndSeasonRule)
 
   return (
-    <Trans defaults={'history.season-end'} values={{ season: EndSeason.season }}/>
+    <Trans i18nKey={'history.season-end'} values={{ season: EndSeason.season }}/>
   )
 }

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { BoardDescription, MaterialContext } from '@gamepark/react-game'

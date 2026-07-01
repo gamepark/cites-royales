@@ -12,7 +12,7 @@ export class GreenCityScoring extends CityScoring {
   getPlayerVictoryPoints(player: NobleColor): number {
     const playerCards = this.material(MaterialType.SubjectCard).location(LocationType.InCity).player(player)
 
-    let points = Math.floor(playerCards.length / 3)
+    const points = Math.floor(playerCards.length / 3)
 
     return points === 0 ? 1 : points
   }

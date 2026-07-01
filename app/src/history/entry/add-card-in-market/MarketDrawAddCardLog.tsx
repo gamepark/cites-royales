@@ -9,7 +9,7 @@ export const MarketDrawAddCardLog: FC<MoveComponentProps> = (props) => {
   const isMe = playerId && actionPlayer === playerId
   const name = usePlayerName(actionPlayer)
   return (
-    <Trans defaults={isMe ? 'history.market-draw.you' : 'history.market-draw.player'}
+    <Trans i18nKey={isMe ? 'history.market-draw.you' : 'history.market-draw.player'}
            values={{ player: name }}>
     </Trans>
   )

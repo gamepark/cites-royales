@@ -2,7 +2,7 @@ import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { getSubjectType, Subject } from '@gamepark/cites-royales/material/Subject'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
 import { MoveComponentProps, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { sumBy } from 'lodash'
+import { sumBy } from 'es-toolkit'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
@@ -22,13 +22,13 @@ export const MarketBuyHistory: FC<MarketBuyProps> = (props) => {
 
   if(cardIds.length < 1){
     return (
-      <Trans defaults={isMe ? 'history.market-buy.you.not' : 'history.market-buy.player.not'}
+      <Trans i18nKey={isMe ? 'history.market-buy.you.not' : 'history.market-buy.player.not'}
              values={{ player: name }}>
       </Trans>
     )
   } else {
     return (
-      <Trans defaults={isMe ? 'history.market-buy.you' : 'history.market-buy.player'}
+      <Trans i18nKey={isMe ? 'history.market-buy.you' : 'history.market-buy.player'}
              values={{ player: name, cards: cardIds.length, influence: influence }}>
       </Trans>
     )

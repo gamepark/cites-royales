@@ -13,7 +13,7 @@ export const MarketDrawNoRevoltLog: FC<MoveComponentProps> = (props) => {
   const rules = new CitesRoyalesRules(context.game)
   const points = rules.remind(Memory.PointsToGive)
   return (
-    <Trans defaults={isMe ? 'history.market-draw.no-revolt.you' : 'history.market-draw.no-revolt.player'}
+    <Trans i18nKey={isMe ? 'history.market-draw.no-revolt.you' : 'history.market-draw.no-revolt.player'}
            values={{ player: name, points: points}}>
     </Trans>
   )

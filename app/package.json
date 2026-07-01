@@ -1,66 +1,52 @@
 {
   "name": "@gamepark/cites-royales-app",
-  "version": "1.1.0",
   "private": true,
+  "version": "1.1.0",
+  "type": "module",
   "description": "The user interface of Cités Royales adaptation for Game Park",
   "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
   "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "upload-sourcemaps": "datadog-ci sourcemaps upload dist/assets --service=cites-royales --release-version=$npm_package_version --minified-path-prefix=/assets/",
+    "sync": "npx rimraf dist/assets/*.map && rclone sync dist cites-royales:cites-royales.game-park.com --progress --s3-acl=public-read",
+    "deploy": "yarn build && node -e \"if(process.env.DATADOG_API_KEY){require('child_process').execSync('yarn upload-sourcemaps',{stdio:'inherit'})}\" && yarn sync"
+  },
   "dependencies": {
-    "@dnd-kit/core": "^6.0.8",
-    "@emotion/react": "^11.11.1",
+    "@dnd-kit/core": "~6.3.1",
+    "@emotion/react": "^11.14.0",
+    "@fortawesome/fontawesome-svg-core": "^7.3.0",
+    "@fortawesome/free-regular-svg-icons": "^7.3.0",
+    "@fortawesome/free-solid-svg-icons": "^7.3.0",
+    "@fortawesome/react-fontawesome": "^3.3.1",
     "@gamepark/avataaars": "~2.2.0",
-    "@gamepark/react-game": "~6.37.4",
-    "@gamepark/rules-api": "~6.37.1",
-    "@types/react": "^17.0.68",
-    "@types/react-dom": "^17.0.9",
-    "@types/react-redux": "^7.1.18",
-    "customize-cra": "^1.0.0",
-    "i18next": "^22.0.3",
-    "intl-messageformat": "^9.9.1",
-    "react": "^17.0.2",
-    "react-app-rewire-alias": "^1.0.3",
-    "react-app-rewired": "^2.1.8",
-    "react-dom": "^17.0.2",
-    "react-i18next": "^12.2.2",
-    "react-redux": "^8.0.5",
-    "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.0"
+    "@gamepark/react-game": "~7.7.34",
+    "@gamepark/rules-api": "~7.6.4",
+    "es-toolkit": "^1.49.0",
+    "i18next": "^25.10.10",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-i18next": "^16.6.6",
+    "react-redux": "^9.3.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.7",
-    "image-minimizer-webpack-plugin": "^3.8.3",
-    "imagemin": "^8.0.1",
-    "imagemin-webp": "^8.0.0",
-    "lodash": "^4.17.21"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
-    "deploy": "yarn build && rclone sync build cites-royales:cites-royales.game-park.com --progress --s3-acl=public-read"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^@gamepark/cites-royales/(.*)$": "<rootDir>/../rules/src/$1"
-    }
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.9.4",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.3.1",
+    "eslint": "^10.6.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.62.0",
+    "vite": "^8.1.0",
+    "vite-imagetools": "^10.0.1",
+    "vitest": "^4.1.9"
   }
 }

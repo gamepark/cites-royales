@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { CounterProps, StyledPlayerPanel, usePlayers, useRules } from '@gamepark/react-game'

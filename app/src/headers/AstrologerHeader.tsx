@@ -15,7 +15,7 @@ export const AstrologerHeader = () => {
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
   if(me !== undefined && rules.isTurnToPlay(me)) {
     return <Trans
-      defaults={'header.astrologer.you'}
+      i18nKey={'header.astrologer.you'}
       components={{
         pass: <PlayMoveButton move={pass}/>
     }}

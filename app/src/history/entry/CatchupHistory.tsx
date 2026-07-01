@@ -13,7 +13,7 @@ export const CatchupHistory: FC<CatchupHistoryProps> = (props) => {
 
   if (isStartPlayerTurn(move) && cardsDrawn > 0) {
     return (
-      <Trans defaults={'history.catchup'}/>
+      <Trans i18nKey={'history.catchup'}/>
     )
   }
 

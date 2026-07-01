@@ -42,7 +42,7 @@ const PlayKnightHistoryEntry: FC<PlayKnightHistoryEntryProps> = ({ context, card
   const targetName = usePlayerName(card.location.player)
 
   return (
-      <Trans defaults={isMe ? 'history.knight.you' : 'history.knight.player'}
+      <Trans i18nKey={isMe ? 'history.knight.you' : 'history.knight.player'}
              values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id), target:targetName}}>
         <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local />
       </Trans>

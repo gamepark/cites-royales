@@ -1,7 +1,7 @@
 import { isCustomMove, isCustomMoveType, isMoveItem, MaterialGame } from '@gamepark/rules-api'
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
-import { sample } from 'lodash'
+import { sample } from 'es-toolkit'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { AddCardInMarketRule } from '@gamepark/cites-royales/rules/AddCardInMarketRule'
 import { Memory } from '@gamepark/cites-royales/rules/Memory'
@@ -14,7 +14,7 @@ export const TutorialAI = (game: MaterialGame, player: NobleColor) => {
   let legalMoves = rules.getLegalMoves(player)
 
   switch (game.rule?.id) {
-    case RuleId.MarketBuy:
+    case RuleId.MarketBuy: {
       const hasBought = rules.remind(Memory.hasBought)
       const isRevolt = rules.remind(Memory.Revolution)
 
@@ -41,6 +41,7 @@ export const TutorialAI = (game: MaterialGame, player: NobleColor) => {
       }
 
       break
+    }
 
     case RuleId.PlayAssassin:
       legalMoves = legalMoves.filter(move => {

@@ -1,5 +1,5 @@
 import { isShuffle, ItemMove, MaterialDeck, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { sumBy } from 'lodash'
+import { sumBy } from 'es-toolkit'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { NobleColor } from '../NobleColor'
@@ -43,10 +43,10 @@ export class CatchupBonusRule extends PlayerTurnRule {
 
   getPlayerCardsToDraw(player: NobleColor) {
     const highestPlayerToken = this.material(MaterialType.NobleToken).maxBy(item => item.location.x!)
-    const highestPlayerPoints = highestPlayerToken.getItem()?.location.x!
+    const highestPlayerPoints = highestPlayerToken.getItem()!.location.x!
 
     if (highestPlayerToken.getItem()?.id !== player) {
-      const playerPoints = this.material(MaterialType.NobleToken).id(player).getItem()?.location.x!
+      const playerPoints = this.material(MaterialType.NobleToken).id(player).getItem()!.location.x!
       let cardsToDraw = 0
       let bonusPoints
 

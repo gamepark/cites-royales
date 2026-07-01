@@ -23,7 +23,7 @@ export const PlayCardHistory: FC<PlayCardRuleHistoryProps> = (props) => {
 
 
   return (
-    <Trans defaults={isMe ? 'history.play-card.you' : 'history.play-card.player'}
+    <Trans i18nKey={isMe ? 'history.play-card.you' : 'history.play-card.player'}
            values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id) }}>
       <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local/>
     </Trans>

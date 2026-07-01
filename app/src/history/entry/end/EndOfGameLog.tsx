@@ -8,7 +8,7 @@ export const EndOfGameLog: FC<MoveComponentProps> = (props) => {
   const name = usePlayerName(actionPlayer)
 
   return (
-    <Trans defaults="history.end-game.end"
+    <Trans i18nKey="history.end-game.end"
            values={{ player: name, points: 2 }}>
     </Trans>
   )

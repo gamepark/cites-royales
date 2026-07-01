@@ -1,5 +1,5 @@
 import { isMoveItemType, ItemMove, SimultaneousRule } from '@gamepark/rules-api'
-import { minBy } from 'lodash'
+import { minBy } from 'es-toolkit'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { getSubjectCity, getSubjectType, isWhite, Subject } from '../material/Subject'

@@ -22,7 +22,7 @@ export const PlayMerchantHistory: FC<PlayMerchantRuleHistoryProps> = (props) => 
   const game = context.game
   const card = game.items[MaterialType.SubjectCard]![move.itemIndex]
   return (
-    <Trans defaults={isMe ? 'history.merchant.you' : 'history.merchant.player'}
+    <Trans i18nKey={isMe ? 'history.merchant.you' : 'history.merchant.player'}
            values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id) }}>
       <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local/>
     </Trans>

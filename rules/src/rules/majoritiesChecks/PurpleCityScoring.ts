@@ -1,4 +1,4 @@
-import { sumBy } from 'lodash'
+import { sumBy } from 'es-toolkit'
 import { City } from '../../material/City'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'

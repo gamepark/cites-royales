@@ -38,7 +38,7 @@ const PlayAssassinHistoryEntry: FC<PlayAssassinHistoryEntryProps> = ({ context, 
   const targetName = usePlayerName(card.location.player)
 
   return (
-    <Trans defaults={isMe ? 'history.assassin.you' : 'history.assassin.player'}
+    <Trans i18nKey={isMe ? 'history.assassin.you' : 'history.assassin.player'}
            values={{ player: name, type: getSubjectType(card.id), city: getSubjectCity(card.id), target: targetName }}>
       <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.SubjectCard, card)} local/>
     </Trans>

@@ -34,7 +34,7 @@ export const MarketBuyHeader = () => {
   if (!hasBought && notEnoughCardsInMarket && !isRevolt) {
     return (
       <Trans
-        defaults={isActivePlayer ? "header.market-buy.cannot.you" : "header.market-buy.cannot.player"}
+        i18nKey={isActivePlayer ? "header.market-buy.cannot.you" : "header.market-buy.cannot.player"}
         values={{ player }}
         components={{ pass: <PlayMoveButton move={pass} /> }}
       />
@@ -46,7 +46,7 @@ export const MarketBuyHeader = () => {
       if(isRevolt) {
         return (
           <Trans
-          defaults={hasBought ? "header.revolt.you.has-bought" : "header.revolt.you"}
+          i18nKey={hasBought ? "header.revolt.you.has-bought" : "header.revolt.you"}
           values={{ value: !purchasingPower && playerCanBuy ? 0 : purchasingPower }}
           components={hasBought ? { pass: <PlayMoveButton move={pass} /> } : {}}
           />
@@ -54,7 +54,7 @@ export const MarketBuyHeader = () => {
       } else {
         return (
           <Trans
-            defaults={"header.market-buy.you"}
+            i18nKey={"header.market-buy.you"}
             values={{ value: !purchasingPower && playerCanBuy ? 0 : purchasingPower }}
             components={{ pass: <PlayMoveButton move={pass} /> }}
           />
@@ -63,7 +63,7 @@ export const MarketBuyHeader = () => {
     } else {
       return (
         <Trans
-          defaults="header.market-buy.validate"
+          i18nKey="header.market-buy.validate"
           components={{
             validate: <PlayMoveButton move={pass} />,
             undo: <UndoMovesButton moves={1} />,
@@ -75,7 +75,7 @@ export const MarketBuyHeader = () => {
 
   return (
     <Trans
-      defaults={isRevolt ? "header.revolt.player" : "header.market-buy.player"}
+      i18nKey={isRevolt ? "header.revolt.player" : "header.market-buy.player"}
       values={{ player }}
     />
   )

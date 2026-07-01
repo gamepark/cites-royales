@@ -10,6 +10,7 @@ class NobleTokenDescription extends TokenDescription {
   borderRadius = 0.5
   width = 1.6
   height = 1.6
+  transparency = true
 
   images = {
     [NobleToken.Beige]: Beige,

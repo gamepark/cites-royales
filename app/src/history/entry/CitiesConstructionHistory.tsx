@@ -35,14 +35,14 @@ const CitiesConstructionHistoryEntry: FC<CitiesConstructionHistoryEntryProps> = 
   if(builtCards < 1){
     return (
       <Trans
-        defaults={isMe ? "history.build.you.not" : "history.build.player.not"}
+        i18nKey={isMe ? "history.build.you.not" : "history.build.player.not"}
         values={{ player: name}}
       />
     )
   } else {
     return (
       <Trans
-        defaults={isMe ? "history.build.you" : "history.build.player"}
+        i18nKey={isMe ? "history.build.you" : "history.build.player"}
         values={{ player: name, cards: builtCards }}
       />
     )

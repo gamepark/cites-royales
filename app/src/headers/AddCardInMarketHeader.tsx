@@ -21,7 +21,7 @@ export const AddCardInMarketHeader = () => {
     if(playerHeroAvailable) {
       return (
         <Trans
-        defaults={"header.market-draw.you"}
+        i18nKey={"header.market-draw.you"}
         components={{
           draw: <PlayMoveButton move={pass} />,
           hero: <PlayMoveButton move={hero} />
@@ -32,13 +32,13 @@ export const AddCardInMarketHeader = () => {
     if(playerHeroAvailable) {
       return (
         <Trans
-          defaults={"header.market-draw.player"}
+          i18nKey={"header.market-draw.player"}
           values={{player}}
         />
       )
     } else {
       return (
-        <Trans defaults={"header.market-draw.add.player"} values={{player}}/>
+        <Trans i18nKey={"header.market-draw.add.player"} values={{player}}/>
       )
     }
   }

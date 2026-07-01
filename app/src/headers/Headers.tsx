@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/cites-royales/rules/RuleId'
 import { ComponentType } from 'react'
 import { MarketBuyHeader } from './MarketBuyHeader'
@@ -32,7 +31,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.MarketBuy]: MarketBuyHeader,
   [RuleId.AddCardInMarket]:AddCardInMarketHeader,
   [RuleId.CitiesConstruction]:CitiesConstructionHeader,
-  [RuleId.PurpleMajority]:CityScoringHeader,
   [RuleId.PurpleMajority]:CityScoringHeader,
   [RuleId.YellowMajority]:CityScoringHeader,
   [RuleId.PinkMajority]:CityScoringHeader,

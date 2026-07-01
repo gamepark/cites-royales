@@ -20,7 +20,7 @@ export const CityScoringHistory: FC<CityScoringHistoryProps> = (props) => {
 
   const isMe = playerId && nobleTokenPlayer === playerId
   return (
-    <Trans defaults={isMe ? 'history.scoring.you' : 'history.scoring.player'}
+    <Trans i18nKey={isMe ? 'history.scoring.you' : 'history.scoring.player'}
            values={{ player: name, points: CityScoring.getPlayerVictoryPoints(nobleTokenPlayer), city: CityScoring.city }}>
     </Trans>
   )

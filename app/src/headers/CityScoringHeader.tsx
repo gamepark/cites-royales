@@ -34,7 +34,7 @@ type WinnerMeHeaderProps = {
 const WinnerMeHeader = ({city, points} : WinnerMeHeaderProps) => {
   return (
     <Trans
-      defaults="header.scoring.you"
+      i18nKey="header.scoring.you"
       values={{
         city,
         vp: points
@@ -52,7 +52,7 @@ const WinnerPlayerHeader = ({city, player, points} : WinnerPlayerHeaderProps) =>
   const playerName = usePlayerName(player)
   return (
     <Trans
-      defaults="header.scoring.player"
+      i18nKey="header.scoring.player"
       values={{
         player: playerName,
         city,

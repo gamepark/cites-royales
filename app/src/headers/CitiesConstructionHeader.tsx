@@ -13,7 +13,7 @@ export const CitiesConstructionHeader = () => {
   if(me !== undefined && rules.isTurnToPlay(me)){
     return (
       <Trans
-        defaults="header.build.you"
+        i18nKey="header.build.you"
         components={{
           pass: <PlayMoveButton move={pass}/>
         }}

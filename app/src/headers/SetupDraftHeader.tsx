@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { NobleColor } from '@gamepark/cites-royales/NobleColor'
 import { SetupDraftRule } from '@gamepark/cites-royales/rules/SetupDraftRule'

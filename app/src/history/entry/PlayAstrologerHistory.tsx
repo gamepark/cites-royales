@@ -18,13 +18,13 @@ export const PlayAstrologerHistory: FC<PlayAstrologerRuleHistoryProps> = (props)
 
   if(builtCards > 1){
     return (
-      <Trans defaults={isMe ? 'history.astrologer.you.not' : 'history.astrologer.player.not'}
+      <Trans i18nKey={isMe ? 'history.astrologer.you.not' : 'history.astrologer.player.not'}
              values={{ player: name }}>
       </Trans>
     )
   } else {
     return (
-      <Trans defaults={isMe ? 'history.astrologer.you' : 'history.astrologer.player'}
+      <Trans i18nKey={isMe ? 'history.astrologer.you' : 'history.astrologer.player'}
              values={{ player: name, cards: builtCards }}>
       </Trans>
     )

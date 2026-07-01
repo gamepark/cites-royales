@@ -16,6 +16,10 @@ class InCityLocator extends Locator {
       z: locationX + 1,
     }
   }
+
+  getPositionDependencies(location: Location, context: MaterialContext) {
+    return this.countItems(location, context)
+  }
 }
 
 export const inCityLocator = new InCityLocator()
