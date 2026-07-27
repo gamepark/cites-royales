@@ -1,5 +1,4 @@
-import { OptionsSpec } from '@gamepark/rules-api'
-import { TFunction } from 'i18next'
+import { OptionsSpec, TFunction } from '@gamepark/rules-api'
 import { NobleColor, playerColors } from './NobleColor'
 
 /**
