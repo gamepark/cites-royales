@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@gamepark/cites-royales/*": ["../rules/src/*"]
     }

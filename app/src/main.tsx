@@ -1,4 +1,4 @@
-import { CitesRoyalesOptionsSpec } from '@gamepark/cites-royales/CitesRoyalesOptions'
+import { CitesRoyalesOptionsSpecV2 } from '@gamepark/cites-royales/CitesRoyalesOptions'
 import { CitesRoyalesRules } from '@gamepark/cites-royales/CitesRoyalesRules'
 import { CitesRoyalesSetup } from '@gamepark/cites-royales/CitesRoyalesSetup'
 import { GameProvider } from '@gamepark/react-game'
@@ -20,7 +20,7 @@ createRoot(document.getElementById('root')!).render(
       Rules={CitesRoyalesRules}
       tutorial={new CitesRoyalesTutorial()}
       ai={TutorialAI}
-      optionsSpec={CitesRoyalesOptionsSpec}
+      optionsSpec={CitesRoyalesOptionsSpecV2}
       GameSetup={CitesRoyalesSetup}
       material={Material}
       locators={Locators}

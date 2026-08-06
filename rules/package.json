@@ -22,13 +22,13 @@
     "lint": "eslint --fix"
   },
   "peerDependencies": {
-    "@gamepark/rules-api": ">=7",
+    "@gamepark/rules-api": ">=7.7",
     "es-toolkit": "^1.45.1"
   },
   "devDependencies": {
-    "@gamepark/rules-api": "~7.6.5",
-    "es-toolkit": "^1.49.0",
+    "@gamepark/rules-api": "~7.7.2",
+    "es-toolkit": "^1.50.0",
     "i18next": "^25.10.10",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.10"
   }
 }
