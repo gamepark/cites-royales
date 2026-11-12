@@ -18,17 +18,18 @@
     "test": "vitest",
     "build": "tsc",
     "prepack": "yarn build",
-    "publish": "yarn version ${0:-patch} && yarn npm publish ${OTP:+--otp $OTP} && git commit -am v$(node -p \"require('./package.json').version\") && git tag v$(node -p \"require('./package.json').version\") && git push --follow-tags",
-    "lint": "eslint --fix"
+    "publish": "yarn version ${0:-patch} && yarn npm publish ${OTP:+--otp $OTP} && git commit -am v$(node -p \"require('./package.json').version\") && git tag v$(node -p \"require('./package.json').version\") && git push --follow-tags"
   },
   "peerDependencies": {
     "@gamepark/rules-api": ">=7.7",
     "es-toolkit": "^1.45.1"
   },
   "devDependencies": {
-    "@gamepark/rules-api": "~7.8.0",
-    "es-toolkit": "^1.50.0",
+    "@gamepark/rules-api": "~7.10.0",
+    "es-toolkit": "^1.53.2",
     "i18next": "^25.10.10",
-    "vitest": "^4.1.10"
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
   }
 }
